@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habit Log</title>
+
+<!-- iPhoneアプリ化 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Habit Log">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* CSSそのまま */
+body {
+  margin: 0;
+  font-family: -apple-system, sans-serif;
+  background: #f6f7f9;
+}
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+h1 { margin:0; }
+input {
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+button {
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#222;
+  color:#fff;
+}
+
+.chart-box {
+  height:240px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+  <h1>Habit Log</h1>
+
+  <div class="card">
+    <label>日付</label>
+    <input type="date" id="date">
+  </div>
+
+  <div class="card">
+    <label>体重</label>
+    <input id="weight">
+  </div>
+
+  <div class="card">
+    <canvas id="chart"></canvas>
+  </div>
+</div>
+
+<script>
+let logs = JSON.parse(localStorage.getItem("logs")) || {};
+
+const dateInput = document.getElementById("date");
+const weightInput = document.getElementById("weight");
+
+dateInput.value = new Date().toISOString().slice(0,10);
+
+weightInput.oninput = () => {
+  const d = dateInput.value;
+  if (!logs[d]) logs[d] = {};
+  logs[d].weight = weightInput.value;
+  localStorage.setItem("logs", JSON.stringify(logs));
+  draw();
+};
+
+function draw(){
+  const dates = Object.keys(logs).sort();
+  const values = dates.map(d=>parseFloat(logs[d].weight));
+
+  new Chart(document.getElementById("chart"),{
+    type:"line",
+    data:{
+      labels:dates,
+      datasets:[{data:values}]
+    }
+  });
+}
+
+draw();
+</script>
+
+</body>
+</html>
