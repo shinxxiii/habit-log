@@ -69,10 +69,52 @@ function renderCalendar(){const c=document.getElementById("calendarBox");if(!c)r
 function selectCalendarDate(k){logDate.value=k;render()}function moveMonth(o){const c=new Date(logDate.value);c.setMonth(c.getMonth()+o);c.setDate(1);logDate.value=c.toISOString().slice(0,10);render()}
 function countInputs(l){let c=0;Object.values(l).forEach(fs=>Object.values(fs).forEach(v=>{if(v!==undefined&&v!==null&&String(v).trim()!=="")c++}));return c}
 function get7DayAverage(c,f){const ds=getDateRange(new Date(logDate.value),6),v=getValuesForDates(ds,c,f);return v.length?average(v):null}
-function renderHabits(){const c=document.getElementById("habitList"),tl=getTodayLog();c.innerHTML="";habits.forEach((h,hi)=>{if(!tl[h.name])tl[h.name]={};const hd=document.createElement("div");hd.className="habit";hd.innerHTML=`<div class="habit-head"><div class="habit-title">${h.name}</div><button class="secondary mini" onclick="deleteHabit(${hi})">削除</button></div><div id="fields-${hi}"></div><div class="add-field-row"><input id="addFieldName-${hi}" placeholder="内訳名 例：距離"><input id="addFieldUnit-${hi}" placeholder="単位"><button class="secondary mini" onclick="addField(${hi})">追加</button></div>`;c.appendChild(hd);const fd=document.getElementById(`fields-${hi}`);h.fields.forEach((f,fi)=>{const val=getLogValue(tl,h.name,f.name),act=selectedChart&&selectedChart.category===h.name&&selectedChart.field===f.name,row=document.createElement("div");row.className="field-row";row.innerHTML=`<label>${f.name}</label><input type="${f.unit?"number":"text"}" inputmode="${f.unit?"decimal":"text"}" value="${escapeHtml(val)}" onchange="updateLog('${escapeJs(h.name)}','${escapeJs(f.name)}',this.value)" placeholder="入力"><div class="unit">${f.unit||""}</div><button class="secondary mini" onclick="copyYesterday('${escapeJs(h.name)}','${escapeJs(f.name)}')">前日</button><button class="mini graph-btn ${act?"active":""}" onclick="toggleChart('${escapeJs(h.name)}','${escapeJs(f.name)}')">グラフ</button><button class="secondary mini" onclick="deleteField(${hi},${fi})">×</button>`;fd.appendChild(row)})});save()}
+function renderHabits(){const c=document.getElementById("habitList"),tl=getTodayLog();c.innerHTML="";habits.forEach((h,hi)=>{if(!tl[h.name])tl[h.name]={};const hd=document.createElement("div");hd.className="habit";hd.innerHTML=`<div class="habit-head"><div class="habit-title">${h.name}</div><button class="secondary mini" onclick="deleteHabit(${hi})">削除</button></div><div id="fields-${hi}"></div><div class="add-field-row"><input id="addFieldName-${hi}" placeholder="内訳名 例：距離"><input id="addFieldUnit-${hi}" placeholder="単位"><button class="secondary mini" onclick="addField(${hi})">追加</button></div>`;c.appendChild(hd);const fd=document.getElementById(`fields-${hi}`);h.fields.forEach((f,fi)=>{const val=getLogValue(tl,h.name,f.name),act=selectedChart&&selectedChart.category===h.name&&selectedChart.field===f.name,row=document.createElement("div");row.className="field-row";row.innerHTML=`<label>${f.name}</label><div style="display:flex;gap:4px;align-items:center;">
+  ${f.unit ? `
+    <button class="secondary mini"
+      onclick="stepValue('${escapeJs(h.name)}','${escapeJs(f.name)}',-1)">
+      −
+    </button>
+  ` : ""}
+
+  <input
+    type="${f.unit ? "number" : "text"}"
+    inputmode="${f.unit ? "decimal" : "text"}"
+    value="${escapeHtml(val)}"
+    onchange="updateLog('${escapeJs(h.name)}','${escapeJs(f.name)}',this.value)"
+    placeholder="入力"
+  />
+
+  ${f.unit ? `
+    <button class="secondary mini"
+      onclick="stepValue('${escapeJs(h.name)}','${escapeJs(f.name)}',1)">
+      ＋
+    </button>
+  ` : ""}
+</div><div class="unit">${f.unit||""}</div><button class="secondary mini" onclick="copyYesterday('${escapeJs(h.name)}','${escapeJs(f.name)}')">前日</button><button class="mini graph-btn ${act?"active":""}" onclick="toggleChart('${escapeJs(h.name)}','${escapeJs(f.name)}')">グラフ</button><button class="secondary mini" onclick="deleteField(${hi},${fi})">×</button>`;fd.appendChild(row)})});save()}
 function getLogValue(dl,c,f){if(!dl[c])return"";if(dl[c][f]!==undefined)return dl[c][f];if(c==="体重"&&f==="数値"&&dl[c]["kg"]!==undefined)return dl[c]["kg"];if(c==="体脂肪率"&&f==="数値"&&dl[c]["%"]!==undefined)return dl[c]["%"];return""}
 function updateLog(h,f,v){const tl=getTodayLog();if(!tl[h])tl[h]={};tl[h][f]=v;if(h==="体重")delete tl[h]["kg"];if(h==="体脂肪率")delete tl[h]["%"];save();renderDashboard();renderAIReview();renderCalendar();renderStreak();renderWeeklyReview();renderHeatmap();renderChart();renderHistory()}
-function copyYesterday(c,f){const cd=new Date(logDate.value),y=new Date(cd);y.setDate(y.getDate()-1);const k=y.toISOString().slice(0,10),v=getStoredValue(k,c,f);if(v===undefined||v===null||v===""){alert("前日のデータがありません");return}const tl=getTodayLog();if(!tl[c])tl[c]={};tl[c][f]=v;save();render()}
+function stepValue(category, field, delta) {
+  const todayLog = getTodayLog();
+
+  if (!todayLog[category]) {
+    todayLog[category] = {};
+  }
+
+  let current =
+    parseFloat(todayLog[category][field]) || 0;
+
+  current += delta;
+
+  if (current < 0) current = 0;
+
+  todayLog[category][field] =
+    Number(current.toFixed(1));
+
+  save();
+  render();
+}
+function copyYesterday(c,f){const cd=new Date(logDate.value),y=new Date(cd);y.setDate(y. tree getDate()-1);const k=y.toISOString().slice(0,10),v=getStoredValue(k,c,f);if(v===undefined||v===null||v===""){alert("前日のデータがありません");return}const tl=getTodayLog();if(!tl[c])tl[c]={};tl[c][f]=v;save();render()}
 function addHabit(){const n=document.getElementById("newHabitName").value.trim(),ft=document.getElementById("newFieldNames").value.trim();if(!n)return alert("項目名を入力してください");const fs=ft?ft.split(",").map(x=>{const[a,b=""]=x.split(":").map(v=>v.trim());return{name:a,unit:b}}).filter(f=>f.name):[{name:"内容",unit:""}];habits.push({name:n,fields:fs});document.getElementById("newHabitName").value="";document.getElementById("newFieldNames").value="";save();render()}
 function deleteHabit(i){if(!confirm("この項目を削除しますか？"))return;const d=habits[i];if(selectedChart&&selectedChart.category===d.name)selectedChart=null;habits.splice(i,1);save();render()}
 function addField(i){const ni=document.getElementById(`addFieldName-${i}`),ui=document.getElementById(`addFieldUnit-${i}`),n=ni.value.trim(),u=ui.value.trim();if(!n)return;habits[i].fields.push({name:n,unit:u});ni.value="";ui.value="";save();render()}
