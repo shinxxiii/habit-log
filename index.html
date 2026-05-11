@@ -1,112 +1,1309 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Habit Log</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- iPhoneアプリ化 -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Habit Log">
+  <title>Habit Log</title>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Habit Log" />
+  <meta name="theme-color" content="#f6f7f9" />
 
-<style>
-/* CSSそのまま */
-body {
-  margin: 0;
-  font-family: -apple-system, sans-serif;
-  background: #f6f7f9;
-}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-.app {
-  max-width: 520px;
-  margin: 0 auto;
-  padding: 16px;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: #f6f7f9;
+      color: #222;
+    }
 
-.card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 16px;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-}
+    .app {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 16px;
+    }
 
-h1 { margin:0; }
-input {
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  border:1px solid #ddd;
-}
+    header {
+      margin-bottom: 16px;
+    }
 
-button {
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#222;
-  color:#fff;
-}
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
 
-.chart-box {
-  height:240px;
-}
-</style>
+    header p {
+      margin: 6px 0 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    input, select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      border: 1px solid #d8dce2;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 10px 14px;
+      background: #222;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #e9ecef;
+      color: #222;
+    }
+
+    button.danger {
+      background: #c0392b;
+    }
+
+    .habit {
+      border-top: 1px solid #eee;
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+
+    .habit:first-child {
+      border-top: none;
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .habit-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .habit-title {
+      font-weight: 700;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 52px auto auto auto;
+      gap: 6px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .field-row input {
+      margin-bottom: 0;
+    }
+
+    .unit {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .add-field-row {
+      display: grid;
+      grid-template-columns: 1fr 70px auto;
+      gap: 6px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .add-field-row input {
+      margin-bottom: 0;
+    }
+
+    .mini {
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .history-item {
+      border-top: 1px solid #eee;
+      padding: 10px 0;
+      font-size: 13px;
+    }
+
+    .history-date {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .graph-btn {
+      background: #e9ecef;
+      color: #222;
+    }
+
+    .graph-btn.active {
+      background: #222;
+      color: #fff;
+    }
+
+    .chart-title {
+      font-weight: 700;
+      margin: 8px 0 12px;
+      color: #333;
+    }
+
+    .chart-box {
+      position: relative;
+      height: 240px;
+      width: 100%;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .review-item {
+      background: #f6f7f9;
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .review-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .review-main {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .review-sub {
+      font-size: 13px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .review-good {
+      color: #1f7a3f;
+    }
+
+    .review-bad {
+      color: #b03a2e;
+    }
+
+    .streak-main {
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .streak-sub {
+      font-size: 13px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .streak-badge {
+      display: inline-block;
+      background: #222;
+      color: #fff;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .dashboard-item {
+      background: #f6f7f9;
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .dashboard-label {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .dashboard-value {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .dashboard-sub {
+      font-size: 12px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .calendar-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .calendar-title {
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .calendar-day-name {
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+      padding: 4px 0;
+    }
+
+    .calendar-day {
+      min-height: 42px;
+      border-radius: 12px;
+      background: #f6f7f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #222;
+    }
+
+    .calendar-day.empty {
+      background: transparent;
+    }
+
+    .calendar-day.logged {
+      background: #eef3ff;
+    }
+
+    .calendar-day.selected {
+      background: #222;
+      color: #fff;
+    }
+
+    .calendar-date {
+      font-weight: 700;
+    }
+
+    .calendar-dot {
+      font-size: 12px;
+      line-height: 1;
+      margin-top: 2px;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="app">
+    <header>
+      <h1>Habit Log</h1>
+      <p>体調・運動・学習・仕事をシンプルに記録</p>
+    </header>
 
-<div class="app">
-  <h1>Habit Log</h1>
+    <section class="card">
+      <h2>Dashboard</h2>
+      <div id="dashboard"></div>
+    </section>
 
-  <div class="card">
-    <label>日付</label>
-    <input type="date" id="date">
+    <section class="card">
+      <label>記録日</label>
+      <input type="date" id="logDate" />
+    </section>
+
+    <section class="card">
+      <h2>Calendar</h2>
+      <div id="calendarBox"></div>
+    </section>
+
+    <section class="card">
+      <h2>今日の記録</h2>
+      <div id="habitList"></div>
+    </section>
+
+    <section class="card">
+      <h2>項目追加</h2>
+      <input id="newHabitName" placeholder="例：ウォーキング" />
+      <input id="newFieldNames" placeholder="内訳：時間:分, 距離:km, 速度:mph" />
+      <button onclick="addHabit()">追加</button>
+    </section>
+
+    <section class="card">
+      <h2>Streak</h2>
+      <div id="streakBox"></div>
+    </section>
+
+    <section class="card">
+      <h2>週次レビュー</h2>
+      <div id="weeklyReview"></div>
+    </section>
+
+    <section class="card">
+      <h2>グラフ</h2>
+      <div class="chart-title" id="chartTitle">
+        表示したい内訳の「グラフ」ボタンを押してください
+      </div>
+      <div class="chart-box">
+        <canvas id="habitChart"></canvas>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>記録履歴</h2>
+      <div class="actions">
+        <button onclick="exportCSV()">CSV</button>
+        <button onclick="exportJSON()">JSON</button>
+        <button onclick="importJSON()">復元</button>
+        <button onclick="resetAll()" class="danger">全削除</button>
+      </div>
+
+      <input type="file" id="importFile" style="display:none" accept=".json" />
+
+      <div id="history"></div>
+    </section>
   </div>
 
-  <div class="card">
-    <label>体重</label>
-    <input id="weight">
-  </div>
+  <script>
+    const defaultHabits = [
+      { name: "体重", fields: [{ name: "数値", unit: "kg" }] },
+      { name: "体脂肪率", fields: [{ name: "数値", unit: "%" }] },
+      { name: "BMI", fields: [{ name: "数値", unit: "" }] },
+      { name: "睡眠", fields: [
+        { name: "睡眠時刻", unit: "" },
+        { name: "起床時刻", unit: "" },
+        { name: "睡眠時間", unit: "h" },
+        { name: "睡眠スコア", unit: "点" },
+        { name: "ボディバッテリー", unit: "点" }
+      ]},
+      { name: "筋トレ", fields: [
+        { name: "腕立て", unit: "回" },
+        { name: "腹筋", unit: "回" },
+        { name: "背筋", unit: "回" },
+        { name: "スクワット", unit: "回" },
+        { name: "カーフレイズ", unit: "回" },
+        { name: "他トレーニング", unit: "" }
+      ]},
+      { name: "ウォーキング", fields: [
+        { name: "時間", unit: "分" },
+        { name: "距離", unit: "km" },
+        { name: "速度", unit: "mph" }
+      ]},
+      { name: "ランニング", fields: [
+        { name: "時間", unit: "分" },
+        { name: "距離", unit: "km" },
+        { name: "速度", unit: "mph" }
+      ]},
+      { name: "英語", fields: [
+        { name: "内容", unit: "" },
+        { name: "時間", unit: "分" }
+      ]},
+      { name: "読書", fields: [
+        { name: "本・内容", unit: "" },
+        { name: "時間", unit: "分" }
+      ]},
+      { name: "ゲーム", fields: [{ name: "時間", unit: "分" }] },
+      { name: "イベント", fields: [{ name: "内容", unit: "" }] },
+      { name: "成長", fields: [{ name: "気づき", unit: "" }] },
+      { name: "勤務", fields: [
+        { name: "勤務方法", unit: "" },
+        { name: "勤務時間", unit: "h" }
+      ]}
+    ];
 
-  <div class="card">
-    <canvas id="chart"></canvas>
-  </div>
-</div>
+    let habits = JSON.parse(localStorage.getItem("habits")) || defaultHabits;
+    let logs = JSON.parse(localStorage.getItem("logs")) || {};
+    let selectedChart = JSON.parse(localStorage.getItem("selectedChart")) || null;
+    let habitChart = null;
 
-<script>
-let logs = JSON.parse(localStorage.getItem("logs")) || {};
+    habits = migrateHabits(habits);
 
-const dateInput = document.getElementById("date");
-const weightInput = document.getElementById("weight");
+    const logDate = document.getElementById("logDate");
+    logDate.value = new Date().toISOString().slice(0, 10);
+    logDate.addEventListener("change", render);
 
-dateInput.value = new Date().toISOString().slice(0,10);
-
-weightInput.oninput = () => {
-  const d = dateInput.value;
-  if (!logs[d]) logs[d] = {};
-  logs[d].weight = weightInput.value;
-  localStorage.setItem("logs", JSON.stringify(logs));
-  draw();
-};
-
-function draw(){
-  const dates = Object.keys(logs).sort();
-  const values = dates.map(d=>parseFloat(logs[d].weight));
-
-  new Chart(document.getElementById("chart"),{
-    type:"line",
-    data:{
-      labels:dates,
-      datasets:[{data:values}]
+    function migrateHabits(rawHabits) {
+      return rawHabits.map(habit => ({
+        name: habit.name,
+        fields: habit.fields.map(field => {
+          if (typeof field === "string") {
+            return guessFieldObject(habit.name, field);
+          }
+          return {
+            name: field.name,
+            unit: field.unit || ""
+          };
+        })
+      }));
     }
-  });
-}
 
-draw();
-</script>
+    function guessFieldObject(category, fieldName) {
+      const unitMap = {
+        "kg": "kg",
+        "%": "%",
+        "数値": category === "体重" ? "kg" : category === "体脂肪率" ? "%" : "",
+        "睡眠時間": "h",
+        "睡眠スコア": "点",
+        "ボディバッテリー": "点",
+        "腕立て": "回",
+        "腹筋": "回",
+        "背筋": "回",
+        "スクワット": "回",
+        "カーフレイズ": "回",
+        "時間": "分",
+        "距離": "km",
+        "速度": "mph",
+        "勤務時間": "h"
+      };
 
+      let name = fieldName;
+      let unit = unitMap[fieldName] || "";
+
+      if (category === "体重" && fieldName === "kg") {
+        name = "数値";
+        unit = "kg";
+      }
+
+      if (category === "体脂肪率" && fieldName === "%") {
+        name = "数値";
+        unit = "%";
+      }
+
+      return { name, unit };
+    }
+
+    function save() {
+      localStorage.setItem("habits", JSON.stringify(habits));
+      localStorage.setItem("logs", JSON.stringify(logs));
+      localStorage.setItem("selectedChart", JSON.stringify(selectedChart));
+    }
+
+    function getTodayLog() {
+      const date = logDate.value;
+      if (!logs[date]) logs[date] = {};
+      return logs[date];
+    }
+
+    function render() {
+      renderDashboard();
+      renderCalendar();
+      renderHabits();
+      renderStreak();
+      renderWeeklyReview();
+      renderChart();
+      renderHistory();
+    }
+
+    function renderDashboard() {
+      const container = document.getElementById("dashboard");
+      if (!container) return;
+
+      const todayKey = logDate.value;
+      const todayLog = logs[todayKey] || {};
+
+      const weight = getStoredValue(todayKey, "体重", "数値") || "-";
+      const sleep = getStoredValue(todayKey, "睡眠", "睡眠時間") || "-";
+      const streak = calculateStreak(new Date(todayKey));
+      const inputCount = countInputs(todayLog);
+      const weightAvg = get7DayAverage("体重", "数値");
+
+      container.innerHTML = `
+        <div class="dashboard-grid">
+          <div class="dashboard-item">
+            <div class="dashboard-label">体重</div>
+            <div class="dashboard-value">${weight}</div>
+            <div class="dashboard-sub">kg</div>
+          </div>
+
+          <div class="dashboard-item">
+            <div class="dashboard-label">睡眠時間</div>
+            <div class="dashboard-value">${sleep}</div>
+            <div class="dashboard-sub">h</div>
+          </div>
+
+          <div class="dashboard-item">
+            <div class="dashboard-label">Streak</div>
+            <div class="dashboard-value">${streak}</div>
+            <div class="dashboard-sub">連続記録日数</div>
+          </div>
+
+          <div class="dashboard-item">
+            <div class="dashboard-label">今日の入力数</div>
+            <div class="dashboard-value">${inputCount}</div>
+            <div class="dashboard-sub">項目</div>
+          </div>
+
+          <div class="dashboard-item">
+            <div class="dashboard-label">7日平均体重</div>
+            <div class="dashboard-value">${weightAvg !== null ? weightAvg.toFixed(1) : "-"}</div>
+            <div class="dashboard-sub">kg</div>
+          </div>
+
+          <div class="dashboard-item">
+            <div class="dashboard-label">記録日</div>
+            <div class="dashboard-value">${todayKey.slice(5)}</div>
+            <div class="dashboard-sub">selected date</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCalendar() {
+      const container = document.getElementById("calendarBox");
+      if (!container) return;
+
+      const selected = new Date(logDate.value);
+      const year = selected.getFullYear();
+      const month = selected.getMonth();
+
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const startWeekday = firstDay.getDay();
+      const daysInMonth = lastDay.getDate();
+
+      const monthLabel = `${year}-${String(month + 1).padStart(2, "0")}`;
+      const weekNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+      let cells = "";
+
+      weekNames.forEach(day => {
+        cells += `<div class="calendar-day-name">${day}</div>`;
+      });
+
+      for (let i = 0; i < startWeekday; i++) {
+        cells += `<div class="calendar-day empty"></div>`;
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        const isLogged = hasAnyLog(dateKey);
+        const isSelected = dateKey === logDate.value;
+
+        cells += `
+          <button
+            class="calendar-day ${isLogged ? "logged" : ""} ${isSelected ? "selected" : ""}"
+            onclick="selectCalendarDate('${dateKey}')">
+            <div class="calendar-date">${day}</div>
+            <div class="calendar-dot">${isLogged ? "●" : ""}</div>
+          </button>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="calendar-head">
+          <button class="secondary mini" onclick="moveMonth(-1)">前月</button>
+          <div class="calendar-title">${monthLabel}</div>
+          <button class="secondary mini" onclick="moveMonth(1)">次月</button>
+        </div>
+        <div class="calendar-grid">${cells}</div>
+      `;
+    }
+
+    function selectCalendarDate(dateKey) {
+      logDate.value = dateKey;
+      render();
+    }
+
+    function moveMonth(offset) {
+      const current = new Date(logDate.value);
+      current.setMonth(current.getMonth() + offset);
+      current.setDate(1);
+      logDate.value = current.toISOString().slice(0, 10);
+      render();
+    }
+
+    function countInputs(dayLog) {
+      let count = 0;
+
+      Object.values(dayLog).forEach(fields => {
+        Object.values(fields).forEach(value => {
+          if (value !== undefined && value !== null && String(value).trim() !== "") {
+            count++;
+          }
+        });
+      });
+
+      return count;
+    }
+
+    function get7DayAverage(category, field) {
+      const today = new Date(logDate.value);
+      const dates = getDateRange(today, 6);
+      const values = getValuesForDates(dates, category, field);
+
+      if (values.length === 0) return null;
+
+      return average(values);
+    }
+
+    function renderHabits() {
+      const container = document.getElementById("habitList");
+      const todayLog = getTodayLog();
+      container.innerHTML = "";
+
+      habits.forEach((habit, habitIndex) => {
+        if (!todayLog[habit.name]) todayLog[habit.name] = {};
+
+        const habitDiv = document.createElement("div");
+        habitDiv.className = "habit";
+
+        habitDiv.innerHTML = `
+          <div class="habit-head">
+            <div class="habit-title">${habit.name}</div>
+            <button class="secondary mini" onclick="deleteHabit(${habitIndex})">削除</button>
+          </div>
+          <div id="fields-${habitIndex}"></div>
+          <div class="add-field-row">
+            <input id="addFieldName-${habitIndex}" placeholder="内訳名 例：距離" />
+            <input id="addFieldUnit-${habitIndex}" placeholder="単位" />
+            <button class="secondary mini" onclick="addField(${habitIndex})">追加</button>
+          </div>
+        `;
+
+        container.appendChild(habitDiv);
+
+        const fieldsDiv = document.getElementById(`fields-${habitIndex}`);
+
+        habit.fields.forEach((field, fieldIndex) => {
+          const value = getLogValue(todayLog, habit.name, field.name);
+
+          const isActive =
+            selectedChart &&
+            selectedChart.category === habit.name &&
+            selectedChart.field === field.name;
+
+          const row = document.createElement("div");
+          row.className = "field-row";
+
+          row.innerHTML = `
+            <label>${field.name}</label>
+
+            <input 
+              type="${field.unit ? "number" : "text"}"
+              inputmode="${field.unit ? "decimal" : "text"}"
+              value="${escapeHtml(value)}" 
+              onchange="updateLog('${escapeJs(habit.name)}', '${escapeJs(field.name)}', this.value)" 
+              placeholder="入力" />
+
+            <div class="unit">${field.unit || ""}</div>
+
+            <button 
+              class="secondary mini"
+              onclick="copyYesterday('${escapeJs(habit.name)}', '${escapeJs(field.name)}')">
+              前日
+            </button>
+
+            <button class="mini graph-btn ${isActive ? "active" : ""}" 
+              onclick="toggleChart('${escapeJs(habit.name)}', '${escapeJs(field.name)}')">
+              グラフ
+            </button>
+
+            <button class="secondary mini" onclick="deleteField(${habitIndex}, ${fieldIndex})">
+              ×
+            </button>
+          `;
+
+          fieldsDiv.appendChild(row);
+        });
+      });
+
+      save();
+    }
+
+    function getLogValue(dayLog, category, fieldName) {
+      if (!dayLog[category]) return "";
+
+      if (dayLog[category][fieldName] !== undefined) {
+        return dayLog[category][fieldName];
+      }
+
+      if (category === "体重" && fieldName === "数値" && dayLog[category]["kg"] !== undefined) {
+        return dayLog[category]["kg"];
+      }
+
+      if (category === "体脂肪率" && fieldName === "数値" && dayLog[category]["%"] !== undefined) {
+        return dayLog[category]["%"];
+      }
+
+      return "";
+    }
+
+    function updateLog(habitName, fieldName, value) {
+      const todayLog = getTodayLog();
+
+      if (!todayLog[habitName]) {
+        todayLog[habitName] = {};
+      }
+
+      todayLog[habitName][fieldName] = value;
+
+      if (habitName === "体重") {
+        delete todayLog[habitName]["kg"];
+      }
+
+      if (habitName === "体脂肪率") {
+        delete todayLog[habitName]["%"];
+      }
+
+      save();
+      renderDashboard();
+      renderCalendar();
+      renderStreak();
+      renderWeeklyReview();
+      renderChart();
+      renderHistory();
+    }
+
+    function copyYesterday(category, field) {
+      const currentDate = new Date(logDate.value);
+      const yesterday = new Date(currentDate);
+      yesterday.setDate(yesterday.getDate() - 1);
+
+      const yesterdayKey = yesterday.toISOString().slice(0, 10);
+      const yesterdayValue = getStoredValue(yesterdayKey, category, field);
+
+      if (yesterdayValue === undefined || yesterdayValue === null || yesterdayValue === "") {
+        alert("前日のデータがありません");
+        return;
+      }
+
+      const todayLog = getTodayLog();
+
+      if (!todayLog[category]) {
+        todayLog[category] = {};
+      }
+
+      todayLog[category][field] = yesterdayValue;
+
+      save();
+      render();
+    }
+
+    function addHabit() {
+      const name = document.getElementById("newHabitName").value.trim();
+      const fieldsText = document.getElementById("newFieldNames").value.trim();
+
+      if (!name) return alert("項目名を入力してください");
+
+      const fields = fieldsText
+        ? fieldsText.split(",").map(x => {
+            const [fieldName, unit = ""] = x.split(":").map(v => v.trim());
+            return { name: fieldName, unit };
+          }).filter(f => f.name)
+        : [{ name: "内容", unit: "" }];
+
+      habits.push({ name, fields });
+
+      document.getElementById("newHabitName").value = "";
+      document.getElementById("newFieldNames").value = "";
+
+      save();
+      render();
+    }
+
+    function deleteHabit(index) {
+      if (!confirm("この項目を削除しますか？")) return;
+
+      const deletedHabit = habits[index];
+
+      if (selectedChart && selectedChart.category === deletedHabit.name) {
+        selectedChart = null;
+      }
+
+      habits.splice(index, 1);
+      save();
+      render();
+    }
+
+    function addField(habitIndex) {
+      const nameInput = document.getElementById(`addFieldName-${habitIndex}`);
+      const unitInput = document.getElementById(`addFieldUnit-${habitIndex}`);
+
+      const fieldName = nameInput.value.trim();
+      const fieldUnit = unitInput.value.trim();
+
+      if (!fieldName) return;
+
+      habits[habitIndex].fields.push({
+        name: fieldName,
+        unit: fieldUnit
+      });
+
+      nameInput.value = "";
+      unitInput.value = "";
+
+      save();
+      render();
+    }
+
+    function deleteField(habitIndex, fieldIndex) {
+      const habit = habits[habitIndex];
+      const field = habit.fields[fieldIndex];
+
+      if (
+        selectedChart &&
+        selectedChart.category === habit.name &&
+        selectedChart.field === field.name
+      ) {
+        selectedChart = null;
+      }
+
+      habit.fields.splice(fieldIndex, 1);
+      save();
+      render();
+    }
+
+    function toggleChart(category, field) {
+      if (
+        selectedChart &&
+        selectedChart.category === category &&
+        selectedChart.field === field
+      ) {
+        selectedChart = null;
+      } else {
+        selectedChart = { category, field };
+      }
+
+      save();
+      render();
+    }
+
+    function renderChart() {
+      const canvas = document.getElementById("habitChart");
+      const chartTitle = document.getElementById("chartTitle");
+
+      if (!canvas) return;
+
+      if (!selectedChart) {
+        if (habitChart) {
+          habitChart.destroy();
+          habitChart = null;
+        }
+        if (chartTitle) {
+          chartTitle.textContent = "表示したい内訳の「グラフ」ボタンを押してください";
+        }
+        return;
+      }
+
+      const category = selectedChart.category;
+      const field = selectedChart.field;
+      const unit = getUnit(category, field);
+
+      if (chartTitle) {
+        chartTitle.textContent = `${category} / ${field}${unit ? " (" + unit + ")" : ""}`;
+      }
+
+      const dates = Object.keys(logs).sort();
+
+      const chartData = dates
+        .map(date => {
+          const rawValue = getStoredValue(date, category, field);
+          const numericValue = parseFloat(String(rawValue).replace(/[^\d.-]/g, ""));
+          return {
+            date,
+            value: Number.isFinite(numericValue) ? numericValue : null
+          };
+        })
+        .filter(item => item.value !== null);
+
+      if (habitChart) {
+        habitChart.destroy();
+      }
+
+      habitChart = new Chart(canvas, {
+        type: "line",
+        data: {
+          labels: chartData.map(item => item.date.slice(5)),
+          datasets: [
+            {
+              label: `${category} / ${field}${unit ? " (" + unit + ")" : ""}`,
+              data: chartData.map(item => item.value),
+              tension: 0.3,
+              pointRadius: 5,
+              pointHoverRadius: 7
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: false,
+              ticks: {
+                callback: function(value) {
+                  return value.toFixed(1);
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function renderStreak() {
+      const container = document.getElementById("streakBox");
+      if (!container) return;
+
+      const selectedDate = new Date(logDate.value);
+      const streak = calculateStreak(selectedDate);
+      const totalLoggedDays = countLoggedDays();
+
+      container.innerHTML = `
+        <div class="streak-main">${streak} 日連続</div>
+        <div class="streak-sub">選択日からさかのぼった連続記録日数</div>
+        <div class="streak-badge">累計記録日数 ${totalLoggedDays} 日</div>
+      `;
+    }
+
+    function calculateStreak(endDate) {
+      let count = 0;
+      let current = new Date(endDate);
+
+      while (true) {
+        const key = current.toISOString().slice(0, 10);
+
+        if (hasAnyLog(key)) {
+          count++;
+          current.setDate(current.getDate() - 1);
+        } else {
+          break;
+        }
+      }
+
+      return count;
+    }
+
+    function countLoggedDays() {
+      return Object.keys(logs).filter(date => hasAnyLog(date)).length;
+    }
+
+    function hasAnyLog(date) {
+      const dayLog = logs[date];
+      if (!dayLog) return false;
+
+      return Object.values(dayLog).some(fields => {
+        return Object.values(fields).some(value => {
+          return value !== undefined && value !== null && String(value).trim() !== "";
+        });
+      });
+    }
+
+    function renderWeeklyReview() {
+      const container = document.getElementById("weeklyReview");
+      if (!container) return;
+
+      const today = new Date(logDate.value);
+      const last7Dates = getDateRange(today, 6);
+      const previous7Dates = getDateRange(addDays(today, -7), 6);
+
+      const reviewTargets = [
+        { category: "体重", field: "数値", label: "体重", lowerIsBetter: true },
+        { category: "体脂肪率", field: "数値", label: "体脂肪率", lowerIsBetter: true },
+        { category: "BMI", field: "数値", label: "BMI", lowerIsBetter: true },
+        { category: "睡眠", field: "睡眠時間", label: "睡眠時間", lowerIsBetter: false },
+        { category: "睡眠", field: "睡眠スコア", label: "睡眠スコア", lowerIsBetter: false },
+        { category: "睡眠", field: "ボディバッテリー", label: "ボディバッテリー", lowerIsBetter: false },
+        { category: "筋トレ", field: "腕立て", label: "腕立て", lowerIsBetter: false },
+        { category: "筋トレ", field: "スクワット", label: "スクワット", lowerIsBetter: false },
+        { category: "ウォーキング", field: "距離", label: "ウォーキング距離", lowerIsBetter: false },
+        { category: "ランニング", field: "距離", label: "ランニング距離", lowerIsBetter: false },
+        { category: "英語", field: "時間", label: "英語時間", lowerIsBetter: false },
+        { category: "読書", field: "時間", label: "読書時間", lowerIsBetter: false },
+        { category: "勤務", field: "勤務時間", label: "勤務時間", lowerIsBetter: false }
+      ];
+
+      const cards = reviewTargets
+        .map(target => createReviewCard(target, last7Dates, previous7Dates))
+        .filter(Boolean);
+
+      if (cards.length === 0) {
+        container.innerHTML = `<div class="review-sub">まだ週次レビューに使える数値データがありません。</div>`;
+        return;
+      }
+
+      container.innerHTML = `<div class="review-grid">${cards.join("")}</div>`;
+    }
+
+    function createReviewCard(target, last7Dates, previous7Dates) {
+      const currentValues = getValuesForDates(last7Dates, target.category, target.field);
+      const previousValues = getValuesForDates(previous7Dates, target.category, target.field);
+
+      if (currentValues.length === 0) return null;
+
+      const unit = getUnit(target.category, target.field);
+      const currentAvg = average(currentValues);
+      const previousAvg = previousValues.length > 0 ? average(previousValues) : null;
+      const inputRate = Math.round((currentValues.length / 7) * 100);
+
+      let diffText = "前週データなし";
+      let diffClass = "";
+
+      if (previousAvg !== null) {
+        const diff = currentAvg - previousAvg;
+        const isGood = target.lowerIsBetter ? diff < 0 : diff > 0;
+
+        diffText = `前週比 ${diff >= 0 ? "+" : ""}${diff.toFixed(1)} ${unit}`;
+        diffClass = isGood ? "review-good" : "review-bad";
+      }
+
+      return `
+        <div class="review-item">
+          <div class="review-title">${target.label}</div>
+          <div class="review-main">${currentAvg.toFixed(1)} ${unit}</div>
+          <div class="review-sub">直近7日平均 / 入力率 ${inputRate}%</div>
+          <div class="review-sub ${diffClass}">${diffText}</div>
+        </div>
+      `;
+    }
+
+    function getValuesForDates(dates, category, field) {
+      return dates
+        .map(date => {
+          const rawValue = getStoredValue(date, category, field);
+          const numericValue = parseFloat(String(rawValue).replace(/[^\d.-]/g, ""));
+          return Number.isFinite(numericValue) ? numericValue : null;
+        })
+        .filter(value => value !== null);
+    }
+
+    function getStoredValue(date, category, field) {
+      const dayLog = logs[date];
+      if (!dayLog || !dayLog[category]) return undefined;
+
+      if (dayLog[category][field] !== undefined) {
+        return dayLog[category][field];
+      }
+
+      if (category === "体重" && field === "数値") {
+        return dayLog[category]["kg"];
+      }
+
+      if (category === "体脂肪率" && field === "数値") {
+        return dayLog[category]["%"];
+      }
+
+      return undefined;
+    }
+
+    function getUnit(category, field) {
+      const habit = habits.find(h => h.name === category);
+      if (!habit) return "";
+
+      const fieldObj = habit.fields.find(f => f.name === field);
+      return fieldObj ? fieldObj.unit : "";
+    }
+
+    function average(values) {
+      return values.reduce((sum, value) => sum + value, 0) / values.length;
+    }
+
+    function addDays(date, days) {
+      const result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result;
+    }
+
+    function getDateRange(endDate, daysBack) {
+      const dates = [];
+
+      for (let i = daysBack; i >= 0; i--) {
+        const date = addDays(endDate, -i);
+        dates.push(date.toISOString().slice(0, 10));
+      }
+
+      return dates;
+    }
+
+    function renderHistory() {
+      const history = document.getElementById("history");
+      history.innerHTML = "";
+
+      const dates = Object.keys(logs).sort().reverse().slice(0, 14);
+
+      dates.forEach(date => {
+        const item = document.createElement("div");
+        item.className = "history-item";
+
+        const summary = Object.entries(logs[date])
+          .map(([habit, fields]) => {
+            const values = Object.entries(fields)
+              .filter(([_, v]) => v)
+              .map(([k, v]) => {
+                const unit = getUnit(habit, k);
+                return `${k}: ${v}${unit ? " " + unit : ""}`;
+              })
+              .join(" / ");
+            return values ? `${habit}｜${values}` : "";
+          })
+          .filter(Boolean)
+          .join("<br>");
+
+        item.innerHTML = `
+          <div class="history-date">${date}</div>
+          <div>${summary || "記録なし"}</div>
+        `;
+
+        history.appendChild(item);
+      });
+    }
+
+    function exportCSV() {
+      let rows = [["date", "category", "field", "value", "unit"]];
+
+      Object.entries(logs).forEach(([date, dayLog]) => {
+        Object.entries(dayLog).forEach(([category, fields]) => {
+          Object.entries(fields).forEach(([field, value]) => {
+            rows.push([date, category, field, value, getUnit(category, field)]);
+          });
+        });
+      });
+
+      const csv = rows
+        .map(row => row.map(cell => `"${String(cell).replaceAll('"', '""')}"`).join(","))
+        .join("\n");
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "habit-log.csv";
+      a.click();
+
+      URL.revokeObjectURL(url);
+    }
+
+    function exportJSON() {
+      const data = {
+        habits,
+        logs,
+        selectedChart
+      };
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], {
+        type: "application/json"
+      });
+
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "habit-log-backup.json";
+      a.click();
+
+      URL.revokeObjectURL(url);
+    }
+
+    function importJSON() {
+      document.getElementById("importFile").click();
+    }
+
+    const importFile = document.getElementById("importFile");
+
+    if (importFile) {
+      importFile.addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          try {
+            const data = JSON.parse(e.target.result);
+
+            if (data.habits) habits = migrateHabits(data.habits);
+            if (data.logs) logs = data.logs;
+            if (data.selectedChart) selectedChart = data.selectedChart;
+
+            save();
+            render();
+
+            alert("復元完了");
+          } catch (err) {
+            alert("JSON形式が正しくありません");
+          }
+        };
+
+        reader.readAsText(file);
+      });
+    }
+
+    function resetAll() {
+      if (!confirm("すべての記録と項目を削除しますか？")) return;
+
+      localStorage.removeItem("habits");
+      localStorage.removeItem("logs");
+      localStorage.removeItem("selectedChart");
+
+      habits = defaultHabits;
+      logs = {};
+      selectedChart = null;
+
+      render();
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function escapeJs(text) {
+      return String(text)
+        .replaceAll("\\", "\\\\")
+        .replaceAll("'", "\\'");
+    }
+
+    save();
+    render();
+  </script>
 </body>
 </html>
