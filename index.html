@@ -21,6 +21,11 @@
       color: #222;
     }
 
+    body.dark {
+      background: #111;
+      color: #eee;
+    }
+
     .app {
       max-width: 520px;
       margin: 0 auto;
@@ -50,6 +55,11 @@
       box-shadow: 0 4px 14px rgba(0,0,0,0.06);
     }
 
+    body.dark .card {
+      background: #1c1c1e;
+      color: #eee;
+    }
+
     h2 {
       margin: 0 0 12px;
       font-size: 18px;
@@ -70,6 +80,13 @@
       border: 1px solid #d8dce2;
       border-radius: 10px;
       font-size: 15px;
+    }
+
+    body.dark input,
+    body.dark select {
+      background: #2a2a2c;
+      color: #eee;
+      border-color: #444;
     }
 
     button {
@@ -188,20 +205,22 @@
       width: 100%;
     }
 
-    .review-grid {
+    .review-grid,
+    .ai-review-list {
       display: grid;
-      grid-template-columns: 1fr;
       gap: 10px;
     }
 
-    .review-item {
+    .review-item,
+    .ai-review-item {
       background: #f6f7f9;
       border-radius: 14px;
       padding: 12px;
     }
 
-    .review-title {
-      font-weight: 700;
+    .review-title,
+    .ai-review-title {
+      font-weight: 800;
       margin-bottom: 6px;
     }
 
@@ -222,6 +241,23 @@
 
     .review-bad {
       color: #b03a2e;
+    }
+
+    .ai-review-item {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .ai-review-good {
+      border-left: 5px solid #1f7a3f;
+    }
+
+    .ai-review-warn {
+      border-left: 5px solid #b36b00;
+    }
+
+    .ai-review-neutral {
+      border-left: 5px solid #777;
     }
 
     .streak-main {
@@ -332,6 +368,146 @@
       line-height: 1;
       margin-top: 2px;
     }
+
+    .tab-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      background: #f6f7f9;
+      padding: 8px 0 12px;
+      margin-bottom: 8px;
+    }
+
+    .tab-btn {
+      background: #e9ecef;
+      color: #222;
+      border-radius: 999px;
+      padding: 9px 8px;
+      font-size: 13px;
+    }
+
+    .tab-btn.active {
+      background: #222;
+      color: #fff;
+    }
+
+    .tab-hidden {
+      display: none;
+    }
+
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .accordion-arrow {
+      font-size: 14px;
+      transition: transform 0.2s ease;
+    }
+
+    .accordion-arrow.closed {
+      transform: rotate(-90deg);
+    }
+
+    .accordion-body.hidden {
+      display: none;
+    }
+
+    .theme-btn {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 50;
+      border-radius: 999px;
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      font-size: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .heatmap-cell {
+      height: 28px;
+      border-radius: 8px;
+      background: #e9ecef;
+    }
+
+    .heatmap-cell.level-1 {
+      background: #cfe3ff;
+    }
+
+    .heatmap-cell.level-2 {
+      background: #7fb3ff;
+    }
+
+    .heatmap-cell.level-3 {
+      background: #1f6feb;
+    }
+
+    .heatmap-label {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    body.dark header p,
+    body.dark label,
+    body.dark .review-sub,
+    body.dark .dashboard-label,
+    body.dark .dashboard-sub,
+    body.dark .streak-sub,
+    body.dark .unit,
+    body.dark .heatmap-label {
+      color: #aaa;
+    }
+
+    body.dark .dashboard-item,
+    body.dark .review-item,
+    body.dark .ai-review-item,
+    body.dark .calendar-day {
+      background: #2a2a2c;
+    }
+
+    body.dark .calendar-day.logged {
+      background: #26364f;
+    }
+
+    body.dark .calendar-day.selected {
+      background: #fff;
+      color: #111;
+    }
+
+    body.dark .tab-bar {
+      background: #111;
+    }
+
+    body.dark .heatmap-cell {
+      background: #333;
+    }
+
+    body.dark .heatmap-cell.level-1 {
+      background: #294766;
+    }
+
+    body.dark .heatmap-cell.level-2 {
+      background: #2864a6;
+    }
+
+    body.dark .heatmap-cell.level-3 {
+      background: #58a6ff;
+    }
   </style>
 </head>
 
@@ -345,6 +521,11 @@
     <section class="card">
       <h2>Dashboard</h2>
       <div id="dashboard"></div>
+    </section>
+
+    <section class="card">
+      <h2>AI Review</h2>
+      <div id="aiReview"></div>
     </section>
 
     <section class="card">
@@ -380,6 +561,11 @@
     </section>
 
     <section class="card">
+      <h2>Heatmap</h2>
+      <div id="heatmapBox"></div>
+    </section>
+
+    <section class="card">
       <h2>グラフ</h2>
       <div class="chart-title" id="chartTitle">
         表示したい内訳の「グラフ」ボタンを押してください
@@ -405,7 +591,7 @@
   </div>
 
   <script>
-    const defaultHabits = [
+        const defaultHabits = [
       { name: "体重", fields: [{ name: "数値", unit: "kg" }] },
       { name: "体脂肪率", fields: [{ name: "数値", unit: "%" }] },
       { name: "BMI", fields: [{ name: "数値", unit: "" }] },
@@ -455,6 +641,8 @@
     let logs = JSON.parse(localStorage.getItem("logs")) || {};
     let selectedChart = JSON.parse(localStorage.getItem("selectedChart")) || null;
     let habitChart = null;
+    let activeTab = localStorage.getItem("activeTab") || "home";
+    let darkMode = localStorage.getItem("darkMode") === "true";
 
     habits = migrateHabits(habits);
 
@@ -516,6 +704,8 @@
       localStorage.setItem("habits", JSON.stringify(habits));
       localStorage.setItem("logs", JSON.stringify(logs));
       localStorage.setItem("selectedChart", JSON.stringify(selectedChart));
+      localStorage.setItem("activeTab", activeTab);
+      localStorage.setItem("darkMode", darkMode);
     }
 
     function getTodayLog() {
@@ -525,13 +715,43 @@
     }
 
     function render() {
+      applyTheme();
       renderDashboard();
+      renderAIReview();
       renderCalendar();
       renderHabits();
       renderStreak();
       renderWeeklyReview();
+      renderHeatmap();
       renderChart();
       renderHistory();
+      setupTabs();
+      setupAccordions();
+      setupThemeButton();
+    }
+
+    function applyTheme() {
+      document.body.classList.toggle("dark", darkMode);
+    }
+
+    function setupThemeButton() {
+      let btn = document.getElementById("themeButton");
+
+      if (!btn) {
+        btn = document.createElement("button");
+        btn.id = "themeButton";
+        btn.className = "theme-btn";
+        btn.onclick = toggleTheme;
+        document.body.appendChild(btn);
+      }
+
+      btn.textContent = darkMode ? "☀️" : "🌙";
+    }
+
+    function toggleTheme() {
+      darkMode = !darkMode;
+      save();
+      render();
     }
 
     function renderDashboard() {
@@ -586,6 +806,205 @@
           </div>
         </div>
       `;
+    }
+
+    function renderAIReview() {
+      const container = document.getElementById("aiReview");
+      if (!container) return;
+
+      const reviews = [];
+
+      const weightAvg = get7DayAverage("体重", "数値");
+      const sleepAvg = get7DayAverage("睡眠", "睡眠時間");
+      const walkingAvg = get7DayAverage("ウォーキング", "距離");
+      const runningAvg = get7DayAverage("ランニング", "距離");
+      const englishAvg = get7DayAverage("英語", "時間");
+      const readingAvg = get7DayAverage("読書", "時間");
+
+      const weightPrev = getPrevious7DayAverage("体重", "数値");
+      const sleepPrev = getPrevious7DayAverage("睡眠", "睡眠時間");
+      const walkingPrev = getPrevious7DayAverage("ウォーキング", "距離");
+      const englishPrev = getPrevious7DayAverage("英語", "時間");
+
+      const streak = calculateStreak(new Date(logDate.value));
+
+      if (streak >= 14) {
+        reviews.push({
+          type: "good",
+          title: "継続",
+          text: `${streak}日連続で記録できています。これはかなり強い習慣化のサインです。`
+        });
+      } else if (streak >= 7) {
+        reviews.push({
+          type: "good",
+          title: "継続",
+          text: `${streak}日連続です。まずは14日連続を次の目標にして良さそうです。`
+        });
+      } else if (streak >= 1) {
+        reviews.push({
+          type: "neutral",
+          title: "継続",
+          text: `${streak}日連続です。まずは7日連続を目指しましょう。`
+        });
+      }
+
+      if (weightAvg !== null) {
+        if (weightPrev !== null) {
+          const diff = weightAvg - weightPrev;
+
+          if (diff < -0.2) {
+            reviews.push({
+              type: "good",
+              title: "体重",
+              text: `直近7日平均は ${weightAvg.toFixed(1)} kg。前週より ${Math.abs(diff).toFixed(1)} kg 下がっています。良い流れです。`
+            });
+          } else if (diff > 0.2) {
+            reviews.push({
+              type: "warn",
+              title: "体重",
+              text: `直近7日平均は ${weightAvg.toFixed(1)} kg。前週より ${diff.toFixed(1)} kg 上がっています。食事・睡眠・運動量を軽く見直すタイミングです。`
+            });
+          } else {
+            reviews.push({
+              type: "neutral",
+              title: "体重",
+              text: `直近7日平均は ${weightAvg.toFixed(1)} kg。前週から大きな変化はなく、安定しています。`
+            });
+          }
+        } else {
+          reviews.push({
+            type: "neutral",
+            title: "体重",
+            text: `直近7日平均は ${weightAvg.toFixed(1)} kg。もう少し記録がたまると前週比較できます。`
+          });
+        }
+      }
+
+      if (sleepAvg !== null) {
+        if (sleepAvg >= 7) {
+          reviews.push({
+            type: "good",
+            title: "睡眠",
+            text: `睡眠時間の直近7日平均は ${sleepAvg.toFixed(1)} h。かなり良い水準です。`
+          });
+        } else if (sleepAvg >= 6) {
+          reviews.push({
+            type: "neutral",
+            title: "睡眠",
+            text: `睡眠時間の直近7日平均は ${sleepAvg.toFixed(1)} h。悪くないですが、できれば7時間に近づけたいところです。`
+          });
+        } else {
+          reviews.push({
+            type: "warn",
+            title: "睡眠",
+            text: `睡眠時間の直近7日平均は ${sleepAvg.toFixed(1)} h。やや短めです。まずは6.5時間以上を目標にしましょう。`
+          });
+        }
+
+        if (sleepPrev !== null && sleepAvg - sleepPrev < -0.5) {
+          reviews.push({
+            type: "warn",
+            title: "睡眠トレンド",
+            text: `睡眠時間が前週より ${Math.abs(sleepAvg - sleepPrev).toFixed(1)} h 減っています。疲労感や集中力低下に注意です。`
+          });
+        }
+      }
+
+      if (walkingAvg !== null) {
+        if (walkingAvg >= 3) {
+          reviews.push({
+            type: "good",
+            title: "ウォーキング",
+            text: `ウォーキング距離の直近7日平均は ${walkingAvg.toFixed(1)} km。かなり良い活動量です。`
+          });
+        } else {
+          reviews.push({
+            type: "neutral",
+            title: "ウォーキング",
+            text: `ウォーキング距離の直近7日平均は ${walkingAvg.toFixed(1)} km。まずは1日3km前後を目安にすると良さそうです。`
+          });
+        }
+
+        if (walkingPrev !== null && walkingAvg - walkingPrev > 0.5) {
+          reviews.push({
+            type: "good",
+            title: "活動量",
+            text: `ウォーキング距離が前週より増えています。体重管理にも良い影響が期待できます。`
+          });
+        }
+      }
+
+      if (runningAvg !== null && runningAvg > 0) {
+        reviews.push({
+          type: "good",
+          title: "ランニング",
+          text: `ランニング距離の直近7日平均は ${runningAvg.toFixed(1)} km。膝の違和感がある日は無理せずバイクやウォーキングに切り替えるのも良いです。`
+        });
+      }
+
+      if (englishAvg !== null) {
+        if (englishAvg >= 20) {
+          reviews.push({
+            type: "good",
+            title: "英語",
+            text: `英語学習の直近7日平均は ${englishAvg.toFixed(0)} 分。継続できています。`
+          });
+        } else {
+          reviews.push({
+            type: "neutral",
+            title: "英語",
+            text: `英語学習の直近7日平均は ${englishAvg.toFixed(0)} 分。短時間でも毎日続ける方針でOKです。`
+          });
+        }
+
+        if (englishPrev !== null && englishAvg - englishPrev > 5) {
+          reviews.push({
+            type: "good",
+            title: "英語トレンド",
+            text: `英語学習時間が前週より増えています。通勤時間や隙間時間の使い方が良い方向です。`
+          });
+        }
+      }
+
+      if (readingAvg !== null && readingAvg >= 10) {
+        reviews.push({
+          type: "good",
+          title: "読書",
+          text: `読書時間の直近7日平均は ${readingAvg.toFixed(0)} 分。インプット習慣として良いペースです。`
+        });
+      }
+
+      if (reviews.length === 0) {
+        container.innerHTML = `
+          <div class="ai-review-item ai-review-neutral">
+            <div class="ai-review-title">まだレビューはありません</div>
+            <div>体重・睡眠・ウォーキング・英語などを数日分入力すると、自動レビューが表示されます。</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="ai-review-list">
+          ${reviews.map(review => `
+            <div class="ai-review-item ai-review-${review.type}">
+              <div class="ai-review-title">${review.title}</div>
+              <div>${review.text}</div>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function getPrevious7DayAverage(category, field) {
+      const today = new Date(logDate.value);
+      const endDate = addDays(today, -7);
+      const dates = getDateRange(endDate, 6);
+      const values = getValuesForDates(dates, category, field);
+
+      if (values.length === 0) return null;
+
+      return average(values);
     }
 
     function renderCalendar() {
@@ -787,9 +1206,11 @@
 
       save();
       renderDashboard();
+      renderAIReview();
       renderCalendar();
       renderStreak();
       renderWeeklyReview();
+      renderHeatmap();
       renderChart();
       renderHistory();
     }
@@ -1102,6 +1523,35 @@
       `;
     }
 
+    function renderHeatmap() {
+      const container = document.getElementById("heatmapBox");
+      if (!container) return;
+
+      const selected = new Date(logDate.value);
+      const year = selected.getFullYear();
+      const month = selected.getMonth();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      let cells = "";
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        const count = countInputs(logs[dateKey] || {});
+
+        let level = 0;
+        if (count >= 1) level = 1;
+        if (count >= 3) level = 2;
+        if (count >= 6) level = 3;
+
+        cells += `<div class="heatmap-cell level-${level}" title="${dateKey}: ${count} inputs"></div>`;
+      }
+
+      container.innerHTML = `
+        <div class="heatmap-label">選択月の記録密度。濃いほど入力数が多い日です。</div>
+        <div class="heatmap-grid">${cells}</div>
+      `;
+    }
+
     function getValuesForDates(dates, category, field) {
       return dates
         .map(date => {
@@ -1193,6 +1643,145 @@
       });
     }
 
+    function setupTabs() {
+      const app = document.querySelector(".app");
+      if (!app) return;
+
+      let tabBar = document.getElementById("tabBar");
+
+      if (!tabBar) {
+        tabBar = document.createElement("div");
+        tabBar.id = "tabBar";
+        tabBar.className = "tab-bar";
+
+        tabBar.innerHTML = `
+          <button class="tab-btn" onclick="switchTab('home')">Home</button>
+          <button class="tab-btn" onclick="switchTab('record')">記録</button>
+          <button class="tab-btn" onclick="switchTab('analysis')">分析</button>
+          <button class="tab-btn" onclick="switchTab('history')">履歴</button>
+        `;
+
+        const header = app.querySelector("header");
+        header.insertAdjacentElement("afterend", tabBar);
+      }
+
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.classList.remove("active");
+      });
+
+      const activeButton = Array.from(document.querySelectorAll(".tab-btn"))
+        .find(btn => btn.getAttribute("onclick")?.includes(activeTab));
+
+      if (activeButton) {
+        activeButton.classList.add("active");
+      }
+
+      const cards = document.querySelectorAll(".card");
+
+      cards.forEach(card => {
+        const title = card.querySelector("h2")?.textContent || "";
+        const label = card.querySelector("label")?.textContent || "";
+
+        let group = "other";
+
+        if (
+          title.includes("Dashboard") ||
+          title.includes("AI Review") ||
+          title.includes("Streak")
+        ) {
+          group = "home";
+        }
+
+        if (
+          label.includes("記録日") ||
+          title.includes("Calendar") ||
+          title.includes("今日の記録") ||
+          title.includes("項目追加")
+        ) {
+          group = "record";
+        }
+
+        if (
+          title.includes("週次レビュー") ||
+          title.includes("グラフ") ||
+          title.includes("Heatmap")
+        ) {
+          group = "analysis";
+        }
+
+        if (title.includes("記録履歴")) {
+          group = "history";
+        }
+
+        if (group === activeTab) {
+          card.classList.remove("tab-hidden");
+        } else {
+          card.classList.add("tab-hidden");
+        }
+      });
+    }
+
+    function switchTab(tabName) {
+      activeTab = tabName;
+      save();
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setupAccordions() {
+      const sections = document.querySelectorAll(".card");
+
+      sections.forEach(section => {
+        if (section.dataset.accordionReady === "true") return;
+
+        const title = section.querySelector("h2");
+        if (!title) return;
+
+        const bodyElements = Array.from(section.children).filter(el => el !== title);
+
+        const header = document.createElement("div");
+        header.className = "accordion-header";
+
+        const arrow = document.createElement("div");
+        arrow.className = "accordion-arrow";
+        arrow.textContent = "▼";
+
+        title.parentNode.insertBefore(header, title);
+        header.appendChild(title);
+        header.appendChild(arrow);
+
+        const body = document.createElement("div");
+        body.className = "accordion-body";
+
+        bodyElements.forEach(el => {
+          body.appendChild(el);
+        });
+
+        section.appendChild(body);
+
+        let isOpen = true;
+
+        if (
+          title.textContent.includes("グラフ") ||
+          title.textContent.includes("履歴")
+        ) {
+          isOpen = false;
+        }
+
+        if (!isOpen) {
+          body.classList.add("hidden");
+          arrow.classList.add("closed");
+        }
+
+        header.onclick = () => {
+          body.classList.toggle("hidden");
+          arrow.classList.toggle("closed");
+        };
+
+        section.dataset.accordionReady = "true";
+      });
+    }
+
     function exportCSV() {
       let rows = [["date", "category", "field", "value", "unit"]];
 
@@ -1223,7 +1812,9 @@
       const data = {
         habits,
         logs,
-        selectedChart
+        selectedChart,
+        activeTab,
+        darkMode
       };
 
       const blob = new Blob([JSON.stringify(data, null, 2)], {
@@ -1260,6 +1851,8 @@
             if (data.habits) habits = migrateHabits(data.habits);
             if (data.logs) logs = data.logs;
             if (data.selectedChart) selectedChart = data.selectedChart;
+            if (data.activeTab) activeTab = data.activeTab;
+            if (typeof data.darkMode === "boolean") darkMode = data.darkMode;
 
             save();
             render();
@@ -1280,10 +1873,14 @@
       localStorage.removeItem("habits");
       localStorage.removeItem("logs");
       localStorage.removeItem("selectedChart");
+      localStorage.removeItem("activeTab");
+      localStorage.removeItem("darkMode");
 
       habits = defaultHabits;
       logs = {};
       selectedChart = null;
+      activeTab = "home";
+      darkMode = false;
 
       render();
     }
