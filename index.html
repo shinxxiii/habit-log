@@ -114,7 +114,7 @@ function stepValue(category, field, delta) {
   save();
   render();
 }
-function copyYesterday(c,f){const cd=new Date(logDate.value),y=new Date(cd);y.setDate(y. tree getDate()-1);const k=y.toISOString().slice(0,10),v=getStoredValue(k,c,f);if(v===undefined||v===null||v===""){alert("前日のデータがありません");return}const tl=getTodayLog();if(!tl[c])tl[c]={};tl[c][f]=v;save();render()}
+function copyYesterday(c,f){const cd=new Date(logDate.value),y=new Date(cd);y.setDate(y.getDate()-1);const k=y.toISOString().slice(0,10),v=getStoredValue(k,c,f);if(v===undefined||v===null||v===""){alert("前日のデータがありません");return}const tl=getTodayLog();if(!tl[c])tl[c]={};tl[c][f]=v;save();render()}
 function addHabit(){const n=document.getElementById("newHabitName").value.trim(),ft=document.getElementById("newFieldNames").value.trim();if(!n)return alert("項目名を入力してください");const fs=ft?ft.split(",").map(x=>{const[a,b=""]=x.split(":").map(v=>v.trim());return{name:a,unit:b}}).filter(f=>f.name):[{name:"内容",unit:""}];habits.push({name:n,fields:fs});document.getElementById("newHabitName").value="";document.getElementById("newFieldNames").value="";save();render()}
 function deleteHabit(i){if(!confirm("この項目を削除しますか？"))return;const d=habits[i];if(selectedChart&&selectedChart.category===d.name)selectedChart=null;habits.splice(i,1);save();render()}
 function addField(i){const ni=document.getElementById(`addFieldName-${i}`),ui=document.getElementById(`addFieldUnit-${i}`),n=ni.value.trim(),u=ui.value.trim();if(!n)return;habits[i].fields.push({name:n,unit:u});ni.value="";ui.value="";save();render()}
