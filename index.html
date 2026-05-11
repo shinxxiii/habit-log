@@ -10,6 +10,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Habit Log" />
   <meta name="theme-color" content="#f6f7f9" />
+  <link rel="manifest" href="manifest.webmanifest" />
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -1901,6 +1902,12 @@
 
     save();
     render();
+    
+    if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js");
+  });
+}
   </script>
 </body>
 </html>
