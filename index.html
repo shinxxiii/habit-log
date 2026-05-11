@@ -457,6 +457,62 @@
       background: #1f6feb;
     }
 
+    .bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  max-width: 520px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+
+  background: rgba(246,247,249,0.92);
+  backdrop-filter: blur(14px);
+
+  border-top: 1px solid #ddd;
+
+  z-index: 100;
+}
+
+body.dark .bottom-nav {
+  background: rgba(17,17,17,0.92);
+  border-top: 1px solid #333;
+}
+
+.bottom-nav button {
+  border-radius: 14px;
+  padding: 10px 8px;
+  font-size: 12px;
+
+  background: #e9ecef;
+  color: #222;
+}
+
+body.dark .bottom-nav button {
+  background: #2a2a2c;
+  color: #eee;
+}
+
+.bottom-nav button.active {
+  background: #222;
+  color: #fff;
+}
+
+body.dark .bottom-nav button.active {
+  background: #fff;
+  color: #111;
+}
+
+.app {
+  padding-bottom: 110px;
+}
+
     .heatmap-label {
       font-size: 13px;
       color: #666;
