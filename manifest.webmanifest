@@ -1,0 +1,12 @@
+{
+  "name": "Habit Log",
+  "short_name": "Habit Log",
+  "description": "Personal habit and health tracking app",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f7f9",
+  "theme_color": "#f6f7f9",
+  "orientation": "portrait",
+  "icons": []
+}
