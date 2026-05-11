@@ -1,4 +1,4 @@
-const CACHE_NAME = "habit-log-v4";
+const CACHE_NAME = "habit-log-v5";
 
 const FILES_TO_CACHE = [
   "./",
