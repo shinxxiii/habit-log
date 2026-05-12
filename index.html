@@ -41,15 +41,37 @@ button.secondary{background:#e9ecef;color:#222}body.dark button.secondary{backgr
 .habit{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.habit:first-child{border-top:none;margin-top:0;padding-top:0}.habit-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.habit-title{font-weight:700}.field-row{
   display:grid;
   grid-template-columns:
-    90px
-    minmax(140px,1fr)
-    auto
-    auto
+    72px
+    minmax(120px,1fr)
     auto
     auto;
   gap:6px;
+  align-items:start;
+  margin-top:10px;
+}
+
+.field-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
   align-items:center;
-  margin-top:8px
+}
+
+.field-main{
+  display:flex;
+  gap:4px;
+  align-items:center;
+}
+
+.quick-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.quick-buttons button{
+  padding:6px 10px;
+  font-size:11px;
 }.field-row input{margin-bottom:0}.unit{font-size:13px}.add-field-row{display:grid;grid-template-columns:1fr 70px auto;gap:6px;align-items:center;margin-top:10px}.add-field-row input{margin-bottom:0}
 .streak-main{font-size:30px;font-weight:800}.streak-badge{display:inline-block;background:var(--primary);color:var(--primaryText);border-radius:999px;padding:6px 12px;font-size:13px;margin-top:8px}.review-main{font-size:22px;font-weight:800}.review-good{color:#1f7a3f}.review-bad{color:#b03a2e}
 .heatmap-label{font-size:13px;margin-bottom:8px}.heatmap-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.heatmap-cell{height:28px;border-radius:8px;background:var(--line)}.heatmap-cell.level-1{background:var(--blue1)}.heatmap-cell.level-2{background:var(--blue2)}.heatmap-cell.level-3{background:var(--blue3)}
@@ -94,7 +116,11 @@ function renderCalendar(){const c=document.getElementById("calendarBox");if(!c)r
 function selectCalendarDate(k){logDate.value=k;render()}function moveMonth(o){const c=new Date(logDate.value);c.setMonth(c.getMonth()+o);c.setDate(1);logDate.value=c.toISOString().slice(0,10);render()}
 function countInputs(l){let c=0;Object.values(l).forEach(fs=>Object.values(fs).forEach(v=>{if(v!==undefined&&v!==null&&String(v).trim()!=="")c++}));return c}
 function get7DayAverage(c,f){const ds=getDateRange(new Date(logDate.value),6),v=getValuesForDates(ds,c,f);return v.length?average(v):null}
-function renderHabits(){const c=document.getElementById("habitList"),tl=getTodayLog();c.innerHTML="";habits.forEach((h,hi)=>{if(!tl[h.name])tl[h.name]={};const hd=document.createElement("div");hd.className="habit";hd.innerHTML=`<div class="habit-head"><div class="habit-title">${h.name}</div><button class="secondary mini" onclick="deleteHabit(${hi})">削除</button></div><div id="fields-${hi}"></div><div class="add-field-row"><input id="addFieldName-${hi}" placeholder="内訳名 例：距離"><input id="addFieldUnit-${hi}" placeholder="単位"><button class="secondary mini" onclick="addField(${hi})">追加</button></div>`;c.appendChild(hd);const fd=document.getElementById(`fields-${hi}`);h.fields.forEach((f,fi)=>{const val=getLogValue(tl,h.name,f.name),act=selectedChart&&selectedChart.category===h.name&&selectedChart.field===f.name,row=document.createElement("div");row.className="field-row";row.innerHTML=`<label>${f.name}</label><div style="display:flex;gap:4px;align-items:center;">
+function renderHabits(){const c=document.getElementById("habitList"),tl=getTodayLog();c.innerHTML="";habits.forEach((h,hi)=>{if(!tl[h.name])tl[h.name]={};const hd=document.createElement("div");hd.className="habit";hd.innerHTML=`<div class="habit-head"><div class="habit-title">${h.name}</div><button class="secondary mini" onclick="deleteHabit(${hi})">削除</button></div><div id="fields-${hi}"></div><div class="add-field-row"><input id="addFieldName-${hi}" placeholder="内訳名 例：距離"><input id="addFieldUnit-${hi}" placeholder="単位"><button class="secondary mini" onclick="addField(${hi})">追加</button></div>`;c.appendChild(hd);const fd=document.getElementById(`fields-${hi}`);h.fields.forEach((f,fi)=>{const val=getLogValue(tl,h.name,f.name),act=selectedChart&&selectedChart.category===h.name&&selectedChart.field===f.name,row=document.createElement("div");row.className="field-row";row.innerHTML = `
+<label>${f.name}</label>
+
+<div class="field-main">
+
   ${f.unit ? `
     <button class="secondary mini"
       onclick="stepValue('${escapeJs(h.name)}','${escapeJs(f.name)}',-1)">
@@ -116,24 +142,51 @@ function renderHabits(){const c=document.getElementById("habitList"),tl=getToday
       ＋
     </button>
   ` : ""}
-</div>${f.unit==="分" ? `
-  <div class="quick-buttons">
-    <button class="secondary mini"
-      onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',10)">
-      +10
-    </button>
 
-    <button class="secondary mini"
-      onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',15)">
-      +15
-    </button>
+</div>
 
-    <button class="secondary mini"
-      onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',30)">
-      +30
-    </button>
-  </div>
-` : ""}<div class="unit">${f.unit||""}</div><button class="secondary mini" onclick="copyYesterday('${escapeJs(h.name)}','${escapeJs(f.name)}')">前日</button><button class="mini graph-btn ${act?"active":""}" onclick="toggleChart('${escapeJs(h.name)}','${escapeJs(f.name)}')">グラフ</button><button class="secondary mini" onclick="deleteField(${hi},${fi})">×</button>`;fd.appendChild(row)})});save()}
+<div class="unit">
+  ${f.unit || ""}
+</div>
+
+<div class="field-actions">
+
+  ${f.unit==="分" ? `
+    <div class="quick-buttons">
+      <button class="secondary mini"
+        onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',10)">
+        +10
+      </button>
+
+      <button class="secondary mini"
+        onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',15)">
+        +15
+      </button>
+
+      <button class="secondary mini"
+        onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',30)">
+        +30
+      </button>
+    </div>
+  ` : ""}
+
+  <button class="secondary mini"
+    onclick="copyYesterday('${escapeJs(h.name)}','${escapeJs(f.name)}')">
+    前日
+  </button>
+
+  <button class="mini graph-btn ${act?"active":""}"
+    onclick="toggleChart('${escapeJs(h.name)}','${escapeJs(f.name)}')">
+    グラフ
+  </button>
+
+  <button class="secondary mini"
+    onclick="deleteField(${hi},${fi})">
+    ×
+  </button>
+
+</div>
+`;`;fd.appendChild(row)})});save()}
 function getLogValue(dl,c,f){if(!dl[c])return"";if(dl[c][f]!==undefined)return dl[c][f];if(c==="体重"&&f==="数値"&&dl[c]["kg"]!==undefined)return dl[c]["kg"];if(c==="体脂肪率"&&f==="数値"&&dl[c]["%"]!==undefined)return dl[c]["%"];return""}
 function updateLog(h,f,v){const tl=getTodayLog();if(!tl[h])tl[h]={};tl[h][f]=v;if(h==="体重")delete tl[h]["kg"];if(h==="体脂肪率")delete tl[h]["%"];save();renderDashboard();renderAIReview();renderCalendar();renderStreak();renderWeeklyReview();renderHeatmap();renderChart();renderHistory()}
 function stepValue(category, field, delta) {
