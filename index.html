@@ -186,7 +186,7 @@ function renderHabits(){const c=document.getElementById("habitList"),tl=getToday
   </button>
 
 </div>
-`;`;fd.appendChild(row)})});save()}
+`;fd.appendChild(row)})});save()}
 function getLogValue(dl,c,f){if(!dl[c])return"";if(dl[c][f]!==undefined)return dl[c][f];if(c==="体重"&&f==="数値"&&dl[c]["kg"]!==undefined)return dl[c]["kg"];if(c==="体脂肪率"&&f==="数値"&&dl[c]["%"]!==undefined)return dl[c]["%"];return""}
 function updateLog(h,f,v){const tl=getTodayLog();if(!tl[h])tl[h]={};tl[h][f]=v;if(h==="体重")delete tl[h]["kg"];if(h==="体脂肪率")delete tl[h]["%"];save();renderDashboard();renderAIReview();renderCalendar();renderStreak();renderWeeklyReview();renderHeatmap();renderChart();renderHistory()}
 function stepValue(category, field, delta) {
