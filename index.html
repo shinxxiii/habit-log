@@ -22,6 +22,17 @@ h2{margin:0 0 12px;font-size:18px}label{display:block;font-size:13px;color:var(-
 input,select{width:100%;box-sizing:border-box;padding:10px 12px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:var(--card);color:var(--text)}
 button{border:none;border-radius:12px;padding:10px 14px;background:#222;color:#fff;font-size:14px;cursor:pointer}
 button.secondary{background:#e9ecef;color:#222}body.dark button.secondary{background:#2a2a2c;color:#eee}button.danger{background:#c0392b;color:#fff}.mini{padding:8px 10px;font-size:12px}
+.quick-buttons{
+  display:flex;
+  gap:4px;
+  flex-wrap:wrap;
+  margin-top:4px;
+}
+
+.quick-buttons button{
+  padding:6px 10px;
+  font-size:11px;
+}
 .dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.dashboard-item,.review-item,.ai-review-item{background:var(--soft);border-radius:14px;padding:12px}
 .dashboard-label,.dashboard-sub,.review-sub,.streak-sub,.unit,.heatmap-label{color:var(--muted)}.dashboard-label{font-size:13px;margin-bottom:6px}.dashboard-value{font-size:24px;font-weight:800}.dashboard-sub{font-size:12px;margin-top:4px}
 .ai-review-list,.review-grid{display:grid;gap:10px}.ai-review-item{font-size:14px;line-height:1.5}.ai-review-title,.review-title{font-weight:800;margin-bottom:6px}.ai-review-good{border-left:5px solid #1f7a3f}.ai-review-warn{border-left:5px solid #b36b00}.ai-review-neutral{border-left:5px solid #777}
@@ -92,7 +103,24 @@ function renderHabits(){const c=document.getElementById("habitList"),tl=getToday
       ＋
     </button>
   ` : ""}
-</div><div class="unit">${f.unit||""}</div><button class="secondary mini" onclick="copyYesterday('${escapeJs(h.name)}','${escapeJs(f.name)}')">前日</button><button class="mini graph-btn ${act?"active":""}" onclick="toggleChart('${escapeJs(h.name)}','${escapeJs(f.name)}')">グラフ</button><button class="secondary mini" onclick="deleteField(${hi},${fi})">×</button>`;fd.appendChild(row)})});save()}
+</div>${f.unit==="分" ? `
+  <div class="quick-buttons">
+    <button class="secondary mini"
+      onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',10)">
+      +10
+    </button>
+
+    <button class="secondary mini"
+      onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',15)">
+      +15
+    </button>
+
+    <button class="secondary mini"
+      onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',30)">
+      +30
+    </button>
+  </div>
+` : ""}<div class="unit">${f.unit||""}</div><button class="secondary mini" onclick="copyYesterday('${escapeJs(h.name)}','${escapeJs(f.name)}')">前日</button><button class="mini graph-btn ${act?"active":""}" onclick="toggleChart('${escapeJs(h.name)}','${escapeJs(f.name)}')">グラフ</button><button class="secondary mini" onclick="deleteField(${hi},${fi})">×</button>`;fd.appendChild(row)})});save()}
 function getLogValue(dl,c,f){if(!dl[c])return"";if(dl[c][f]!==undefined)return dl[c][f];if(c==="体重"&&f==="数値"&&dl[c]["kg"]!==undefined)return dl[c]["kg"];if(c==="体脂肪率"&&f==="数値"&&dl[c]["%"]!==undefined)return dl[c]["%"];return""}
 function updateLog(h,f,v){const tl=getTodayLog();if(!tl[h])tl[h]={};tl[h][f]=v;if(h==="体重")delete tl[h]["kg"];if(h==="体脂肪率")delete tl[h]["%"];save();renderDashboard();renderAIReview();renderCalendar();renderStreak();renderWeeklyReview();renderHeatmap();renderChart();renderHistory()}
 function stepValue(category, field, delta) {
@@ -111,6 +139,23 @@ function stepValue(category, field, delta) {
 
   todayLog[category][field] =
     Number(current.toFixed(1));
+
+  save();
+  render();
+}
+function quickAdd(category, field, amount){
+  const todayLog=getTodayLog();
+
+  if(!todayLog[category]){
+    todayLog[category]={};
+  }
+
+  let current=
+    parseFloat(todayLog[category][field]) || 0;
+
+  current += amount;
+
+  todayLog[category][field]=current;
 
   save();
   render();
