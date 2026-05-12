@@ -46,6 +46,7 @@ button.secondary{background:#e9ecef;color:#222}body.dark button.secondary{backgr
 <section class="card"><h2>Streak</h2><div id="streakBox"></div></section>
 <section class="card"><h2>週次レビュー</h2><div id="weeklyReview"></div></section>
 <section class="card"><h2>Heatmap</h2><div id="heatmapBox"></div></section>
+<section class="card"><h2>月次サマリー</h2><div id="monthlySummary"></div></section>
 <section class="card"><h2>グラフ</h2><div class="chart-title" id="chartTitle">表示したい内訳の「グラフ」ボタンを押してください</div><div class="chart-box"><canvas id="habitChart"></canvas></div></section>
 <section class="card"><h2>記録履歴</h2><div class="actions"><button onclick="exportCSV()">CSV</button><button onclick="exportJSON()">JSON</button><button onclick="importJSON()">復元</button><button onclick="resetAll()" class="danger">全削除</button></div><input type="file" id="importFile" style="display:none" accept=".json"><div id="history"></div></section>
 </div>
@@ -58,7 +59,7 @@ function migrateHabits(raw){return raw.map(h=>({name:h.name,fields:h.fields.map(
 function guessFieldObject(c,f){const m={"kg":"kg","%":"%","数値":c==="体重"?"kg":c==="体脂肪率"?"%":"","睡眠時間":"h","睡眠スコア":"点","ボディバッテリー":"点","腕立て":"回","腹筋":"回","背筋":"回","スクワット":"回","カーフレイズ":"回","時間":"分","距離":"km","速度":"mph","勤務時間":"h"};let name=f,unit=m[f]||"";if(c==="体重"&&f==="kg"){name="数値";unit="kg"}if(c==="体脂肪率"&&f==="%"){name="数値";unit="%"}return{name,unit}}
 function save(){localStorage.setItem("habits",JSON.stringify(habits));localStorage.setItem("logs",JSON.stringify(logs));localStorage.setItem("selectedChart",JSON.stringify(selectedChart));localStorage.setItem("activeTab",activeTab);localStorage.setItem("darkMode",darkMode)}
 function getTodayLog(){const d=logDate.value;if(!logs[d])logs[d]={};return logs[d]}
-function render(){applyTheme();renderDashboard();renderAIReview();renderCalendar();renderHabits();renderStreak();renderWeeklyReview();renderHeatmap();renderChart();renderHistory();setupBottomNav();setupAccordions();setupThemeButton()}
+function render(){applyTheme();renderDashboard();renderAIReview();renderCalendar();renderHabits();renderStreak();renderWeeklyReview();renderHeatmap();renderMonthlySummary();renderChart();renderHistory();setupBottomNav();setupAccordions();setupThemeButton()}
 function applyTheme(){document.body.classList.toggle("dark",darkMode)}
 function setupThemeButton(){let b=document.getElementById("themeButton");if(!b){b=document.createElement("button");b.id="themeButton";b.className="theme-btn";b.onclick=toggleTheme;document.body.appendChild(b)}b.textContent=darkMode?"☀️":"🌙"}
 function toggleTheme(){darkMode=!darkMode;save();render()}
@@ -128,12 +129,103 @@ function hasAnyLog(d){const l=logs[d];if(!l)return false;return Object.values(l)
 function renderWeeklyReview(){const c=document.getElementById("weeklyReview");if(!c)return;const today=new Date(logDate.value),l7=getDateRange(today,6),p7=getDateRange(addDays(today,-7),6),targets=[["体重","数値","体重",true],["体脂肪率","数値","体脂肪率",true],["BMI","数値","BMI",true],["睡眠","睡眠時間","睡眠時間",false],["睡眠","睡眠スコア","睡眠スコア",false],["睡眠","ボディバッテリー","ボディバッテリー",false],["筋トレ","腕立て","腕立て",false],["筋トレ","スクワット","スクワット",false],["ウォーキング","距離","ウォーキング距離",false],["ランニング","距離","ランニング距離",false],["英語","時間","英語時間",false],["読書","時間","読書時間",false],["勤務","勤務時間","勤務時間",false]].map(x=>({category:x[0],field:x[1],label:x[2],lowerIsBetter:x[3]}));const cards=targets.map(t=>createReviewCard(t,l7,p7)).filter(Boolean);c.innerHTML=cards.length?`<div class="review-grid">${cards.join("")}</div>`:`<div class="review-sub">まだ週次レビューに使える数値データがありません。</div>`}
 function createReviewCard(t,l7,p7){const cv=getValuesForDates(l7,t.category,t.field),pv=getValuesForDates(p7,t.category,t.field);if(!cv.length)return null;const u=getUnit(t.category,t.field),ca=average(cv),pa=pv.length?average(pv):null,rate=Math.round(cv.length/7*100);let dt="前週データなし",dc="";if(pa!==null){const diff=ca-pa,isGood=t.lowerIsBetter?diff<0:diff>0;dt=`前週比 ${diff>=0?"+":""}${diff.toFixed(1)} ${u}`;dc=isGood?"review-good":"review-bad"}return`<div class="review-item"><div class="review-title">${t.label}</div><div class="review-main">${ca.toFixed(1)} ${u}</div><div class="review-sub">直近7日平均 / 入力率 ${rate}%</div><div class="review-sub ${dc}">${dt}</div></div>`}
 function renderHeatmap(){const c=document.getElementById("heatmapBox");if(!c)return;const s=new Date(logDate.value),y=s.getFullYear(),m=s.getMonth(),dim=new Date(y,m+1,0).getDate();let cells="";for(let d=1;d<=dim;d++){const k=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`,cnt=countInputs(logs[k]||{});let lv=0;if(cnt>=1)lv=1;if(cnt>=3)lv=2;if(cnt>=6)lv=3;cells+=`<div class="heatmap-cell level-${lv}" title="${k}: ${cnt} inputs"></div>`}c.innerHTML=`<div class="heatmap-label">選択月の記録密度。濃いほど入力数が多い日です。</div><div class="heatmap-grid">${cells}</div>`}
+function renderMonthlySummary(){
+  const c=document.getElementById("monthlySummary");
+  if(!c)return;
+
+  const s=new Date(logDate.value);
+  const y=s.getFullYear();
+  const m=s.getMonth();
+  const days=new Date(y,m+1,0).getDate();
+
+  let loggedDays=0;
+  let totalInputs=0;
+
+  const monthDates=[];
+
+  for(let d=1;d<=days;d++){
+    const k=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+    monthDates.push(k);
+    const count=countInputs(logs[k]||{});
+    if(count>0)loggedDays++;
+    totalInputs+=count;
+  }
+
+  const weightAvg=averageOrNull(getValuesForDates(monthDates,"体重","数値"));
+  const sleepAvg=averageOrNull(getValuesForDates(monthDates,"睡眠","睡眠時間"));
+  const walkTotal=sumValuesForDates(monthDates,"ウォーキング","距離");
+  const runTotal=sumValuesForDates(monthDates,"ランニング","距離");
+  const englishTotal=sumValuesForDates(monthDates,"英語","時間");
+  const readingTotal=sumValuesForDates(monthDates,"読書","時間");
+
+  c.innerHTML=`
+    <div class="dashboard-grid">
+      <div class="dashboard-item">
+        <div class="dashboard-label">記録日数</div>
+        <div class="dashboard-value">${loggedDays}</div>
+        <div class="dashboard-sub">日 / ${days}日</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">入力数</div>
+        <div class="dashboard-value">${totalInputs}</div>
+        <div class="dashboard-sub">項目</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">平均体重</div>
+        <div class="dashboard-value">${weightAvg!==null?weightAvg.toFixed(1):"-"}</div>
+        <div class="dashboard-sub">kg</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">平均睡眠</div>
+        <div class="dashboard-value">${sleepAvg!==null?sleepAvg.toFixed(1):"-"}</div>
+        <div class="dashboard-sub">h</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">歩行距離</div>
+        <div class="dashboard-value">${walkTotal.toFixed(1)}</div>
+        <div class="dashboard-sub">km/月</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">ラン距離</div>
+        <div class="dashboard-value">${runTotal.toFixed(1)}</div>
+        <div class="dashboard-sub">km/月</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">英語</div>
+        <div class="dashboard-value">${englishTotal.toFixed(0)}</div>
+        <div class="dashboard-sub">分/月</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">読書</div>
+        <div class="dashboard-value">${readingTotal.toFixed(0)}</div>
+        <div class="dashboard-sub">分/月</div>
+      </div>
+    </div>
+  `;
+}
+
+function averageOrNull(values){
+  if(!values.length)return null;
+  return average(values);
+}
+
+function sumValuesForDates(dates,category,field){
+  return getValuesForDates(dates,category,field)
+    .reduce((sum,value)=>sum+value,0);
+}  
 function getValuesForDates(ds,c,f){return ds.map(d=>{const rv=getStoredValue(d,c,f),nv=parseFloat(String(rv).replace(/[^\d.-]/g,""));return Number.isFinite(nv)?nv:null}).filter(v=>v!==null)}
 function getStoredValue(d,c,f){const l=logs[d];if(!l||!l[c])return undefined;if(l[c][f]!==undefined)return l[c][f];if(c==="体重"&&f==="数値")return l[c]["kg"];if(c==="体脂肪率"&&f==="数値")return l[c]["%"];return undefined}
 function getUnit(c,f){const h=habits.find(x=>x.name===c);if(!h)return"";const fo=h.fields.find(x=>x.name===f);return fo?fo.unit:""}
 function average(v){return v.reduce((s,x)=>s+x,0)/v.length}function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r}function getDateRange(e,b){const ds=[];for(let i=b;i>=0;i--){const d=addDays(e,-i);ds.push(d.toISOString().slice(0,10))}return ds}
 function renderHistory(){const h=document.getElementById("history");h.innerHTML="";Object.keys(logs).sort().reverse().slice(0,14).forEach(d=>{const item=document.createElement("div");item.className="history-item";const sum=Object.entries(logs[d]).map(([habit,fields])=>{const vals=Object.entries(fields).filter(([_,v])=>v).map(([k,v])=>{const u=getUnit(habit,k);return`${k}: ${v}${u?" "+u:""}`}).join(" / ");return vals?`${habit}｜${vals}`:""}).filter(Boolean).join("<br>");item.innerHTML=`<div class="history-date">${d}</div><div>${sum||"記録なし"}</div>`;h.appendChild(item)})}
-function setupBottomNav(){let nav=document.getElementById("bottomNav");if(!nav){nav=document.createElement("div");nav.id="bottomNav";nav.className="bottom-nav";nav.innerHTML=`<button onclick="switchTab('home')">Home</button><button onclick="switchTab('record')">記録</button><button onclick="switchTab('analysis')">分析</button><button onclick="switchTab('history')">履歴</button>`;document.body.appendChild(nav)}Array.from(nav.querySelectorAll("button")).forEach(b=>{b.classList.remove("active");if(b.getAttribute("onclick")?.includes(activeTab))b.classList.add("active")});document.querySelectorAll(".card").forEach(card=>{const t=card.querySelector("h2")?.textContent||"",l=card.querySelector("label")?.textContent||"";let g="other";if(t.includes("Dashboard")||t.includes("AI Review")||t.includes("Streak"))g="home";if(l.includes("記録日")||t.includes("Calendar")||t.includes("今日の記録")||t.includes("項目追加"))g="record";if(t.includes("週次レビュー")||t.includes("グラフ")||t.includes("Heatmap"))g="analysis";if(t.includes("記録履歴"))g="history";card.classList.toggle("tab-hidden",g!==activeTab)})}
+function setupBottomNav(){let nav=document.getElementById("bottomNav");if(!nav){nav=document.createElement("div");nav.id="bottomNav";nav.className="bottom-nav";nav.innerHTML=`<button onclick="switchTab('home')">Home</button><button onclick="switchTab('record')">記録</button><button onclick="switchTab('analysis')">分析</button><button onclick="switchTab('history')">履歴</button>`;document.body.appendChild(nav)}Array.from(nav.querySelectorAll("button")).forEach(b=>{b.classList.remove("active");if(b.getAttribute("onclick")?.includes(activeTab))b.classList.add("active")});document.querySelectorAll(".card").forEach(card=>{const t=card.querySelector("h2")?.textContent||"",l=card.querySelector("label")?.textContent||"";let g="other";if(t.includes("Dashboard")||t.includes("AI Review")||t.includes("Streak"))g="home";if(l.includes("記録日")||t.includes("Calendar")||t.includes("今日の記録")||t.includes("項目追加"))g="record";if(t.includes("週次レビュー")||t.includes("グラフ")||t.includes("Heatmap")||t.includes("月次サマリー"))g="analysis";if(t.includes("記録履歴"))g="history";card.classList.toggle("tab-hidden",g!==activeTab)})}
 function switchTab(t){activeTab=t;save();render();window.scrollTo({top:0,behavior:"smooth"})}
 function setupAccordions(){document.querySelectorAll(".card").forEach(s=>{if(s.dataset.accordionReady==="true")return;const title=s.querySelector("h2");if(!title)return;const bodyEls=Array.from(s.children).filter(el=>el!==title),header=document.createElement("div"),arrow=document.createElement("div");header.className="accordion-header";arrow.className="accordion-arrow";arrow.textContent="▼";title.parentNode.insertBefore(header,title);header.appendChild(title);header.appendChild(arrow);const body=document.createElement("div");body.className="accordion-body";bodyEls.forEach(el=>body.appendChild(el));s.appendChild(body);let open=true;if(title.textContent.includes("グラフ")||title.textContent.includes("履歴"))open=false;if(!open){body.classList.add("hidden");arrow.classList.add("closed")}header.onclick=()=>{body.classList.toggle("hidden");arrow.classList.toggle("closed")};s.dataset.accordionReady="true"})}
 function exportCSV(){let rows=[["date","category","field","value","unit"]];Object.entries(logs).forEach(([d,dl])=>Object.entries(dl).forEach(([c,fs])=>Object.entries(fs).forEach(([f,v])=>rows.push([d,c,f,v,getUnit(c,f)]))));const csv=rows.map(r=>r.map(cell=>`"${String(cell).replaceAll('"','""')}"`).join(",")).join("\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="habit-log.csv";a.click();URL.revokeObjectURL(url)}
