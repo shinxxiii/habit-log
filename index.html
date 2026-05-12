@@ -24,6 +24,7 @@ button{border:none;border-radius:12px;padding:10px 14px;background:#222;color:#f
 button.secondary{background:#e9ecef;color:#222}body.dark button.secondary{background:#2a2a2c;color:#eee}button.danger{background:#c0392b;color:#fff}.mini{padding:8px 10px;font-size:12px}
 .quick-buttons{
   display:flex;
+  flex-direction:column;
   gap:4px;
   flex-wrap:wrap;
   margin-top:4px;
@@ -37,7 +38,19 @@ button.secondary{background:#e9ecef;color:#222}body.dark button.secondary{backgr
 .dashboard-label,.dashboard-sub,.review-sub,.streak-sub,.unit,.heatmap-label{color:var(--muted)}.dashboard-label{font-size:13px;margin-bottom:6px}.dashboard-value{font-size:24px;font-weight:800}.dashboard-sub{font-size:12px;margin-top:4px}
 .ai-review-list,.review-grid{display:grid;gap:10px}.ai-review-item{font-size:14px;line-height:1.5}.ai-review-title,.review-title{font-weight:800;margin-bottom:6px}.ai-review-good{border-left:5px solid #1f7a3f}.ai-review-warn{border-left:5px solid #b36b00}.ai-review-neutral{border-left:5px solid #777}
 .calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.calendar-title{font-weight:800;font-size:18px}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.calendar-day-name{text-align:center;font-size:12px;color:var(--muted);padding:4px 0}.calendar-day{min-height:42px;border-radius:12px;background:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text);padding:0}.calendar-day.empty{background:transparent}.calendar-day.logged{background:var(--blue1)}body.dark .calendar-day.logged{background:#26364f}.calendar-day.selected{background:var(--primary);color:var(--primaryText)}.calendar-date{font-weight:700}.calendar-dot{font-size:12px;line-height:1;margin-top:2px}
-.habit{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.habit:first-child{border-top:none;margin-top:0;padding-top:0}.habit-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.habit-title{font-weight:700}.field-row{display:grid;grid-template-columns:1fr 1.1fr 52px auto auto auto;gap:6px;align-items:center;margin-top:8px}.field-row input{margin-bottom:0}.unit{font-size:13px}.add-field-row{display:grid;grid-template-columns:1fr 70px auto;gap:6px;align-items:center;margin-top:10px}.add-field-row input{margin-bottom:0}
+.habit{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.habit:first-child{border-top:none;margin-top:0;padding-top:0}.habit-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.habit-title{font-weight:700}.field-row{
+  display:grid;
+  grid-template-columns:
+    90px
+    minmax(140px,1fr)
+    auto
+    auto
+    auto
+    auto;
+  gap:6px;
+  align-items:center;
+  margin-top:8px
+}.field-row input{margin-bottom:0}.unit{font-size:13px}.add-field-row{display:grid;grid-template-columns:1fr 70px auto;gap:6px;align-items:center;margin-top:10px}.add-field-row input{margin-bottom:0}
 .streak-main{font-size:30px;font-weight:800}.streak-badge{display:inline-block;background:var(--primary);color:var(--primaryText);border-radius:999px;padding:6px 12px;font-size:13px;margin-top:8px}.review-main{font-size:22px;font-weight:800}.review-good{color:#1f7a3f}.review-bad{color:#b03a2e}
 .heatmap-label{font-size:13px;margin-bottom:8px}.heatmap-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.heatmap-cell{height:28px;border-radius:8px;background:var(--line)}.heatmap-cell.level-1{background:var(--blue1)}.heatmap-cell.level-2{background:var(--blue2)}.heatmap-cell.level-3{background:var(--blue3)}
 .graph-btn{background:#e9ecef;color:#222}.graph-btn.active{background:#222;color:#fff}body.dark .graph-btn{background:#2a2a2c;color:#eee}body.dark .graph-btn.active{background:#fff;color:#111}.chart-title{font-weight:700;margin:8px 0 12px;color:var(--text)}.chart-box{position:relative;height:240px;width:100%}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.history-item{border-top:1px solid var(--line);padding:10px 0;font-size:13px}.history-date{font-weight:700;margin-bottom:4px}
