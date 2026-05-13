@@ -1,2670 +1,293 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="dark">
-<meta name="fo-verify" content="df0dd6b9-0610-493f-ba7e-69548095e35c" />
-<meta name="theme-color" content="#0D1B2E">
-<title>USカードナビ 🇺🇸 - 在米日本人のためのクレカ攻略</title>
-<meta name="description" content="在米日本人のためのクレジットカード攻略アプリ。AI診断で最適なカードを30秒で提案。SSNなし対応カードや日本帰国時のマイル戦略も網羅。">
-
-<!-- Open Graph / Twitter Card -->
-
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://amepeach.com/">
-<meta property="og:title" content="USカードナビ 🇺🇸 在米日本人のためのクレカ攻略アプリ">
-<meta property="og:description" content="AI診断で最適カード提案・SSNなし対応・日本帰国時のマイル戦略まで。在米日本人のためのクレカ完全ガイド。">
-<meta property="og:image" content="https://amepeach.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:site_name" content="AmePeach">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="USカードナビ 🇺🇸 在米日本人のためのクレカ攻略アプリ">
-<meta name="twitter:description" content="AI診断で最適カード提案・SSNなし対応・日本帰国時のマイル戦略まで。">
-<meta name="twitter:image" content="https://amepeach.com/og-image.png">
-
-<!-- Favicons -->
-
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-
-<!-- Google tag (gtag.js) -->
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XB5X4LK6FL"></script>
-
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XB5X4LK6FL');
-</script>
-
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Baloo+2:wght@700;800&family=Yusei+Magic&family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<title>Habit Log</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Habit Log">
+<meta name="theme-color" content="#f6f7f9">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-  :root {
-    --pink: #F5A623;
-    --yellow: #FFD600;
-    --cyan: #4A9EDB;
-    --purple: #1B3A6B;
-    --green: #5DBE8A;
-    --orange: #F5763A;
-    --bg: #0A1628;
-    --card-bg: #1A2E45;
-    --text: #FFF8EE;
-    --text-muted: #9DB8D4;
-  }
-
-- { margin: 0; padding: 0; box-sizing: border-box; }
-
-html {
-background: #0A1628 !important;
-}
-
-/* PC対応：最大幅制限 */
-@media (min-width: 600px) {
-body {
-display: flex;
-justify-content: center;
-background: #060E1A !important;
-}
-.pc-wrapper {
-width: 100%;
-max-width: 480px;
-min-height: 100vh;
-background: #0A1628 !important;
-position: relative;
-box-shadow: 0 0 60px rgba(0,0,0,0.6);
-}
-}
-@media (max-width: 599px) {
-.pc-wrapper {
-width: 100%;
-background: #0A1628 !important;
-min-height: 100vh;
-}
-}
-
-body {
-font-family: ‘Zen Maru Gothic’, sans-serif;
-background: #0A1628 !important;
-color: #FFF8EE;
-min-height: 100vh;
-overflow-x: hidden;
-}
-
-/* BG blobs - 完全に非表示に */
-.bg-blob { display: none; }
-
-/* Header */
-header {
-position: relative;
-z-index: 10;
-padding: 24px 20px 0;
-text-align: center;
-background: #0A1628;
-}
-
-.logo {
-font-family: ‘Zen Maru Gothic’, sans-serif;
-font-size: 2rem;
-font-weight: 900;
-color: #FFD600;
-line-height: 1.2;
-animation: fadeDown 0.6s ease;
-letter-spacing: 0.02em;
-}
-
-.logo .pop-char {
-display: inline-block;
-animation: wiggle 2.5s ease-in-out infinite;
-}
-.logo .pop-char:nth-child(2) { animation-delay: 0.15s; }
-.logo .pop-char:nth-child(3) { animation-delay: 0.3s; }
-.logo .pop-char:nth-child(4) { animation-delay: 0.45s; }
-.logo .pop-char:nth-child(5) { animation-delay: 0.6s; }
-.logo .pop-char:nth-child(6) { animation-delay: 0.75s; }
-
-@keyframes wiggle {
-0%, 100% { transform: translateY(0) rotate(0deg); }
-25% { transform: translateY(-3px) rotate(-2deg); }
-75% { transform: translateY(-1px) rotate(2deg); }
-}
-
-.tagline {
-font-size: 0.85rem;
-color: var(–text-muted);
-margin-top: 6px;
-animation: fadeDown 0.8s ease;
-}
-
-/* Filter tabs */
-.filter-section {
-position: relative;
-z-index: 10;
-padding: 20px 16px 12px;
-animation: fadeUp 0.7s ease;
-}
-
-.filter-label {
-font-size: 0.75rem;
-color: var(–text-muted);
-margin-bottom: 10px;
-letter-spacing: 0.05em;
-}
-
-.filter-tabs {
-display: flex;
-gap: 8px;
-flex-wrap: wrap;
-}
-
-.tab {
-padding: 8px 16px;
-border-radius: 999px;
-border: 2px solid transparent;
-background: var(–card-bg);
-color: var(–text-muted);
-font-family: ‘Zen Maru Gothic’, sans-serif;
-font-size: 0.8rem;
-font-weight: 700;
-cursor: pointer;
-transition: all 0.2s;
-white-space: nowrap;
-}
-
-.tab.active, .tab:hover {
-background: var(–orange);
-color: white;
-border-color: var(–orange);
-transform: translateY(-2px);
-}
-
-/* Cards grid */
-.cards-section {
-position: relative;
-z-index: 10;
-padding: 0 16px 100px;
-display: grid;
-gap: 16px;
-}
-
-.card {
-background: #1A2E45;
-border-radius: 20px;
-padding: 20px;
-border: 1px solid rgba(255,255,255,0.1);
-cursor: pointer;
-transition: transform 0.25s, box-shadow 0.25s;
-animation: fadeUp 0.5s ease backwards;
-position: relative;
-overflow: hidden;
-}
-
-.card::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 3px;
-background: var(–accent);
-}
-
-.card:hover {
-transform: translateY(-4px);
-box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-}
-
-.card-header {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-margin-bottom: 14px;
-}
-
-.card-issuer {
-font-size: 0.7rem;
-color: var(–text-muted);
-margin-bottom: 4px;
-text-transform: uppercase;
-letter-spacing: 0.08em;
-}
-
-.card-name {
-font-size: 1.05rem;
-font-weight: 900;
-line-height: 1.2;
-}
-
-.card-emoji {
-font-size: 2rem;
-filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
-}
-
-/* Tags */
-.tags {
-display: flex;
-gap: 6px;
-flex-wrap: wrap;
-margin-bottom: 14px;
-}
-
-.tag {
-padding: 3px 10px;
-border-radius: 999px;
-font-size: 0.7rem;
-font-weight: 700;
-background: rgba(255,255,255,0.08);
-color: var(–text-muted);
-}
-
-.tag.hot {
-background: rgba(255,77,141,0.2);
-color: var(–pink);
-}
-
-.tag.beginner {
-background: rgba(0,230,118,0.2);
-color: var(–green);
-}
-
-.tag.travel {
-background: rgba(0,212,255,0.2);
-color: var(–cyan);
-}
-
-.tag.cashback {
-background: rgba(255,214,0,0.2);
-color: var(–yellow);
-}
-
-.tag.noforeign {
-background: rgba(139,92,246,0.2);
-color: var(–purple);
-}
-
-/* Stats row */
-.stats-row {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px;
-margin-bottom: 14px;
-}
-
-.stat-box {
-background: rgba(255,255,255,0.04);
-border-radius: 12px;
-padding: 10px 12px;
-}
-
-.stat-label {
-font-size: 0.65rem;
-color: var(–text-muted);
-margin-bottom: 2px;
-}
-
-.stat-value {
-font-size: 0.95rem;
-font-weight: 900;
-color: var(–accent-color, var(–text));
-}
-
-/* Welcome bonus highlight */
-.bonus-bar {
-background: linear-gradient(135deg, rgba(245,166,35,0.15), rgba(245,118,58,0.1));
-border: 1px solid rgba(245,166,35,0.3);
-border-radius: 12px;
-padding: 10px 14px;
-margin-bottom: 14px;
-}
-
-.bonus-label {
-font-size: 0.65rem;
-color: var(–orange);
-font-weight: 700;
-text-transform: uppercase;
-letter-spacing: 0.08em;
-margin-bottom: 2px;
-}
-
-.bonus-text {
-font-size: 0.85rem;
-font-weight: 700;
-}
-
-/* SSN note */
-.ssn-note {
-font-size: 0.7rem;
-color: var(–text-muted);
-display: flex;
-align-items: center;
-gap: 4px;
-}
-
-.ssn-dot {
-width: 8px; height: 8px;
-border-radius: 50%;
-background: var(–green);
-flex-shrink: 0;
-}
-
-.ssn-dot.warn { background: var(–yellow); }
-.ssn-dot.hard { background: var(–pink); }
-
-/* Apply button */
-.apply-btn {
-display: block;
-width: 100%;
-margin-top: 14px;
-padding: 12px;
-border-radius: 12px;
-border: none;
-background: var(–accent);
-color: white;
-font-family: ‘Zen Maru Gothic’, sans-serif;
-font-size: 0.9rem;
-font-weight: 900;
-cursor: pointer;
-transition: opacity 0.2s, transform 0.2s;
-}
-
-.apply-btn:hover {
-opacity: 0.85;
-transform: scale(0.98);
-}
-
-/* Detail modal */
-.modal-overlay {
-position: fixed;
-inset: 0;
-background: rgba(0,0,0,0.75);
-backdrop-filter: blur(10px);
-z-index: 100;
-display: flex;
-align-items: flex-end;
-opacity: 0;
-pointer-events: none;
-transition: opacity 0.3s;
-}
-
-.modal-overlay.open {
-opacity: 1;
-pointer-events: all;
-}
-
-.modal {
-background: #1A2E45;
-border-radius: 28px 28px 0 0;
-padding: 8px 20px 40px;
-width: 100%;
-max-height: 85vh;
-overflow-y: auto;
-transform: translateY(100%);
-transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-border-top: 4px solid var(–modal-accent, var(–pink));
-box-shadow: 0 -8px 40px rgba(0,0,0,0.5);
-}
-
-.modal-overlay.open .modal {
-transform: translateY(0);
-}
-
-.modal-handle {
-width: 48px; height: 5px;
-background: rgba(255,255,255,0.15);
-border-radius: 99px;
-margin: 14px auto 20px;
-}
-
-.modal-title {
-font-size: 1.3rem;
-font-weight: 900;
-margin-bottom: 4px;
-}
-
-.modal-issuer-badge {
-display: inline-block;
-font-size: 0.65rem;
-font-weight: 900;
-letter-spacing: 0.1em;
-color: var(–modal-accent, var(–pink));
-background: rgba(255,255,255,0.06);
-padding: 3px 10px;
-border-radius: 99px;
-margin-bottom: 16px;
-}
-
-.modal-stats {
-display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-gap: 8px;
-margin-bottom: 16px;
-}
-
-.modal-stat {
-background: rgba(255,255,255,0.05);
-border-radius: 12px;
-padding: 10px 8px;
-text-align: center;
-}
-
-.modal-stat-label {
-font-size: 0.6rem;
-color: #9DB8D4;
-margin-bottom: 4px;
-}
-
-.modal-stat-value {
-font-size: 0.82rem;
-font-weight: 900;
-}
-
-.detail-section {
-background: rgba(255,255,255,0.04);
-border-radius: 14px;
-padding: 14px;
-margin-bottom: 10px;
-}
-
-.detail-section h3 {
-font-size: 0.72rem;
-color: #9DB8D4;
-font-weight: 900;
-letter-spacing: 0.05em;
-margin-bottom: 10px;
-}
-
-.detail-section p, .detail-section li {
-font-size: 0.85rem;
-line-height: 1.65;
-color: rgba(255,255,255,0.88);
-}
-
-.detail-section ul {
-padding-left: 16px;
-}
-
-.detail-section li {
-margin-bottom: 4px;
-}
-
-.close-btn {
-position: absolute;
-top: 20px;
-right: 20px;
-background: rgba(255,255,255,0.1);
-border: none;
-color: white;
-width: 32px; height: 32px;
-border-radius: 50%;
-font-size: 1rem;
-cursor: pointer;
-display: flex; align-items: center; justify-content: center;
-}
-
-/* Bottom nav */
-.bottom-nav {
-position: fixed;
-bottom: 0; left: 0; right: 0;
-background: rgba(13,27,46,0.92);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-padding: 12px 0 20px;
-display: flex;
-justify-content: space-around;
-z-index: 50;
-border-top: 1px solid rgba(245,166,35,0.15);
-}
-
-.nav-item {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 4px;
-font-size: 0.65rem;
-color: var(–text-muted);
-cursor: pointer;
-transition: color 0.2s;
-}
-
-.nav-item.active { color: var(–orange); }
-.nav-item span:first-child { font-size: 1.3rem; }
-
-/* === FOOTER & DISCLOSURE === */
-.app-footer {
-position: relative;
-z-index: 10;
-padding: 0 16px 110px;
-margin-top: 30px;
-}
-
-.disclosure-box {
-background: rgba(245,166,35,0.08);
-border: 1px solid rgba(245,166,35,0.2);
-border-radius: 12px;
-padding: 12px 14px;
-display: flex;
-gap: 10px;
-align-items: flex-start;
-margin-bottom: 18px;
-}
-
-.disclosure-icon {
-font-size: 1.2rem;
-flex-shrink: 0;
-}
-
-.disclosure-text {
-font-size: 0.7rem;
-line-height: 1.6;
-color: var(–text-muted);
-}
-
-.disclosure-text strong {
-color: var(–orange);
-display: inline-block;
-margin-bottom: 2px;
-}
-
-.footer-links {
-display: flex;
-justify-content: center;
-flex-wrap: wrap;
-gap: 4px 8px;
-padding: 14px 0;
-border-top: 1px solid rgba(255,255,255,0.06);
-}
-
-.footer-links a {
-color: var(–text-muted);
-text-decoration: none;
-font-size: 0.72rem;
-font-weight: 700;
-transition: color 0.2s;
-}
-
-.footer-links a:hover {
-color: var(–orange);
-}
-
-.footer-sep {
-color: rgba(255,255,255,0.15);
-font-size: 0.72rem;
-}
-
-.footer-copyright {
-text-align: center;
-font-size: 0.65rem;
-color: rgba(255,255,255,0.3);
-margin-top: 8px;
-}
-
-.debug-btn {
-display: block;
-width: calc(100% - 32px);
-margin: 8px 16px 0;
-padding: 10px;
-border-radius: 10px;
-border: 1px dashed rgba(255,255,255,0.12);
-background: transparent;
-color: var(–text-muted);
-font-family: ‘Zen Maru Gothic’, sans-serif;
-font-size: 0.72rem;
-cursor: pointer;
-text-align: center;
-transition: all 0.2s;
-}
-.debug-btn:hover { border-color: var(–orange); color: var(–orange); }
-
-/* Info modal content styling */
-.info-content h2 {
-font-size: 1.2rem;
-font-weight: 900;
-margin-bottom: 14px;
-color: var(–orange);
-}
-
-.info-content h3 {
-font-size: 0.85rem;
-font-weight: 900;
-margin: 18px 0 6px;
-color: var(–yellow);
-}
-
-.info-content p, .info-content li {
-font-size: 0.82rem;
-line-height: 1.7;
-color: rgba(255,255,255,0.85);
-margin-bottom: 8px;
-}
-
-.info-content ul {
-padding-left: 18px;
-margin-bottom: 10px;
-}
-
-.info-content .info-meta {
-font-size: 0.7rem;
-color: var(–text-muted);
-margin-top: 16px;
-padding-top: 12px;
-border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-/* Animations */
-@keyframes fadeDown {
-from { opacity: 0; transform: translateY(-16px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-.updated-badge {
-display: inline-flex;
-align-items: center;
-gap: 4px;
-font-size: 0.65rem;
-color: var(–green);
-background: rgba(0,230,118,0.1);
-padding: 3px 8px;
-border-radius: 99px;
-margin-bottom: 16px;
-}
-
-.pulse {
-width: 6px; height: 6px;
-background: var(–green);
-border-radius: 50%;
-animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-0%, 100% { opacity: 1; transform: scale(1); }
-50% { opacity: 0.5; transform: scale(1.4); }
-}
-
-/* === QUIZ === */
-.quiz-section {
-display: none;
-position: relative;
-z-index: 10;
-padding: 0 16px 100px;
-}
-
-.quiz-section.active { display: block; }
-
-.quiz-card {
-background: var(–card-bg);
-border-radius: 20px;
-padding: 24px 20px;
-border: 1px solid rgba(255,255,255,0.07);
-margin-bottom: 16px;
-}
-
-.quiz-step {
-display: none;
-}
-.quiz-step.active { display: block; }
-
-.quiz-progress {
-display: flex;
-gap: 6px;
-margin-bottom: 20px;
-}
-
-.progress-dot {
-height: 4px;
-flex: 1;
-border-radius: 99px;
-background: rgba(255,255,255,0.1);
-transition: background 0.3s;
-}
-.progress-dot.done { background: var(–orange); }
-
-.quiz-q {
-font-size: 1.1rem;
-font-weight: 900;
-margin-bottom: 6px;
-line-height: 1.4;
-}
-
-.quiz-sub {
-font-size: 0.75rem;
-color: var(–text-muted);
-margin-bottom: 20px;
-}
-
-.quiz-options {
-display: grid;
-gap: 10px;
-}
-
-.quiz-option {
-background: rgba(255,255,255,0.04);
-border: 2px solid rgba(255,255,255,0.08);
-border-radius: 14px;
-padding: 14px 16px;
-cursor: pointer;
-transition: all 0.2s;
-text-align: left;
-font-family: ‘Zen Maru Gothic’, sans-serif;
-color: var(–text);
-font-size: 0.9rem;
-font-weight: 700;
-display: flex;
-align-items: center;
-gap: 10px;
-}
-
-.quiz-option:hover {
-border-color: var(–orange);
-background: rgba(245,118,58,0.1);
-transform: translateX(4px);
-}
-
-.quiz-option .opt-emoji { font-size: 1.4rem; }
-
-/* Result */
-.result-section { display: none; }
-.result-section.active { display: block; }
-
-.result-card {
-background: linear-gradient(135deg, var(–card-bg), rgba(255,77,141,0.08));
-border: 2px solid var(–result-color, var(–pink));
-border-radius: 20px;
-padding: 24px 20px;
-margin-bottom: 16px;
-text-align: center;
-}
-
-.result-emoji { font-size: 3rem; margin-bottom: 12px; }
-.result-label { font-size: 0.7rem; color: var(–text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
-.result-name { font-size: 1.4rem; font-weight: 900; margin-bottom: 8px; }
-.result-reason { font-size: 0.85rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
-
-.result-runner {
-background: var(–card-bg);
-border-radius: 16px;
-padding: 16px;
-margin-bottom: 12px;
-display: flex;
-align-items: center;
-gap: 12px;
-}
-
-.runner-emoji { font-size: 1.6rem; }
-.runner-info { flex: 1; }
-.runner-name { font-size: 0.9rem; font-weight: 900; }
-.runner-why { font-size: 0.72rem; color: var(–text-muted); margin-top: 2px; }
-
-.retry-btn {
-display: block;
-width: 100%;
-padding: 14px;
-border-radius: 14px;
-border: 2px solid rgba(255,255,255,0.15);
-background: transparent;
-color: var(–text);
-font-family: ‘Zen Maru Gothic’, sans-serif;
-font-size: 0.9rem;
-font-weight: 700;
-cursor: pointer;
-margin-top: 8px;
-transition: all 0.2s;
-}
-.retry-btn:hover { border-color: var(–orange); color: var(–orange); }
-
-/* === AI CHAT === */
-.chat-section {
-display: none;
-position: relative;
-z-index: 10;
-padding: 0 16px;
-flex-direction: column;
-height: calc(100vh - 140px);
-}
-.chat-section.active { display: flex; }
-
-.chat-header {
-padding: 16px 0 12px;
-text-align: center;
-}
-.chat-header-title {
-font-size: 1rem;
-font-weight: 900;
-background: linear-gradient(135deg, #FFD600, #F5763A);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-}
-.chat-header-sub {
-font-size: 0.72rem;
-color: var(–text-muted);
-margin-top: 3px;
-}
-
-.chat-messages {
-flex: 1;
-overflow-y: auto;
-padding: 8px 0 12px;
-display: flex;
-flex-direction: column;
-gap: 12px;
-}
-
-.chat-bubble {
-max-width: 88%;
-padding: 12px 14px;
-border-radius: 18px;
-font-size: 0.85rem;
-line-height: 1.6;
-animation: fadeUp 0.3s ease;
-}
-
-.chat-bubble.ai {
-background: var(–card-bg);
-border: 1px solid rgba(255,255,255,0.07);
-border-bottom-left-radius: 4px;
-align-self: flex-start;
-}
-
-.chat-bubble.user {
-background: linear-gradient(135deg, #F5763A, #c0511e);
-border-bottom-right-radius: 4px;
-align-self: flex-end;
-color: white;
-}
-
-.ai-name {
-font-size: 0.65rem;
-color: #F5A623;
-font-weight: 700;
-margin-bottom: 4px;
-}
-
-.typing-indicator {
-display: flex;
-gap: 4px;
-align-items: center;
-padding: 4px 0;
-}
-.typing-dot {
-width: 7px; height: 7px;
-border-radius: 50%;
-background: var(–text-muted);
-animation: typingBounce 1.2s infinite;
-}
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes typingBounce {
-0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-30% { transform: translateY(-6px); opacity: 1; }
-}
-
-.suggested-chips {
-display: flex;
-gap: 8px;
-flex-wrap: wrap;
-padding: 4px 0 10px;
-}
-
-.chip {
-padding: 7px 13px;
-border-radius: 999px;
-background: rgba(255,255,255,0.06);
-border: 1px solid rgba(255,255,255,0.12);
-color: var(–text);
-font-family: ‘Zen Maru Gothic’, sans-serif;
-font-size: 0.75rem;
-font-weight: 700;
-cursor: pointer;
-transition: all 0.2s;
-white-space: nowrap;
-}
-.chip:hover {
-background: rgba(245,118,58,0.15);
-border-color: var(–orange);
-color: var(–orange);
-}
-
-.chat-input-row {
-display: flex;
-gap: 8px;
-padding: 10px 0 16px;
-align-items: flex-end;
-}
-
-.chat-input {
-flex: 1;
-background: var(–card-bg);
-border: 1px solid rgba(255,255,255,0.1);
-border-radius: 16px;
-padding: 12px 14px;
-color: var(–text);
-font-family: ‘Zen Maru Gothic’, sans-serif;
-font-size: 0.85rem;
-resize: none;
-outline: none;
-transition: border-color 0.2s;
-max-height: 100px;
-}
-.chat-input:focus { border-color: var(–orange); }
-.chat-input::placeholder { color: var(–text-muted); }
-
-.send-btn {
-width: 44px; height: 44px;
-border-radius: 50%;
-background: linear-gradient(135deg, #F5A623, #F5763A);
-border: none;
-color: white;
-font-size: 1.1rem;
-cursor: pointer;
-display: flex; align-items: center; justify-content: center;
-flex-shrink: 0;
-transition: transform 0.2s, opacity 0.2s;
-}
-.send-btn:hover { transform: scale(1.08); }
-.send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+:root{--bg:#f6f7f9;--card:#fff;--text:#222;--muted:#666;--soft:#f6f7f9;--line:#e5e7eb;--primary:#222;--primaryText:#fff;--blue1:#cfe3ff;--blue2:#7fb3ff;--blue3:#1f6feb}
+body.dark{--bg:#111;--card:#1c1c1e;--text:#eee;--muted:#aaa;--soft:#2a2a2c;--line:#333;--primary:#fff;--primaryText:#111;--blue1:#294766;--blue2:#2864a6;--blue3:#58a6ff}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text)}
+.app{max-width:520px;margin:0 auto;padding:16px 16px 112px}
+header{margin-bottom:16px}h1{margin:0;font-size:28px}header p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.card{background:var(--card);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+h2{margin:0 0 12px;font-size:18px}label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+input,select{width:100%;box-sizing:border-box;padding:10px 12px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:var(--card);color:var(--text)}
+button{border:none;border-radius:12px;padding:10px 14px;background:#222;color:#fff;font-size:14px;cursor:pointer}
+button.secondary{background:#e9ecef;color:#222}body.dark button.secondary{background:#2a2a2c;color:#eee}button.danger{background:#c0392b;color:#fff}.mini{padding:8px 10px;font-size:12px}
+.quick-buttons{
+  display:flex;
+  gap:4px;
+  flex-wrap:wrap;
+  margin-top:4px;
+}
+
+.quick-buttons button{
+  padding:6px 10px;
+  font-size:11px;
+}
+.dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.dashboard-item,.review-item,.ai-review-item{background:var(--soft);border-radius:14px;padding:12px}
+.dashboard-label,.dashboard-sub,.review-sub,.streak-sub,.unit,.heatmap-label{color:var(--muted)}.dashboard-label{font-size:13px;margin-bottom:6px}.dashboard-value{font-size:24px;font-weight:800}.dashboard-sub{font-size:12px;margin-top:4px}
+.ai-review-list,.review-grid{display:grid;gap:10px}.ai-review-item{font-size:14px;line-height:1.5}.ai-review-title,.review-title{font-weight:800;margin-bottom:6px}.ai-review-good{border-left:5px solid #1f7a3f}.ai-review-warn{border-left:5px solid #b36b00}.ai-review-neutral{border-left:5px solid #777}
+.calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.calendar-title{font-weight:800;font-size:18px}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.calendar-day-name{text-align:center;font-size:12px;color:var(--muted);padding:4px 0}.calendar-day{min-height:42px;border-radius:12px;background:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text);padding:0}.calendar-day.empty{background:transparent}.calendar-day.logged{background:var(--blue1)}body.dark .calendar-day.logged{background:#26364f}.calendar-day.selected{background:var(--primary);color:var(--primaryText)}.calendar-date{font-weight:700}.calendar-dot{font-size:12px;line-height:1;margin-top:2px}
+.habit{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.habit:first-child{border-top:none;margin-top:0;padding-top:0}.habit-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.habit-title{font-weight:700}.field-row{display:grid;grid-template-columns:1fr 1.1fr 52px auto auto auto;gap:6px;align-items:center;margin-top:8px}.field-row input{margin-bottom:0}.unit{font-size:13px}.add-field-row{display:grid;grid-template-columns:1fr 70px auto;gap:6px;align-items:center;margin-top:10px}.add-field-row input{margin-bottom:0}
+.streak-main{font-size:30px;font-weight:800}.streak-badge{display:inline-block;background:var(--primary);color:var(--primaryText);border-radius:999px;padding:6px 12px;font-size:13px;margin-top:8px}.review-main{font-size:22px;font-weight:800}.review-good{color:#1f7a3f}.review-bad{color:#b03a2e}
+.heatmap-label{font-size:13px;margin-bottom:8px}.heatmap-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.heatmap-cell{height:28px;border-radius:8px;background:var(--line)}.heatmap-cell.level-1{background:var(--blue1)}.heatmap-cell.level-2{background:var(--blue2)}.heatmap-cell.level-3{background:var(--blue3)}
+.graph-btn{background:#e9ecef;color:#222}.graph-btn.active{background:#222;color:#fff}body.dark .graph-btn{background:#2a2a2c;color:#eee}body.dark .graph-btn.active{background:#fff;color:#111}.chart-title{font-weight:700;margin:8px 0 12px;color:var(--text)}.chart-box{position:relative;height:240px;width:100%}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.history-item{border-top:1px solid var(--line);padding:10px 0;font-size:13px}.history-date{font-weight:700;margin-bottom:4px}
+.accordion-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}.accordion-arrow{font-size:14px;transition:transform .2s ease}.accordion-arrow.closed{transform:rotate(-90deg)}.accordion-body.hidden{display:none}
+.bottom-nav{position:fixed;bottom:12px;left:0;right:0;max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding: 10px 14px calc(30px + env(safe-area-inset-bottom));background:rgba(246,247,249,.92);backdrop-filter:blur(14px);border-top:1px solid #ddd;z-index:100;box-sizing:border-box}body.dark .bottom-nav{background:rgba(17,17,17,.92);border-top:1px solid #333}.bottom-nav button{border-radius:14px;padding:10px 8px;font-size:12px;background:#e9ecef;color:#222}body.dark .bottom-nav button{background:#2a2a2c;color:#eee}.bottom-nav button.active{background:#222;color:#fff}body.dark .bottom-nav button.active{background:#fff;color:#111}.tab-hidden{display:none}.theme-btn{position:fixed;right:16px;bottom:118px;z-index:110;border-radius:999px;width:48px;height:48px;padding:0;font-size:20px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 </style>
-
 </head>
 <body>
-<div class="pc-wrapper">
-
-<!-- お知らせバナー -->
-
-<div id="noticeBanner" style="background:linear-gradient(135deg,rgba(0,185,255,0.18),rgba(0,185,255,0.06));border-bottom:1px solid rgba(0,185,255,0.2);padding:10px 16px;display:flex;align-items:center;gap:10px;position:relative;z-index:20;">
-  <span style="font-size:1rem;flex-shrink:0;">🏦</span>
-  <div style="flex:1;min-width:0;">
-    <div style="font-size:0.72rem;font-weight:900;color:#00B9FF;">📢 新着記事</div>
-    <div style="font-size:0.75rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">アメリカの銀行口座完全ガイド｜Chase・BoA・Wise徹底比較【2026年最新】</div>
-  </div>
-  <a href="/blog/us-bank-account-guide.html" style="flex-shrink:0;background:#00B9FF;color:#0A1628;padding:5px 10px;border-radius:8px;text-decoration:none;font-size:0.7rem;font-weight:700;">読む</a>
-  <button onclick="document.getElementById('noticeBanner').style.display='none'" style="flex-shrink:0;background:transparent;border:none;color:var(--text-muted);font-size:1rem;cursor:pointer;padding:0 4px;">✕</button>
+<div class="app">
+<header><h1>Habit Log</h1><p>体調・運動・学習・仕事をシンプルに記録</p></header>
+<section class="card"><h2>Dashboard</h2><div id="dashboard"></div></section>
+<section class="card"><h2>AI Review</h2><div id="aiReview"></div></section>
+<section class="card"><label>記録日</label><input type="date" id="logDate"></section>
+<section class="card"><h2>Calendar</h2><div id="calendarBox"></div></section>
+<section class="card"><h2>今日の記録</h2><div id="habitList"></div></section>
+<section class="card"><h2>項目追加</h2><input id="newHabitName" placeholder="例：ウォーキング"><input id="newFieldNames" placeholder="内訳：時間:分, 距離:km, 速度:mph"><button onclick="addHabit()">追加</button></section>
+<section class="card"><h2>Streak</h2><div id="streakBox"></div></section>
+<section class="card"><h2>週次レビュー</h2><div id="weeklyReview"></div></section>
+<section class="card"><h2>Heatmap</h2><div id="heatmapBox"></div></section>
+<section class="card"><h2>月次サマリー</h2><div id="monthlySummary"></div></section>
+<section class="card"><h2>グラフ</h2><div class="chart-title" id="chartTitle">表示したい内訳の「グラフ」ボタンを押してください</div><div class="chart-box"><canvas id="habitChart"></canvas></div></section>
+<section class="card"><h2>記録履歴</h2><div class="actions"><button onclick="exportCSV()">CSV</button><button onclick="exportJSON()">JSON</button><button onclick="importJSON()">復元</button><button onclick="resetAll()" class="danger">全削除</button></div><input type="file" id="importFile" style="display:none" accept=".json"><div id="history"></div></section>
 </div>
-
-<div class="bg-blob blob1"></div>
-<div class="bg-blob blob2"></div>
-<div class="bg-blob blob3"></div>
-
-<header>
-  <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:4px;">
-    <span style="font-size:1.5rem;">🍑</span>
-    <div style="font-size:0.7rem;color:var(--text-muted);font-weight:700;letter-spacing:0.08em;">AmePeach</div>
-    <span style="font-size:0.6rem;color:rgba(255,255,255,0.2);">presents</span>
-  </div>
-  <div class="logo">🇺🇸 USカードナビ</div>
-  <div class="tagline">アメリカ生活×お得を、わかりやすく</div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:12px;">
-    <div class="updated-badge"><div class="pulse"></div>最終確認：2026年5月｜最新情報は各公式サイトで確認を</div>
-  </div>
-</header>
-
-<!-- 注目カードセクション（改善版） -->
-
-<div class="filter-section" id="offersSection" style="padding-bottom:4px;">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-    <div class="filter-label" style="margin-bottom:0;">🔥 注目カード</div>
-    <div style="font-size:0.65rem;color:var(--text-muted);">2026年5月確認</div>
-  </div>
-  <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
-
-```
-<!-- Chase Sapphire -->
-<div onclick="openCardModal(1)" style="flex-shrink:0;background:linear-gradient(135deg,rgba(0,212,255,0.25),rgba(0,212,255,0.12));border:1.5px solid rgba(0,212,255,0.5);border-radius:16px;padding:14px 15px;width:180px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-    <div style="font-size:0.62rem;color:#00D4FF;font-weight:900;letter-spacing:0.05em;">CHASE</div>
-    <div style="font-size:0.62rem;background:rgba(0,212,255,0.25);color:#00D4FF;padding:2px 6px;border-radius:99px;font-weight:700;">人気No.1</div>
-  </div>
-  <div style="font-size:0.92rem;font-weight:900;margin-bottom:4px;line-height:1.3;color:#FFF8EE;">Sapphire<br>Preferred</div>
-  <div style="font-size:0.68rem;color:#8EA8C3;margin-bottom:8px;">旅行・食事3x</div>
-  <div style="font-size:0.7rem;color:#00D4FF;font-weight:700;background:rgba(0,212,255,0.15);border-radius:6px;padding:4px 6px;text-align:center;">60,000pt bonus</div>
-</div>
-
-<!-- Amex Gold -->
-<div onclick="openCardModal(2)" style="flex-shrink:0;background:linear-gradient(135deg,rgba(201,168,76,0.3),rgba(201,168,76,0.12));border:1.5px solid rgba(201,168,76,0.55);border-radius:16px;padding:14px 15px;width:180px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-    <div style="font-size:0.62rem;color:#C9A84C;font-weight:900;letter-spacing:0.05em;">AMEX</div>
-    <div style="font-size:0.62rem;background:rgba(201,168,76,0.25);color:#C9A84C;padding:2px 6px;border-radius:99px;font-weight:700;">食費最強</div>
-  </div>
-  <div style="font-size:0.92rem;font-weight:900;margin-bottom:4px;line-height:1.3;color:#FFF8EE;">Gold<br>Card</div>
-  <div style="font-size:0.68rem;color:#8EA8C3;margin-bottom:8px;">食費・外食4x</div>
-  <div style="font-size:0.7rem;color:#C9A84C;font-weight:700;background:rgba(201,168,76,0.15);border-radius:6px;padding:4px 6px;text-align:center;">100,000pt bonus</div>
-</div>
-
-<!-- JAL USA Card -->
-<div onclick="openCardModal(10)" style="flex-shrink:0;background:linear-gradient(135deg,rgba(200,16,46,0.25),rgba(200,16,46,0.1));border:1.5px solid rgba(200,16,46,0.5);border-radius:16px;padding:14px 15px;width:180px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-    <div style="font-size:0.62rem;color:#E8304A;font-weight:900;letter-spacing:0.05em;">JAL USA</div>
-    <div style="font-size:0.62rem;background:rgba(200,16,46,0.2);color:#E8304A;padding:2px 6px;border-radius:99px;font-weight:700;">🆕クレヒスなし</div>
-  </div>
-  <div style="font-size:0.92rem;font-weight:900;margin-bottom:4px;line-height:1.3;color:#FFF8EE;">JAL USA<br>Card</div>
-  <div style="font-size:0.68rem;color:#8EA8C3;margin-bottom:8px;">SSNなしで申込可</div>
-  <div style="font-size:0.7rem;color:#E8304A;font-weight:700;background:rgba(200,16,46,0.15);border-radius:6px;padding:4px 6px;text-align:center;">10,000マイル bonus</div>
-</div>
-
-<!-- ANA CARD -->
-<div onclick="openCardModal(11)" style="flex-shrink:0;background:linear-gradient(135deg,rgba(0,102,204,0.25),rgba(0,102,204,0.1));border:1.5px solid rgba(0,102,204,0.5);border-radius:16px;padding:14px 15px;width:180px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-    <div style="font-size:0.62rem;color:#4A9EDB;font-weight:900;letter-spacing:0.05em;">ANA USA</div>
-    <div style="font-size:0.62rem;background:rgba(0,102,204,0.2);color:#4A9EDB;padding:2px 6px;border-radius:99px;font-weight:700;">🆕クレヒスなし</div>
-  </div>
-  <div style="font-size:0.92rem;font-weight:900;margin-bottom:4px;line-height:1.3;color:#FFF8EE;">ANA CARD<br>U.S.A. Plus</div>
-  <div style="font-size:0.68rem;color:#8EA8C3;margin-bottom:8px;">海外手数料なし</div>
-  <div style="font-size:0.7rem;color:#4A9EDB;font-weight:700;background:rgba(0,102,204,0.15);border-radius:6px;padding:4px 6px;text-align:center;">5,000マイル bonus</div>
-</div>
-
-<!-- Delta Gold -->
-<div onclick="openCardModal(8)" style="flex-shrink:0;background:linear-gradient(135deg,rgba(245,118,58,0.25),rgba(245,118,58,0.1));border:1.5px solid rgba(245,118,58,0.45);border-radius:16px;padding:14px 15px;width:180px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-    <div style="font-size:0.62rem;color:#F5763A;font-weight:900;letter-spacing:0.05em;">AMEX DELTA</div>
-    <div style="font-size:0.62rem;background:rgba(245,118,58,0.2);color:#F5763A;padding:2px 6px;border-radius:99px;font-weight:700;">ATL在住◎</div>
-  </div>
-  <div style="font-size:0.92rem;font-weight:900;margin-bottom:4px;line-height:1.3;color:#FFF8EE;">Delta Gold<br>SkyMiles</div>
-  <div style="font-size:0.68rem;color:#8EA8C3;margin-bottom:8px;">初年度無料</div>
-  <div style="font-size:0.7rem;color:#F5763A;font-weight:700;background:rgba(245,118,58,0.15);border-radius:6px;padding:4px 6px;text-align:center;">80,000マイル bonus</div>
-</div>
-```
-
-  </div>
-  <div style="font-size:0.63rem;color:var(--text-muted);padding-bottom:4px;">⚠️ ボーナスは頻繁に変動します。申込前に必ず公式サイトで最新情報をご確認ください　👆タップで詳細</div>
-</div>
-
-<div class="filter-section">
-  <div class="filter-label">✦ 目的で絞り込む</div>
-  <div class="filter-tabs">
-    <button class="tab active" onclick="filterCards('all', this)">すべて</button>
-    <button class="tab" onclick="filterCards('beginner', this)">初心者向け</button>
-    <button class="tab" onclick="filterCards('travel', this)">旅行・マイル</button>
-    <button class="tab" onclick="filterCards('cashback', this)">キャッシュバック</button>
-    <button class="tab" onclick="filterCards('noforeign', this)">海外手数料なし</button>
-    <button class="tab" onclick="filterCards('hotel', this)">ホテル</button>
-    <button class="tab" onclick="filterCards('airline', this)">航空会社系</button>
-  </div>
-</div>
-
-<div class="cards-section" id="cardsGrid"></div>
-
-<!-- Affiliate Disclosure & Footer -->
-
-<div class="app-footer" id="appFooter">
-  <div class="disclosure-box">
-    <div class="disclosure-icon">📢</div>
-    <div class="disclosure-text">
-      <strong>広告表示について</strong><br>
-      当サイトのリンクから申込されると、運営者に紹介料が入る場合があります。掲載内容は中立的な視点を心がけていますが、最終判断は各公式サイトでご確認ください。
-    </div>
-  </div>
-  <div class="footer-links">
-    <a href="javascript:void(0)" onclick="openInfoModal('about')">運営者情報</a>
-    <span class="footer-sep">·</span>
-    <a href="javascript:void(0)" onclick="openInfoModal('disclosure')">広告ポリシー</a>
-    <span class="footer-sep">·</span>
-    <a href="javascript:void(0)" onclick="openInfoModal('privacy')">プライバシー</a>
-    <span class="footer-sep">·</span>
-    <a href="javascript:void(0)" onclick="openInfoModal('contact')">お問い合わせ</a>
-  </div>
-  <div class="footer-copyright">© 2025 AmePeach. All rights reserved.</div>
-  <button class="debug-btn" onclick="runDebugTest()">🔧 動作テスト（デバッグ）</button>
-</div>
-
-<!-- Quiz Section -->
-
-<div class="quiz-section" id="quizSection">
-  <div class="quiz-card">
-    <div class="quiz-progress">
-      <div class="progress-dot done" id="dot0"></div>
-      <div class="progress-dot" id="dot1"></div>
-      <div class="progress-dot" id="dot2"></div>
-      <div class="progress-dot" id="dot3"></div>
-      <div class="progress-dot" id="dot4"></div>
-    </div>
-
-```
-<!-- Q1 -->
-<div class="quiz-step active" id="step0">
-  <div class="quiz-q">🪪 アメリカでのクレヒス歴は？</div>
-  <div class="quiz-sub">審査通過のしやすさに関わります</div>
-  <div class="quiz-options">
-    <button class="quiz-option" onclick="answer(0, 'nohistory')"><span class="opt-emoji">🆕</span>まだない・作りたて</button>
-    <button class="quiz-option" onclick="answer(0, 'some')"><span class="opt-emoji">📅</span>6ヶ月〜1年くらい</button>
-    <button class="quiz-option" onclick="answer(0, 'solid')"><span class="opt-emoji">💪</span>1年以上・安定してる</button>
-  </div>
-</div>
-
-<!-- Q2 -->
-<div class="quiz-step" id="step1">
-  <div class="quiz-q">💸 年会費についてどう思う？</div>
-  <div class="quiz-sub">特典で回収できれば払う派？完全無料派？</div>
-  <div class="quiz-options">
-    <button class="quiz-option" onclick="answer(1, 'free')"><span class="opt-emoji">🙅</span>絶対無料がいい</button>
-    <button class="quiz-option" onclick="answer(1, 'ok95')"><span class="opt-emoji">🤔</span>$100以下なら検討する</button>
-    <button class="quiz-option" onclick="answer(1, 'any')"><span class="opt-emoji">💎</span>特典があれば高くてもOK</button>
-  </div>
-</div>
-
-<!-- Q3 -->
-<div class="quiz-step" id="step2">
-  <div class="quiz-q">🎯 一番お得にしたいのは？</div>
-  <div class="quiz-sub">メインの使い道を教えて</div>
-  <div class="quiz-options">
-    <button class="quiz-option" onclick="answer(2, 'travel')"><span class="opt-emoji">✈️</span>旅行・フライト・ホテル</button>
-    <button class="quiz-option" onclick="answer(2, 'food')"><span class="opt-emoji">🍜</span>食費・レストラン・スーパー</button>
-    <button class="quiz-option" onclick="answer(2, 'daily')"><span class="opt-emoji">🛒</span>日常の買い物全般</button>
-    <button class="quiz-option" onclick="answer(2, 'hotel')"><span class="opt-emoji">🏨</span>ホテル滞在・出張</button>
-    <button class="quiz-option" onclick="answer(2, 'airline')"><span class="opt-emoji">🦅</span>特定航空会社のマイル</button>
-  </div>
-</div>
-
-<!-- Q4 -->
-<div class="quiz-step" id="step3">
-  <div class="quiz-q">🇯🇵 日本への一時帰国はある？</div>
-  <div class="quiz-sub">海外手数料の有無が重要になります</div>
-  <div class="quiz-options">
-    <button class="quiz-option" onclick="answer(3, 'often')"><span class="opt-emoji">🏠</span>年1回以上帰る</button>
-    <button class="quiz-option" onclick="answer(3, 'rare')"><span class="opt-emoji">🌐</span>あまり帰らない</button>
-  </div>
-</div>
-
-<!-- Q5（新追加） -->
-<div class="quiz-step" id="step4">
-  <div class="quiz-q">👨‍👩‍👧‍👦 家族構成は？</div>
-  <div class="quiz-sub">家族のクレヒス戦略も考慮します</div>
-  <div class="quiz-options">
-    <button class="quiz-option" onclick="answer(4, 'single')"><span class="opt-emoji">👤</span>一人（または学生）</button>
-    <button class="quiz-option" onclick="answer(4, 'couple')"><span class="opt-emoji">👫</span>夫婦2人</button>
-    <button class="quiz-option" onclick="answer(4, 'family')"><span class="opt-emoji">👨‍👩‍👧‍👦</span>家族（子どもあり）</button>
-  </div>
-</div>
-```
-
-  </div>
-
-  <!-- Result -->
-
-  <div class="result-section" id="resultSection">
-    <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:12px;text-align:center;">🎉 あなたへのおすすめはコレ！</div>
-    <div class="result-card" id="resultCard"></div>
-    <div style="font-size:0.75rem;color:var(--text-muted);margin:16px 0 10px;">次点候補</div>
-    <div id="runnerCards"></div>
-    <button class="retry-btn" onclick="retryQuiz()">🔄 もう一度診断する</button>
-  </div>
-</div>
-
-<!-- AI Chat Section -->
-
-<div class="chat-section" id="chatSection">
-  <div class="chat-header">
-    <div class="chat-header-title">🍑 AmePeach 相談室</div>
-    <div class="chat-header-sub">在米日本人向けクレカの疑問、なんでも聞いて！</div>
-  </div>
-
-  <div class="chat-messages" id="chatMessages">
-    <div class="chat-bubble ai">
-      <div class="ai-name">✨ AmePeach AI 🍑</div>
-      こんにちは！在米日本人向けクレカ専門AIです🇺🇸<br>渡米前の準備・クレヒスゼロ・マイル・ポイ活など、どんな悩みでも気軽に聞いてください！
-    </div>
-    <div class="suggested-chips" id="chipArea">
-      <button class="chip" onclick="sendChip('渡米前にやるべき準備は？')">渡米前の準備は？</button>
-      <button class="chip" onclick="sendChip('Amex Global Transferって何？')">Global Transferとは？</button>
-      <button class="chip" onclick="sendChip('クレヒスゼロから始めるには？')">クレヒスゼロから</button>
-      <button class="chip" onclick="sendChip('日本帰国のANAマイルを貯めたい')">ANAマイル貯めたい</button>
-      <button class="chip" onclick="sendChip('TopCashbackやFetchなどポイ活を教えて')">ポイ活を教えて</button>
-      <button class="chip" onclick="sendChip('Chaseトリフェクタとは？')">Chaseトリフェクタ</button>
-    </div>
-  </div>
-
-  <div class="chat-input-row">
-    <textarea class="chat-input" id="chatInput" placeholder="例：食費が多いのでおすすめは？" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-    <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
-  </div>
-</div>
-
-<!-- Modal -->
-
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modalContent">
-    <div class="modal-handle"></div>
-    <button class="close-btn" onclick="closeModalDirect()">✕</button>
-    <div id="modalBody"></div>
-    <div style="display:flex;gap:8px;margin-top:14px;">
-      <button class="apply-btn" id="modalApplyBtn" onclick="applyCard()" style="flex:1;">📝 公式サイトで申し込む</button>
-      <button id="saveBtn" onclick="toggleSave()" style="width:52px;height:48px;border-radius:12px;border:2px solid rgba(255,255,255,0.15);background:transparent;color:white;font-size:1.4rem;cursor:pointer;flex-shrink:0;transition:all 0.2s;">⭐</button>
-    </div>
-    <!-- シェアボタン -->
-    <div style="display:flex;gap:8px;margin-top:10px;">
-      <button onclick="shareCard('x')" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);color:white;font-family:'Zen Maru Gothic',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s;" onmouseover="this.style.borderColor='white'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
-        𝕏 Xでシェア
-      </button>
-      <button onclick="shareCard('line')" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(0,195,0,0.3);background:rgba(0,195,0,0.1);color:#00c300;font-family:'Zen Maru Gothic',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,195,0,0.2)'" onmouseout="this.style.background='rgba(0,195,0,0.1)'">
-        💬 LINEでシェア
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Bottom nav -->
-
-<div class="bottom-nav">
-  <div class="nav-item active" id="nav-list" onclick="switchTab('list')"><span>💳</span><span>カード一覧</span></div>
-  <div class="nav-item" id="nav-quiz" onclick="switchTab('quiz')"><span>🧭</span><span>診断</span></div>
-  <div class="nav-item" id="nav-chat" onclick="switchTab('chat')"><span>🤖</span><span>AI相談</span></div>
-  <div class="nav-item" id="nav-blog" onclick="switchTab('blog')"><span>📖</span><span>ブログ</span></div>
-  <div class="nav-item" id="nav-saved" onclick="switchTab('saved')"><span>⭐</span><span>保存</span></div>
-</div>
-
-<!-- Footer Info Modal -->
-
-<div class="modal-overlay" id="infoModalOverlay" onclick="closeInfoModal(event)">
-  <div class="modal" id="infoModalContent" style="max-height: 85vh;">
-    <div class="modal-handle"></div>
-    <button class="close-btn" onclick="closeInfoModalDirect()">✕</button>
-    <div id="infoModalBody"></div>
-  </div>
-</div>
-
-<!-- Blog Section -->
-
-<div class="quiz-section" id="blogSection" style="padding:0 16px 100px;">
-  <div style="padding:24px 0 16px;text-align:center;">
-    <div style="font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,#FFD600,#F5763A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px;">📖 AmePeach ブログ</div>
-    <div style="font-size:0.75rem;color:var(--text-muted);">在米日本人のクレカ攻略記事</div>
-  </div>
-
-  <!-- ブログタブ -->
-
-  <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none;margin-bottom:16px;">
-    <button onclick="filterBlog('all', this)" class="blog-tab blog-tab-active" style="flex-shrink:0;padding:7px 14px;border-radius:99px;border:1px solid rgba(245,166,35,0.5);background:rgba(245,166,35,0.15);color:var(--amber);font-family:'Zen Maru Gothic',sans-serif;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">すべて</button>
-    <button onclick="filterBlog('beginner', this)" class="blog-tab" style="flex-shrink:0;padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:'Zen Maru Gothic',sans-serif;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">🔰 初心者</button>
-    <button onclick="filterBlog('chase', this)" class="blog-tab" style="flex-shrink:0;padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:'Zen Maru Gothic',sans-serif;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">💎 Chase</button>
-    <button onclick="filterBlog('amex', this)" class="blog-tab" style="flex-shrink:0;padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:'Zen Maru Gothic',sans-serif;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">🥇 Amex</button>
-    <button onclick="filterBlog('jal_ana', this)" class="blog-tab" style="flex-shrink:0;padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:'Zen Maru Gothic',sans-serif;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">✈️ JAL/ANA</button>
-    <button onclick="filterBlog('savings', this)" class="blog-tab" style="flex-shrink:0;padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:'Zen Maru Gothic',sans-serif;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">💰 節約</button>
-    <button onclick="filterBlog('family', this)" class="blog-tab" style="flex-shrink:0;padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:'Zen Maru Gothic',sans-serif;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">👨‍👩‍👧 家族</button>
-  </div>
-
-  <!-- 記事一覧（JS生成） -->
-
-  <div id="blogList"></div>
-
-  <div style="text-align:center;padding:24px 20px;color:var(--text-muted);font-size:0.78rem;background:var(--card-bg);border-radius:16px;border:1px dashed rgba(255,255,255,0.1);">
-    <div style="font-size:1.5rem;margin-bottom:8px;">✍️</div>
-    次の記事を準備中...<br>
-    <span style="font-size:0.7rem;margin-top:4px;display:block;">家族旅行×ポイント活用、Capital One Venture攻略など近日公開予定！</span>
-  </div>
-</div>
-
-<!-- Saved Section -->
-
-<div class="quiz-section" id="savedSection" style="padding:0 16px 100px;">
-  <div style="padding:20px 0 12px;text-align:center;">
-    <div style="font-size:1rem;font-weight:900;background:linear-gradient(135deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">⭐ 保存済みカード</div>
-    <div style="font-size:0.72rem;color:var(--text-muted);margin-top:3px;">気になるカードをストック・比較</div>
-  </div>
-
-  <!-- 比較ボタン -->
-
-  <div id="compareBar" style="display:none;background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.3);border-radius:14px;padding:12px 16px;margin-bottom:16px;align-items:center;justify-content:space-between;">
-    <div style="font-size:0.78rem;color:#FFD600;font-weight:700;">📊 <span id="compareCount">0</span>枚選択中（最大3枚）</div>
-    <button onclick="showComparison()" id="compareBtn" style="background:#FFD600;border:none;color:#0A1628;padding:7px 16px;border-radius:8px;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:0.78rem;cursor:pointer;opacity:0.5;" disabled>比較する</button>
-  </div>
-
-  <div id="savedCards"></div>
-  <div id="savedEmpty" style="text-align:center;padding:40px 20px;color:var(--text-muted);font-size:0.85rem;">
-    <div style="font-size:2.5rem;margin-bottom:12px;">⭐</div>
-    まだ保存されていません。<br>
-    <span style="font-size:0.78rem;">カード詳細の ⭐ ボタンで追加できます！</span>
-  </div>
-
-  <!-- 比較モーダル -->
-
-  <div id="comparisonModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:200;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 0 40px;">
-    <div style="position:sticky;top:0;background:#0A1628;padding:14px 16px;z-index:1;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;">
-      <div style="font-size:1rem;font-weight:900;color:#FFD600;">📊 カード比較</div>
-      <button onclick="closeComparison()" style="background:rgba(255,255,255,0.12);border:none;color:white;width:36px;height:36px;border-radius:50%;font-size:1rem;cursor:pointer;">✕</button>
-    </div>
-    <div id="comparisonContent" style="padding:16px 16px 60px;"></div>
-  </div>
-</div>
-
 <script>
-const cards = [
-  {
-    id: 1,
-    issuer: "Chase",
-    name: "Sapphire Preferred®",
-    emoji: "💎",
-    accent: "#00D4FF",
-    tags: ["travel", "hot"],
-    tagLabels: { travel: "旅行向け", hot: "🔥人気No.1" },
-    annualFee: "$95",
-    signupBonus: "最大60,000 Urポイント",
-    signupCondition: "3ヶ月で$4,000利用",
-    rewards: "旅行・食事 3x、Chase Travel 5x、ストリーミング 3x、その他 1x",
-    foreignFee: "なし ✅",
-    ssnRequired: "easy",
-    ssnNote: "SSNなし可（パスポートで申込可能なケースあり）",
-    difficulty: "★★☆",
-    url: "https://creditcards.chase.com/travel-credit-cards/sapphire/preferred",
-    details: {
-      pros: ["Chase Travel経由で5x還元", "旅行・レンタカー保険付き", "DashPass 2027年末まで無料", "ANA・JALへのマイル移行1:1"],
-      cons: ["年会費$95かかる", "クレヒス6ヶ月以上推奨"],
-      tips: "Chase 5/24ルールに注意！過去24ヶ月で5枚以上申し込むと審査落ちる可能性大。渡米後最優先で申し込むべきカード。",
-      jpNote: "在米日本人に最も人気！Urポイントは日系航空会社（ANA直接・JALはBA経由）に1:1で移行可能。"
-    }
-  },
-  {
-    id: 2,
-    issuer: "American Express",
-    name: "Gold Card",
-    emoji: "🥇",
-    accent: "#FFD600",
-    tags: ["travel", "cashback"],
-    tagLabels: { travel: "旅行向け", cashback: "食費お得" },
-    annualFee: "$325（実質クレジット活用で$0〜）",
-    signupBonus: "最大100,000 MRポイント",
-    signupCondition: "6ヶ月で$8,000利用",
-    rewards: "レストラン・スーパー 4x、フライト直接購入 3x、その他 1x",
-    foreignFee: "なし ✅",
-    ssnRequired: "medium",
-    ssnNote: "SSN必須（ITIN可能なケースあり）",
-    difficulty: "★★★",
-    url: "https://www.americanexpress.com/us/credit-cards/card/gold-card/",
-    details: {
-      pros: ["食費・スーパー4x還元は業界最強クラス", "毎月$10ダイニングクレジット（Grubhub等）", "毎月$10 Uber Cash", "半期$50 Resyクレジット", "毎月$7 Dunkin'クレジット"],
-      cons: ["年会費$325（クレジット全回収で実質$0）", "Amexが使えない店もある"],
-      tips: "Grubhub・Uber Eats・Dunkin'・Resyで毎月クレジットを回収すれば年間$424以上の価値に。家族の食費を集約するのが最強。",
-      jpNote: "MRポイントはANA（直接1:1）・JAL（BA経由1:1:1）へ移行可。帰国マイル積み上げに最適。"
-    }
-  },
-  {
-    id: 3,
-    issuer: "Discover",
-    name: "it® Student Cash Back",
-    emoji: "🎓",
-    accent: "#00E676",
-    tags: ["beginner", "cashback"],
-    tagLabels: { beginner: "👶初心者向け", cashback: "キャッシュバック" },
-    annualFee: "無料 🎉",
-    signupBonus: "1年目のキャッシュバックを全額マッチ",
-    signupCondition: "初年度自動適用",
-    rewards: "四半期ローテーションカテゴリ 5%、その他 1%",
-    foreignFee: "なし ✅",
-    ssnRequired: "easy",
-    ssnNote: "学生ビザでも申し込みやすい",
-    difficulty: "★☆☆",
-    url: "https://www.discover.com/credit-cards/student/",
-    details: {
-      pros: ["クレヒスなしでも作れることが多い", "年会費完全無料", "初年度ボーナスが実質2倍になる"],
-      cons: ["海外（日本）では使えないことがある", "上限が低め"],
-      tips: "クレヒスを一から作る最初の1枚として最適！",
-      jpNote: "F1/J1ビザの留学生に大人気。社会人でも収入証明があれば申請可能。"
-    }
-  },
-  {
-    id: 4,
-    issuer: "Chase",
-    name: "Freedom Unlimited®",
-    emoji: "🚀",
-    accent: "#FF6B35",
-    tags: ["beginner", "cashback"],
-    tagLabels: { beginner: "👶初心者向け", cashback: "キャッシュバック" },
-    annualFee: "無料 🎉",
-    signupBonus: "$200キャッシュボーナス",
-    signupCondition: "3ヶ月で$500利用",
-    rewards: "すべて1.5%還元、旅行 5%",
-    foreignFee: "3% ⚠️",
-    ssnRequired: "medium",
-    ssnNote: "SSNまたはITIN推奨",
-    difficulty: "★★☆",
-    url: "https://creditcards.chase.com/cash-back-credit-cards/freedom/unlimited",
-    details: {
-      pros: ["すべての買い物1.5%と使いやすい", "年会費無料", "Sapphire系と組み合わせると超強力"],
-      cons: ["海外手数料3%あり", "単体では還元率が高くない"],
-      tips: "Sapphire Preferredと組み合わせることで、Urポイントに集約できる「Chase最強コンボ」になる！",
-      jpNote: "「Chaseトリフェクタ」の基本パーツとして在米日本人に人気。"
-    }
-  },
-  {
-    id: 5,
-    issuer: "Capital One",
-    name: "Venture Rewards",
-    emoji: "✈️",
-    accent: "#8B5CF6",
-    tags: ["travel", "noforeign"],
-    tagLabels: { travel: "旅行向け", noforeign: "海外手数料なし" },
-    annualFee: "$95",
-    signupBonus: "75,000マイル（$750相当）",
-    signupCondition: "3ヶ月で$4,000利用",
-    rewards: "すべての購入 2x マイル",
-    foreignFee: "なし ✅",
-    ssnRequired: "medium",
-    ssnNote: "SSN必須",
-    difficulty: "★★☆",
-    url: "https://www.capitalone.com/credit-cards/venture/",
-    details: {
-      pros: ["シンプルにすべて2x還元", "日本一時帰国のフライトに使えるANA等に移行可能", "海外手数料なし"],
-      cons: ["年会費$95", "Chaseほど転送先が豊富でない"],
-      tips: "複雑なカテゴリを気にせず、シンプルに貯めたい人向け。",
-      jpNote: "日本帰国のANAマイルに移行できるのが在米日本人に嬉しいポイント。"
-    }
-  },
-  {
-    id: 6,
-    issuer: "Bank of America",
-    name: "Travel Rewards",
-    emoji: "🌏",
-    accent: "#FF4D8D",
-    tags: ["beginner", "travel", "noforeign"],
-    tagLabels: { beginner: "👶初心者向け", travel: "旅行向け", noforeign: "海外手数料なし" },
-    annualFee: "無料 🎉",
-    signupBonus: "25,000ポイント（$250相当）",
-    signupCondition: "90日で$1,000利用",
-    rewards: "すべて1.5pt、旅行購入1.5倍",
-    foreignFee: "なし ✅",
-    ssnRequired: "easy",
-    ssnNote: "BoA口座保有者は作りやすい",
-    difficulty: "★☆☆",
-    url: "https://www.bankofamerica.com/credit-cards/products/travel-rewards-credit-card/",
-    details: {
-      pros: ["年会費無料で海外手数料なし", "BoA口座があれば審査通りやすい", "シンプルで使いやすい"],
-      cons: ["還元率は高くない", "移行先の選択肢が少ない"],
-      tips: "BoAに口座を持つなら最初の1枚として非常に優秀！",
-      jpNote: "既にBoAで口座を持っている在米日本人に特におすすめ。"
-    }
-  },
-  {
-    id: 7,
-    issuer: "Chase",
-    name: "World of Hyatt",
-    emoji: "🏨",
-    accent: "#8B5CF6",
-    tags: ["travel", "hotel"],
-    tagLabels: { travel: "旅行向け", hotel: "🏨ホテル特化" },
-    annualFee: "$95",
-    signupBonus: "30,000 Hyattポイント",
-    signupCondition: "3ヶ月で$3,000利用",
-    rewards: "Hyatt利用 4x、旅行・食事 2x、その他 1x",
-    foreignFee: "なし ✅",
-    ssnRequired: "medium",
-    ssnNote: "クレヒス1年以上推奨",
-    difficulty: "★★☆",
-    url: "https://creditcards.chase.com/travel-credit-cards/hyatt",
-    details: {
-      pros: ["Hyattポイントは業界最高水準の価値", "毎年カテゴリ1-4の無料宿泊1泊付き", "Globalist会員へのステータスパスあり"],
-      cons: ["Hyattホテルが近くにないと恩恵が薄い", "Chase 5/24ルール対象"],
-      tips: "Hyatt Globalistは世界最強のホテルステータスとも言われる。出張が多い方は特に価値大。",
-      jpNote: "日本のハイアットリージェンシーや東京パークハイアットでも使えます。帰国時の宿泊に活用！"
-    }
-  },
-  {
-    id: 8,
-    issuer: "American Express",
-    name: "Delta SkyMiles® Gold",
-    emoji: "✈️",
-    accent: "#E31837",
-    tags: ["travel", "airline"],
-    tagLabels: { travel: "旅行向け", airline: "✈️デルタ系" },
-    annualFee: "$0（初年度無料）→ $150",
-    signupBonus: "50,000 デルタマイル",
-    signupCondition: "6ヶ月で$2,000利用",
-    rewards: "Delta・レストラン 2x、その他 1x",
-    foreignFee: "なし ✅",
-    ssnRequired: "medium",
-    ssnNote: "SSN必須（ITIN可の場合あり）",
-    difficulty: "★★☆",
-    url: "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
-    details: {
-      pros: ["Deltaの優先搭乗権付き", "預け荷物1個無料（同伴者も）", "Delta利用が多い方には最強"],
-      cons: ["Deltaハブ以外の地域では恩恵が薄い", "マイルの期限管理が必要"],
-      tips: "アトランタ（ジョージア）在住者はDeltaハブなので特に相性◎！ジョージア駐在員に人気。",
-      jpNote: "デルタは日本（成田・羽田）への直行便あり。ただしANA/JALほどマイル移行の柔軟性はない。"
-    }
-  },
-  {
-    id: 9,
-    issuer: "Citi",
-    name: "AAdvantage® Platinum Select®",
-    emoji: "🦅",
-    accent: "#0066CC",
-    tags: ["travel", "airline"],
-    tagLabels: { travel: "旅行向け", airline: "✈️AA系" },
-    annualFee: "$0（初年度無料）→ $99",
-    signupBonus: "50,000 AAマイル",
-    signupCondition: "3ヶ月で$2,500利用",
-    rewards: "American Airlines 2x、レストラン・ガス 2x、その他 1x",
-    foreignFee: "なし ✅",
-    ssnRequired: "medium",
-    ssnNote: "SSN必須",
-    difficulty: "★★☆",
-    url: "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
-    details: {
-      pros: ["預け荷物1個無料", "AA利用時25%マイルボーナス", "優先搭乗権付き"],
-      cons: ["AAのネットワークが限られる路線も", "Chase/Amexより特典が少なめ"],
-      tips: "ダラス・マイアミなどAAハブ近くに住む方に特におすすめ。日本路線もJALとのコードシェアで充実。",
-      jpNote: "AAマイルはJALへの移行はできないが、JALとのコードシェア便に使用可能。"
-    }
-  },
-  {
-    id: 10,
-    issuer: "JAL USA CARD",
-    name: "Basic / Premium",
-    emoji: "🔴",
-    accent: "#C8102E",
-    tags: ["beginner", "airline"],
-    tagLabels: { beginner: "👶初心者向け", airline: "✈️JAL系" },
-    annualFee: "$35〜$85",
-    signupBonus: "最大10,000 JALマイル",
-    signupCondition: "3ヶ月で$7,000利用（コード：JSPRG26）",
-    rewards: "JAL購入2x（Premium）、その他$2で1マイル（Basic）",
-    foreignFee: "なし ✅",
-    ssnRequired: "easy",
-    ssnNote: "クレヒスなし・SSNなしでも申込可能 ⭐",
-    difficulty: "★☆☆",
-    url: "https://www.jalusacard.com/en/new_enrollment_apr2026/",
-    details: {
-      pros: ["クレヒスゼロ・SSNなしで申込可能", "JALフライト毎回10%ボーナスマイル", "羽田・成田免税店5%オフ"],
-      cons: ["日常の還元率が低め（BasicはANA CARDより不利）", "クレヒス構築後は他カードへの乗り換え推奨"],
-      tips: "渡米直後の『最初の1枚』として最適。クレヒスができたらChase Sapphireへステップアップを！",
-      jpNote: "JAL派の渡米直後の定番カード。著者も渡米時に最初に作りました🍑"
-    }
-  },
-  {
-    id: 11,
-    issuer: "ANA CARD U.S.A.",
-    name: "Plus",
-    emoji: "🔵",
-    accent: "#0066CC",
-    tags: ["beginner", "airline"],
-    tagLabels: { beginner: "👶初心者向け", airline: "✈️ANA系" },
-    annualFee: "$85",
-    signupBonus: "5,000 ANAマイル",
-    signupCondition: "初回購入後",
-    rewards: "ANA購入 2x、その他 $1で1マイル",
-    foreignFee: "なし ✅",
-    ssnRequired: "easy",
-    ssnNote: "クレヒスなし・SSNなしでも申込可能 ⭐",
-    difficulty: "★☆☆",
-    url: "https://www.anacardusa.com/en/",
-    details: {
-      pros: ["クレヒスゼロ・SSNなしで申込可能", "ANA搭乗で25%ボーナスマイル", "国際線ビジネスクラスカウンターでプライオリティチェックイン"],
-      cons: ["年会費$85（JAL Basicの$35より割高）", "クレヒス構築後は他カードへの乗り換え推奨"],
-      tips: "ANA派の渡米直後の1枚として最適。フライト25%ボーナスが魅力。",
-      jpNote: "ANA派の定番クレヒスゼロカード。ANAはChase・Amexからの直接マイル移行も可能で便利。"
-    }
+const defaultHabits=[{name:"体重",fields:[{name:"数値",unit:"kg"}]},{name:"体脂肪率",fields:[{name:"数値",unit:"%"}]},{name:"BMI",fields:[{name:"数値",unit:""}]},{name:"睡眠",fields:[{name:"睡眠時刻",unit:""},{name:"起床時刻",unit:""},{name:"睡眠時間",unit:"h"},{name:"睡眠スコア",unit:"点"},{name:"ボディバッテリー",unit:"点"}]},{name:"筋トレ",fields:[{name:"腕立て",unit:"回"},{name:"腹筋",unit:"回"},{name:"背筋",unit:"回"},{name:"スクワット",unit:"回"},{name:"カーフレイズ",unit:"回"},{name:"他トレーニング",unit:""}]},{name:"ウォーキング",fields:[{name:"時間",unit:"分"},{name:"距離",unit:"km"},{name:"速度",unit:"mph"}]},{name:"ランニング",fields:[{name:"時間",unit:"分"},{name:"距離",unit:"km"},{name:"速度",unit:"mph"}]},{name:"英語",fields:[{name:"内容",unit:""},{name:"時間",unit:"分"}]},{name:"読書",fields:[{name:"本・内容",unit:""},{name:"時間",unit:"分"}]},{name:"ゲーム",fields:[{name:"時間",unit:"分"}]},{name:"イベント",fields:[{name:"内容",unit:""}]},{name:"成長",fields:[{name:"気づき",unit:""}]},{name:"勤務",fields:[{name:"勤務方法",unit:""},{name:"勤務時間",unit:"h"}]}];
+let habits=JSON.parse(localStorage.getItem("habits"))||defaultHabits,logs=JSON.parse(localStorage.getItem("logs"))||{},selectedChart=JSON.parse(localStorage.getItem("selectedChart"))||null,habitChart=null,activeTab=localStorage.getItem("activeTab")||"home",darkMode=localStorage.getItem("darkMode")==="true";
+habits=migrateHabits(habits);
+const logDate=document.getElementById("logDate");logDate.value=new Date().toISOString().slice(0,10);logDate.addEventListener("change",render);
+function migrateHabits(raw){return raw.map(h=>({name:h.name,fields:h.fields.map(f=>typeof f==="string"?guessFieldObject(h.name,f):{name:f.name,unit:f.unit||""})}))}
+function guessFieldObject(c,f){const m={"kg":"kg","%":"%","数値":c==="体重"?"kg":c==="体脂肪率"?"%":"","睡眠時間":"h","睡眠スコア":"点","ボディバッテリー":"点","腕立て":"回","腹筋":"回","背筋":"回","スクワット":"回","カーフレイズ":"回","時間":"分","距離":"km","速度":"mph","勤務時間":"h"};let name=f,unit=m[f]||"";if(c==="体重"&&f==="kg"){name="数値";unit="kg"}if(c==="体脂肪率"&&f==="%"){name="数値";unit="%"}return{name,unit}}
+function save(){localStorage.setItem("habits",JSON.stringify(habits));localStorage.setItem("logs",JSON.stringify(logs));localStorage.setItem("selectedChart",JSON.stringify(selectedChart));localStorage.setItem("activeTab",activeTab);localStorage.setItem("darkMode",darkMode)}
+function getTodayLog(){const d=logDate.value;if(!logs[d])logs[d]={};return logs[d]}
+function render(){applyTheme();renderDashboard();renderAIReview();renderCalendar();renderHabits();renderStreak();renderWeeklyReview();renderHeatmap();renderMonthlySummary();renderChart();renderHistory();setupBottomNav();setupAccordions();setupThemeButton()}
+function applyTheme(){document.body.classList.toggle("dark",darkMode)}
+function setupThemeButton(){let b=document.getElementById("themeButton");if(!b){b=document.createElement("button");b.id="themeButton";b.className="theme-btn";b.onclick=toggleTheme;document.body.appendChild(b)}b.textContent=darkMode?"☀️":"🌙"}
+function toggleTheme(){darkMode=!darkMode;save();render()}
+function renderDashboard(){const c=document.getElementById("dashboard");if(!c)return;const d=logDate.value,l=logs[d]||{},w=getStoredValue(d,"体重","数値")||"-",s=getStoredValue(d,"睡眠","睡眠時間")||"-",st=calculateStreak(new Date(d)),ic=countInputs(l),wa=get7DayAverage("体重","数値");c.innerHTML=`<div class="dashboard-grid"><div class="dashboard-item"><div class="dashboard-label">体重</div><div class="dashboard-value">${w}</div><div class="dashboard-sub">kg</div></div><div class="dashboard-item"><div class="dashboard-label">睡眠時間</div><div class="dashboard-value">${s}</div><div class="dashboard-sub">h</div></div><div class="dashboard-item"><div class="dashboard-label">Streak</div><div class="dashboard-value">${st}</div><div class="dashboard-sub">連続記録日数</div></div><div class="dashboard-item"><div class="dashboard-label">今日の入力数</div><div class="dashboard-value">${ic}</div><div class="dashboard-sub">項目</div></div><div class="dashboard-item"><div class="dashboard-label">7日平均体重</div><div class="dashboard-value">${wa!==null?wa.toFixed(1):"-"}</div><div class="dashboard-sub">kg</div></div><div class="dashboard-item"><div class="dashboard-label">記録日</div><div class="dashboard-value">${d.slice(5)}</div><div class="dashboard-sub">selected date</div></div></div>`}
+function renderAIReview(){const c=document.getElementById("aiReview");if(!c)return;const r=[],w=get7DayAverage("体重","数値"),sl=get7DayAverage("睡眠","睡眠時間"),walk=get7DayAverage("ウォーキング","距離"),run=get7DayAverage("ランニング","距離"),eng=get7DayAverage("英語","時間"),read=get7DayAverage("読書","時間"),wp=getPrevious7DayAverage("体重","数値"),sp=getPrevious7DayAverage("睡眠","睡眠時間"),walkp=getPrevious7DayAverage("ウォーキング","距離"),engp=getPrevious7DayAverage("英語","時間"),st=calculateStreak(new Date(logDate.value));if(st>=14)r.push({type:"good",title:"継続",text:`${st}日連続で記録できています。これはかなり強い習慣化のサインです。`});else if(st>=7)r.push({type:"good",title:"継続",text:`${st}日連続です。まずは14日連続を次の目標にして良さそうです。`});else if(st>=1)r.push({type:"neutral",title:"継続",text:`${st}日連続です。まずは7日連続を目指しましょう。`});if(w!==null){if(wp!==null){const diff=w-wp;if(diff<-.2)r.push({type:"good",title:"体重",text:`直近7日平均は ${w.toFixed(1)} kg。前週より ${Math.abs(diff).toFixed(1)} kg 下がっています。良い流れです。`});else if(diff>.2)r.push({type:"warn",title:"体重",text:`直近7日平均は ${w.toFixed(1)} kg。前週より ${diff.toFixed(1)} kg 上がっています。食事・睡眠・運動量を軽く見直すタイミングです。`});else r.push({type:"neutral",title:"体重",text:`直近7日平均は ${w.toFixed(1)} kg。前週から大きな変化はなく、安定しています。`})}else r.push({type:"neutral",title:"体重",text:`直近7日平均は ${w.toFixed(1)} kg。もう少し記録がたまると前週比較できます。`})}if(sl!==null){if(sl>=7)r.push({type:"good",title:"睡眠",text:`睡眠時間の直近7日平均は ${sl.toFixed(1)} h。かなり良い水準です。`});else if(sl>=6)r.push({type:"neutral",title:"睡眠",text:`睡眠時間の直近7日平均は ${sl.toFixed(1)} h。できれば7時間に近づけたいところです。`});else r.push({type:"warn",title:"睡眠",text:`睡眠時間の直近7日平均は ${sl.toFixed(1)} h。やや短めです。まずは6.5時間以上を目標にしましょう。`});if(sp!==null&&sl-sp<-.5)r.push({type:"warn",title:"睡眠トレンド",text:`睡眠時間が前週より ${Math.abs(sl-sp).toFixed(1)} h 減っています。疲労感や集中力低下に注意です。`})}if(walk!==null){if(walk>=3)r.push({type:"good",title:"ウォーキング",text:`ウォーキング距離の直近7日平均は ${walk.toFixed(1)} km。かなり良い活動量です。`});else r.push({type:"neutral",title:"ウォーキング",text:`ウォーキング距離の直近7日平均は ${walk.toFixed(1)} km。まずは1日3km前後を目安にすると良さそうです。`});if(walkp!==null&&walk-walkp>.5)r.push({type:"good",title:"活動量",text:"ウォーキング距離が前週より増えています。体重管理にも良い影響が期待できます。"})}if(run!==null&&run>0)r.push({type:"good",title:"ランニング",text:`ランニング距離の直近7日平均は ${run.toFixed(1)} km。膝の違和感がある日は無理せず調整しましょう。`});if(eng!==null){if(eng>=20)r.push({type:"good",title:"英語",text:`英語学習の直近7日平均は ${eng.toFixed(0)} 分。継続できています。`});else r.push({type:"neutral",title:"英語",text:`英語学習の直近7日平均は ${eng.toFixed(0)} 分。短時間でも毎日続ける方針でOKです。`});if(engp!==null&&eng-engp>5)r.push({type:"good",title:"英語トレンド",text:"英語学習時間が前週より増えています。隙間時間の使い方が良い方向です。"})}if(read!==null&&read>=10)r.push({type:"good",title:"読書",text:`読書時間の直近7日平均は ${read.toFixed(0)} 分。インプット習慣として良いペースです。`});if(!r.length){c.innerHTML=`<div class="ai-review-item ai-review-neutral"><div class="ai-review-title">まだレビューはありません</div><div>体重・睡眠・ウォーキング・英語などを数日分入力すると、自動レビューが表示されます。</div></div>`;return}c.innerHTML=`<div class="ai-review-list">${r.map(x=>`<div class="ai-review-item ai-review-${x.type}"><div class="ai-review-title">${x.title}</div><div>${x.text}</div></div>`).join("")}</div>`}
+function getPrevious7DayAverage(c,f){const t=new Date(logDate.value),e=addDays(t,-7),ds=getDateRange(e,6),v=getValuesForDates(ds,c,f);return v.length?average(v):null}
+function renderCalendar(){const c=document.getElementById("calendarBox");if(!c)return;const s=new Date(logDate.value),y=s.getFullYear(),m=s.getMonth(),fd=new Date(y,m,1),ld=new Date(y,m+1,0),sw=fd.getDay(),dim=ld.getDate(),ml=`${y}-${String(m+1).padStart(2,"0")}`;let cells="";["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d=>cells+=`<div class="calendar-day-name">${d}</div>`);for(let i=0;i<sw;i++)cells+=`<div class="calendar-day empty"></div>`;for(let d=1;d<=dim;d++){const key=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`,lg=hasAnyLog(key),sel=key===logDate.value;cells+=`<button class="calendar-day ${lg?"logged":""} ${sel?"selected":""}" onclick="selectCalendarDate('${key}')"><div class="calendar-date">${d}</div><div class="calendar-dot">${lg?"●":""}</div></button>`}c.innerHTML=`<div class="calendar-head"><button class="secondary mini" onclick="moveMonth(-1)">前月</button><div class="calendar-title">${ml}</div><button class="secondary mini" onclick="moveMonth(1)">次月</button></div><div class="calendar-grid">${cells}</div>`}
+function selectCalendarDate(k){logDate.value=k;render()}function moveMonth(o){const c=new Date(logDate.value);c.setMonth(c.getMonth()+o);c.setDate(1);logDate.value=c.toISOString().slice(0,10);render()}
+function countInputs(l){let c=0;Object.values(l).forEach(fs=>Object.values(fs).forEach(v=>{if(v!==undefined&&v!==null&&String(v).trim()!=="")c++}));return c}
+function get7DayAverage(c,f){const ds=getDateRange(new Date(logDate.value),6),v=getValuesForDates(ds,c,f);return v.length?average(v):null}
+function renderHabits(){const c=document.getElementById("habitList"),tl=getTodayLog();c.innerHTML="";habits.forEach((h,hi)=>{if(!tl[h.name])tl[h.name]={};const hd=document.createElement("div");hd.className="habit";hd.innerHTML=`<div class="habit-head"><div class="habit-title">${h.name}</div><button class="secondary mini" onclick="deleteHabit(${hi})">削除</button></div><div id="fields-${hi}"></div><div class="add-field-row"><input id="addFieldName-${hi}" placeholder="内訳名 例：距離"><input id="addFieldUnit-${hi}" placeholder="単位"><button class="secondary mini" onclick="addField(${hi})">追加</button></div>`;c.appendChild(hd);const fd=document.getElementById(`fields-${hi}`);h.fields.forEach((f,fi)=>{const val=getLogValue(tl,h.name,f.name),act=selectedChart&&selectedChart.category===h.name&&selectedChart.field===f.name,row=document.createElement("div");row.className="field-row";row.innerHTML=`<label>${f.name}</label><div style="display:flex;gap:4px;align-items:center;">
+  ${f.unit ? `
+    <button class="secondary mini"
+      onclick="stepValue('${escapeJs(h.name)}','${escapeJs(f.name)}',-1)">
+      −
+    </button>
+  ` : ""}
+
+  <input
+    type="${isNumericField(h.name,f.name,f.unit) ? "number" : "text"}"
+    inputmode="${isNumericField(h.name,f.name,f.unit) ? "decimal" : "text"}"
+    value="${escapeHtml(val)}"
+    onchange="updateLog('${escapeJs(h.name)}','${escapeJs(f.name)}',this.value)"
+    placeholder="入力"
+  />
+
+  ${f.unit ? `
+    <button class="secondary mini"
+      onclick="stepValue('${escapeJs(h.name)}','${escapeJs(f.name)}',1)">
+      ＋
+    </button>
+  ` : ""}
+</div>${f.unit==="分" ? `
+  <div class="quick-buttons">
+    <button class="secondary mini"
+      onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',10)">
+      +10
+    </button>
+
+    <button class="secondary mini"
+      onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',15)">
+      +15
+    </button>
+
+    <button class="secondary mini"
+      onclick="quickAdd('${escapeJs(h.name)}','${escapeJs(f.name)}',30)">
+      +30
+    </button>
+  </div>
+` : ""}<div class="unit">${f.unit||""}</div><button class="secondary mini" onclick="copyYesterday('${escapeJs(h.name)}','${escapeJs(f.name)}')">前日</button><button class="mini graph-btn ${act?"active":""}" onclick="toggleChart('${escapeJs(h.name)}','${escapeJs(f.name)}')">グラフ</button><button class="secondary mini" onclick="deleteField(${hi},${fi})">×</button>`;fd.appendChild(row)})});save()}
+function getLogValue(dl,c,f){if(!dl[c])return"";if(dl[c][f]!==undefined)return dl[c][f];if(c==="体重"&&f==="数値"&&dl[c]["kg"]!==undefined)return dl[c]["kg"];if(c==="体脂肪率"&&f==="数値"&&dl[c]["%"]!==undefined)return dl[c]["%"];return""}
+function updateLog(h,f,v){const tl=getTodayLog();if(!tl[h])tl[h]={};tl[h][f]=v;if(h==="体重")delete tl[h]["kg"];if(h==="体脂肪率")delete tl[h]["%"];save();renderDashboard();renderAIReview();renderCalendar();renderStreak();renderWeeklyReview();renderHeatmap();renderMonthlySummary();renderChart();renderHistory()}
+function stepValue(category, field, delta) {
+  const todayLog = getTodayLog();
+
+  if (!todayLog[category]) {
+    todayLog[category] = {};
   }
-];
 
-let currentCard = null;
-let activeFilter = 'all';
+  let current =
+    parseFloat(todayLog[category][field]) || 0;
 
-function renderCards(filter = 'all') {
-  const grid = document.getElementById('cardsGrid');
-  grid.innerHTML = '';
-  
-  const filtered = filter === 'all' ? cards : cards.filter(c => c.tags.includes(filter));
-  
-  filtered.forEach((card, i) => {
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.style.setProperty('--accent', card.accent);
-    div.style.animationDelay = `${i * 0.08}s`;
+  current += delta;
 
-    const tagHTML = card.tags.map(t => {
-      const label = card.tagLabels[t] || t;
-      return `<span class="tag ${t}">${label}</span>`;
-    }).join('');
+  if (current < 0) current = 0;
 
-    const ssnDotClass = card.ssnRequired === 'easy' ? '' : card.ssnRequired === 'medium' ? 'warn' : 'hard';
+  todayLog[category][field] =
+    Number(current.toFixed(1));
 
-    div.innerHTML = `
-      <div class="card-header">
-        <div>
-          <div class="card-issuer">${card.issuer}</div>
-          <div class="card-name">${card.name}</div>
-        </div>
-        <div class="card-emoji">${card.emoji}</div>
-      </div>
-      <div class="tags">${tagHTML}</div>
-      <div class="bonus-bar">
-        <div class="bonus-label">🎁 ウェルカムボーナス</div>
-        <div class="bonus-text">${card.signupBonus}</div>
-        <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);margin-top:2px;">${card.signupCondition}</div>
-      </div>
-      <div class="stats-row">
-        <div class="stat-box">
-          <div class="stat-label">年会費</div>
-          <div class="stat-value" style="color:${card.annualFee === '無料 🎉' ? '#00E676' : '#FFD600'}">${card.annualFee}</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">難易度</div>
-          <div class="stat-value">${card.difficulty}</div>
-        </div>
-      </div>
-      <div class="stat-box" style="margin-bottom:10px;">
-        <div class="stat-label">ポイント還元</div>
-        <div class="stat-value" style="font-size:0.85rem;color:rgba(255,255,255,0.9);">${card.rewards}</div>
-      </div>
-      <div class="ssn-note">
-        <div class="ssn-dot ${ssnDotClass}"></div>
-        ${card.ssnNote}
-      </div>
-      <button class="apply-btn" style="background:${card.accent};" onclick="openModal(${card.id}, event)">
-        詳細 + 申し込みページへ →
-      </button>
-    `;
-
-    grid.appendChild(div);
-  });
+  save();
+  render();
 }
+function quickAdd(category, field, amount){
+  const todayLog=getTodayLog();
 
-function filterCards(filter, btn) {
-  activeFilter = filter;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  renderCards(filter);
-}
-
-function openModal(id, e) {
-  if (e) e.stopPropagation();
-  const card = cards.find(c => c.id === id);
-  if (!card) return;
-  currentCard = card;
-
-  document.getElementById('modalContent').style.setProperty('--modal-accent', card.accent);
-
-  const body = document.getElementById('modalBody');
-  body.innerHTML = `
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
-      <div style="font-size:2.2rem;">${card.emoji}</div>
-      <div>
-        <div class="modal-issuer-badge">${card.issuer}</div>
-        <div class="modal-title">${card.name}</div>
-      </div>
-    </div>
-
-    <div style="background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));border-radius:14px;padding:14px;margin-bottom:12px;border-left:3px solid ${card.accent};">
-      <div style="font-size:0.65rem;color:${card.accent};font-weight:900;margin-bottom:6px;">🎁 ウェルカムボーナス</div>
-      <div style="font-size:1rem;font-weight:900;">${card.signupBonus}</div>
-      <div style="font-size:0.72rem;color:#9DB8D4;margin-top:3px;">${card.signupCondition}</div>
-    </div>
-
-    <div class="modal-stats">
-      <div class="modal-stat">
-        <div class="modal-stat-label">年会費</div>
-        <div class="modal-stat-value">${card.annualFee}</div>
-      </div>
-      <div class="modal-stat">
-        <div class="modal-stat-label">海外手数料</div>
-        <div class="modal-stat-value" style="color:#5DBE8A;">${card.foreignFee}</div>
-      </div>
-      <div class="modal-stat">
-        <div class="modal-stat-label">難易度</div>
-        <div class="modal-stat-value">${card.difficulty}</div>
-      </div>
-    </div>
-
-    <div class="modal-stat" style="margin-bottom:12px;text-align:left;padding:10px 12px;">
-      <div class="modal-stat-label" style="margin-bottom:4px;">💳 還元率</div>
-      <div style="font-size:0.82rem;font-weight:700;">${card.rewards}</div>
-    </div>
-
-    <div class="detail-section">
-      <h3>✅ メリット</h3>
-      <ul>${card.details.pros.map(p => `<li>${p}</li>`).join('')}</ul>
-    </div>
-    <div class="detail-section">
-      <h3>⚠️ 注意点</h3>
-      <ul>${card.details.cons.map(c => `<li>${c}</li>`).join('')}</ul>
-    </div>
-    <div class="detail-section">
-      <h3>💡 攻略ポイント</h3>
-      <p>${card.details.tips}</p>
-    </div>
-    <div class="detail-section" style="border-left:3px solid #C8102E;">
-      <h3>🇯🇵 在米日本人メモ</h3>
-      <p>${card.details.jpNote}</p>
-    </div>
-  `;
-
-  document.getElementById('modalOverlay').classList.add('open');
-  updateSaveBtn();
-}
-
-// 注目カードセクションからのタップ用エイリアス
-function openCardModal(id) {
-  openModal(id, null);
-}
-
-function closeModal(e) {
-  if (e.target === document.getElementById('modalOverlay')) {
-    document.getElementById('modalOverlay').classList.remove('open');
+  if(!todayLog[category]){
+    todayLog[category]={};
   }
-}
 
-function closeModalDirect() {
-  document.getElementById('modalOverlay').classList.remove('open');
-}
+  let current=
+    parseFloat(todayLog[category][field]) || 0;
 
-function applyCard() {
-  if (currentCard) {
-    window.open(currentCard.url, '_blank');
+  current += amount;
+
+  todayLog[category][field]=current;
+
+  save();
+  render();
+}
+function copyYesterday(c,f){const cd=new Date(logDate.value),y=new Date(cd);y.setDate(y.getDate()-1);const k=y.toISOString().slice(0,10),v=getStoredValue(k,c,f);if(v===undefined||v===null||v===""){alert("前日のデータがありません");return}const tl=getTodayLog();if(!tl[c])tl[c]={};tl[c][f]=v;save();render()}
+function addHabit(){const n=document.getElementById("newHabitName").value.trim(),ft=document.getElementById("newFieldNames").value.trim();if(!n)return alert("項目名を入力してください");const fs=ft?ft.split(",").map(x=>{const[a,b=""]=x.split(":").map(v=>v.trim());return{name:a,unit:b}}).filter(f=>f.name):[{name:"内容",unit:""}];habits.push({name:n,fields:fs});document.getElementById("newHabitName").value="";document.getElementById("newFieldNames").value="";save();render()}
+function deleteHabit(i){if(!confirm("この項目を削除しますか？"))return;const d=habits[i];if(selectedChart&&selectedChart.category===d.name)selectedChart=null;habits.splice(i,1);save();render()}
+function addField(i){const ni=document.getElementById(`addFieldName-${i}`),ui=document.getElementById(`addFieldUnit-${i}`),n=ni.value.trim(),u=ui.value.trim();if(!n)return;habits[i].fields.push({name:n,unit:u});ni.value="";ui.value="";save();render()}
+function deleteField(hi,fi){const h=habits[hi],f=h.fields[fi];if(selectedChart&&selectedChart.category===h.name&&selectedChart.field===f.name)selectedChart=null;h.fields.splice(fi,1);save();render()}
+function toggleChart(c,f){selectedChart=selectedChart&&selectedChart.category===c&&selectedChart.field===f?null:{category:c,field:f};save();render()}
+function renderChart(){const canvas=document.getElementById("habitChart"),title=document.getElementById("chartTitle");if(!canvas)return;if(!selectedChart){if(habitChart){habitChart.destroy();habitChart=null}if(title)title.textContent="表示したい内訳の「グラフ」ボタンを押してください";return}const c=selectedChart.category,f=selectedChart.field,u=getUnit(c,f);if(title)title.textContent=`${c} / ${f}${u?" ("+u+")":""}`;const data=Object.keys(logs).sort().map(d=>{const rv=getStoredValue(d,c,f),nv=parseFloat(String(rv).replace(/[^\d.-]/g,""));return{date:d,value:Number.isFinite(nv)?nv:null}}).filter(x=>x.value!==null);if(habitChart)habitChart.destroy();habitChart=new Chart(canvas,{type:"line",data:{labels:data.map(x=>x.date.slice(5)),datasets:[{label:`${c} / ${f}${u?" ("+u+")":""}`,data:data.map(x=>x.value),tension:.3,pointRadius:5,pointHoverRadius:7}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true}},scales:{y:{beginAtZero:false,ticks:{callback:function(v){return v.toFixed(1)}}}}}})}
+function renderStreak(){const c=document.getElementById("streakBox");if(!c)return;const st=calculateStreak(new Date(logDate.value)),ttl=countLoggedDays();c.innerHTML=`<div class="streak-main">${st} 日連続</div><div class="streak-sub">選択日からさかのぼった連続記録日数</div><div class="streak-badge">累計記録日数 ${ttl} 日</div>`}
+function calculateStreak(e){let c=0,cur=new Date(e);while(true){const k=cur.toISOString().slice(0,10);if(hasAnyLog(k)){c++;cur.setDate(cur.getDate()-1)}else break}return c}
+function countLoggedDays(){return Object.keys(logs).filter(d=>hasAnyLog(d)).length}
+function hasAnyLog(d){const l=logs[d];if(!l)return false;return Object.values(l).some(fs=>Object.values(fs).some(v=>v!==undefined&&v!==null&&String(v).trim()!==""))}
+function renderWeeklyReview(){const c=document.getElementById("weeklyReview");if(!c)return;const today=new Date(logDate.value),l7=getDateRange(today,6),p7=getDateRange(addDays(today,-7),6),targets=[["体重","数値","体重",true],["体脂肪率","数値","体脂肪率",true],["BMI","数値","BMI",true],["睡眠","睡眠時間","睡眠時間",false],["睡眠","睡眠スコア","睡眠スコア",false],["睡眠","ボディバッテリー","ボディバッテリー",false],["筋トレ","腕立て","腕立て",false],["筋トレ","スクワット","スクワット",false],["ウォーキング","距離","ウォーキング距離",false],["ランニング","距離","ランニング距離",false],["英語","時間","英語時間",false],["読書","時間","読書時間",false],["勤務","勤務時間","勤務時間",false]].map(x=>({category:x[0],field:x[1],label:x[2],lowerIsBetter:x[3]}));const cards=targets.map(t=>createReviewCard(t,l7,p7)).filter(Boolean);c.innerHTML=cards.length?`<div class="review-grid">${cards.join("")}</div>`:`<div class="review-sub">まだ週次レビューに使える数値データがありません。</div>`}
+function createReviewCard(t,l7,p7){const cv=getValuesForDates(l7,t.category,t.field),pv=getValuesForDates(p7,t.category,t.field);if(!cv.length)return null;const u=getUnit(t.category,t.field),ca=average(cv),pa=pv.length?average(pv):null,rate=Math.round(cv.length/7*100);let dt="前週データなし",dc="";if(pa!==null){const diff=ca-pa,isGood=t.lowerIsBetter?diff<0:diff>0;dt=`前週比 ${diff>=0?"+":""}${diff.toFixed(1)} ${u}`;dc=isGood?"review-good":"review-bad"}return`<div class="review-item"><div class="review-title">${t.label}</div><div class="review-main">${ca.toFixed(1)} ${u}</div><div class="review-sub">直近7日平均 / 入力率 ${rate}%</div><div class="review-sub ${dc}">${dt}</div></div>`}
+function renderHeatmap(){const c=document.getElementById("heatmapBox");if(!c)return;const s=new Date(logDate.value),y=s.getFullYear(),m=s.getMonth(),dim=new Date(y,m+1,0).getDate();let cells="";for(let d=1;d<=dim;d++){const k=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`,cnt=countInputs(logs[k]||{});let lv=0;if(cnt>=1)lv=1;if(cnt>=3)lv=2;if(cnt>=6)lv=3;cells+=`<div class="heatmap-cell level-${lv}" title="${k}: ${cnt} inputs"></div>`}c.innerHTML=`<div class="heatmap-label">選択月の記録密度。濃いほど入力数が多い日です。</div><div class="heatmap-grid">${cells}</div>`}
+function renderMonthlySummary(){
+  const c=document.getElementById("monthlySummary");
+  if(!c)return;
+
+  const s=new Date(logDate.value);
+  const y=s.getFullYear();
+  const m=s.getMonth();
+  const days=new Date(y,m+1,0).getDate();
+
+  let loggedDays=0;
+  let totalInputs=0;
+
+  const monthDates=[];
+
+  for(let d=1;d<=days;d++){
+    const k=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+    monthDates.push(k);
+    const count=countInputs(logs[k]||{});
+    if(count>0)loggedDays++;
+    totalInputs+=count;
   }
-}
 
-renderCards();
+    const weightAvg=averageOrNull(getValuesForDates(monthDates,"体重","数値"));
+  const sleepAvg=averageOrNull(getValuesForDates(monthDates,"睡眠","睡眠時間"));
+  const walkTotal=sumValuesForDates(monthDates,"ウォーキング","距離");
+  const runTotal=sumValuesForDates(monthDates,"ランニング","距離");
+  const englishTotal=sumValuesForDates(monthDates,"英語","時間");
+  const readingTotal=sumValuesForDates(monthDates,"読書","時間");
 
-// === TAB SWITCHING ===
-function switchTab(tab) {
-  const listSection = document.querySelector('.filter-section');
-  const cardsSection = document.getElementById('cardsGrid');
-  const quizSection = document.getElementById('quizSection');
-  const chatSection = document.getElementById('chatSection');
-
-  listSection.style.display = 'none';
-  cardsSection.style.display = 'none';
-  document.getElementById('appFooter').style.display = 'none';
-  document.getElementById('offersSection').style.display = 'none';
-  quizSection.classList.remove('active');
-  chatSection.classList.remove('active');
-  document.getElementById('savedSection').classList.remove('active');
-  document.getElementById('blogSection').classList.remove('active');
-  ['nav-list','nav-quiz','nav-chat','nav-saved','nav-blog'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.remove('active');
-  });
-
-  if (tab === 'list') {
-    listSection.style.display = '';
-    cardsSection.style.display = '';
-    document.getElementById('appFooter').style.display = '';
-    document.getElementById('offersSection').style.display = '';
-    document.getElementById('nav-list').classList.add('active');
-  } else if (tab === 'quiz') {
-    quizSection.classList.add('active');
-    document.getElementById('nav-quiz').classList.add('active');
-  } else if (tab === 'chat') {
-    chatSection.classList.add('active');
-    document.getElementById('nav-chat').classList.add('active');
-  } else if (tab === 'blog') {
-    document.getElementById('blogSection').classList.add('active');
-    document.getElementById('nav-blog').classList.add('active');
-  } else if (tab === 'saved') {
-    document.getElementById('savedSection').classList.add('active');
-    document.getElementById('nav-saved').classList.add('active');
-    renderSaved();
-  }
-}
-
-// === QUIZ LOGIC ===
-let quizAnswers = {};
-let currentStep = 0;
-
-function answer(step, value) {
-  quizAnswers[step] = value;
-  document.getElementById(`dot${step}`).classList.add('done');
-
-  if (step < 4) {
-    document.getElementById(`step${step}`).classList.remove('active');
-    currentStep = step + 1;
-    document.getElementById(`step${currentStep}`).classList.add('active');
-    if (currentStep < 5) document.getElementById(`dot${currentStep}`).classList.add('done');
-  } else {
-    showResult();
-  }
-}
-
-function showResult() {
-  document.querySelector('.quiz-card').style.display = 'none';
-  const resultSection = document.getElementById('resultSection');
-  resultSection.classList.add('active');
-
-  const { 0: history, 1: fee, 2: goal, 3: japan, 4: family } = quizAnswers;
-
-  const scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0 };
-
-  // History
-  if (history === 'nohistory') { scores[3] += 2; scores[6] += 2; scores[10] += 5; scores[11] += 5; }
-  else if (history === 'some') { scores[4] += 2; scores[6] += 2; scores[1] += 1; scores[10] += 1; scores[11] += 1; }
-  else { scores[1] += 3; scores[2] += 3; scores[5] += 2; scores[7] += 2; scores[8] += 1; scores[9] += 1; }
-
-  // Fee
-  if (fee === 'free') { scores[3] += 3; scores[4] += 3; scores[6] += 3; }
-  else if (fee === 'ok95') { scores[1] += 2; scores[5] += 2; scores[7] += 2; scores[4] += 1; }
-  else { scores[2] += 3; scores[1] += 2; scores[7] += 2; scores[8] += 2; scores[9] += 1; }
-
-  // Goal
-  if (goal === 'travel') { scores[1] += 3; scores[5] += 3; scores[6] += 1; }
-  else if (goal === 'food') { scores[2] += 3; scores[3] += 1; }
-  else if (goal === 'daily') { scores[4] += 3; scores[3] += 2; }
-  else if (goal === 'hotel') { scores[7] += 4; scores[1] += 1; }
-  else if (goal === 'airline') { scores[8] += 3; scores[9] += 3; scores[5] += 1; }
-
-  // Japan
-  if (japan === 'often') { scores[1] += 2; scores[5] += 2; scores[10] += 3; scores[11] += 3; scores[2] += 1; }
-  else if (japan === 'sometimes') { scores[1] += 1; scores[10] += 2; scores[11] += 2; }
-
-  // Family
-  if (family === 'single') { scores[3] += 2; scores[4] += 1; }
-  else if (family === 'couple') { scores[2] += 2; scores[1] += 1; }
-  else if (family === 'family') { scores[2] += 3; scores[7] += 2; scores[1] += 1; }
-
-  // Sort
-  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  const topId = parseInt(sorted[0][0]);
-  const runners = sorted.slice(1, 4).map(s => parseInt(s[0]));
-
-  const top = cards.find(c => c.id === topId);
-
-  // 詳細な理由（回答に応じて動的に生成）
-  const historyLabel = history === 'nohistory' ? 'クレヒスなし' : history === 'some' ? 'クレヒス6ヶ月〜1年' : 'クレヒス1年以上';
-  const goalLabel = { travel: '旅行・マイル', food: '食費・外食', daily: '日常の買い物', hotel: 'ホテル', airline: '特定航空マイル' }[goal] || '';
-  const familyLabel = { single: '一人暮らし', couple: '夫婦', family: '家族' }[family] || '';
-  const japanLabel = japan === 'often' ? '年1回以上帰国' : 'あまり帰国しない';
-
-  const reasons = {
-    1: `${historyLabel}・${goalLabel}の方に最適。Chase Sapphire Preferredは旅行・食事3x還元に加え、UrポイントをANAマイルに1:1移行できる在米日本人の定番カードです。Chase 5/24ルールに注意しながら最優先で申し込みましょう。`,
-    2: `${familyLabel}で${goalLabel}を重視するならAmex Gold一択。食費・スーパー4x還元は業界最強クラス。毎月のUber Cash・ダイニングクレジットを活用すれば年会費$325も実質$0になります。ANAマイルへ直接1:1移行可能。`,
-    3: `${historyLabel}からスタートできる貴重な1枚がDiscover it Student。まず6〜12ヶ月でクレヒスを積み上げてから、Chase SapphireやAmex Goldへステップアップしましょう。年会費無料で初年度キャッシュバック全額マッチが嬉しい。`,
-    4: `すべての購入で1.5x還元とシンプルなChase Freedom Unlimited。年会費無料でChase Sapphireとの組み合わせ（Chaseトリフェクタ）で真価を発揮します。まずここから始めてSapphireを追加するのがおすすめのロードマップです。`,
-    5: `${japanLabel}の方にCapital One Ventureはおすすめ。すべて2xマイルでシンプル、ANAマイルへの移行もできます。Chase・Amexに比べるとポイント移行先は少なめですが、使い勝手のよさが魅力です。`,
-    6: `${historyLabel}でBoA口座をお持ちなら、BoA Travel Rewardsが最も作りやすい選択肢です。年会費無料・海外手数料なし・1.5pt還元とシンプルで使いやすく、初めてのアメリカカードとして最適。`,
-    7: `${goalLabel}・${familyLabel}の方にChase World of Hyattがベストマッチ。毎年カテゴリ1-4の無料宿泊1泊付きで年会費$95以上の価値があります。日本の東京・大阪のHyattでも使えます。`,
-    8: `特定航空マイルを重視する方、特にアトランタ在住の方にDelta SkyMiles Gold Amexが最適です。デルタのハブ空港ATLを拠点にすれば積算マイルが一気に増えます。荷物無料・優先搭乗で実用的な特典も充実。`,
-    9: `${goalLabel}でAmerican Airlines系をお使いの方にCiti AAdvantageがベスト。JALとのコードシェア便にも使えるので日本帰国時にも応用できます。ダラス・マイアミ在住者に特におすすめです。`,
-    10: `${historyLabel}・${japanLabel}の方にJAL USA Cardが最適な第一歩です。クレヒスなし・SSNなしでも申込でき、JALフライトのたびに10%ボーナスマイルが貯まります。6〜12ヶ月後にChase Sapphireへのステップアップがベストなロードマップです。`,
-    11: `${historyLabel}・${japanLabel}のANA派にANA CARD U.S.A. Plusが最適です。クレヒスなし・SSNなしでもOK、フライト25%ボーナスとプライオリティチェックインが魅力。渡米直後の最初の1枚として渡米直後から積み上げを始めましょう。`
-  };
-
-  const resultCard = document.getElementById('resultCard');
-  resultCard.style.setProperty('--result-color', top.accent);
-  resultCard.innerHTML = `
-    <div class="result-emoji">${top.emoji}</div>
-    <div class="result-label">${top.issuer}</div>
-    <div class="result-name">${top.name}</div>
-    <div style="margin:12px 0;padding:12px;background:rgba(255,255,255,0.06);border-radius:12px;">
-      <div style="font-size:0.65rem;color:var(--pink);font-weight:700;margin-bottom:4px;">🎁 ウェルカムボーナス</div>
-      <div style="font-size:0.95rem;font-weight:900;">${top.signupBonus}</div>
-      <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);margin-top:2px;">${top.signupCondition}</div>
-    </div>
-    <div style="margin:12px 0;padding:12px;background:rgba(255,255,255,0.04);border-radius:12px;">
-      <div style="font-size:0.65rem;color:#9DB8D4;font-weight:700;margin-bottom:6px;">💡 あなたにおすすめの理由</div>
-      <div class="result-reason" style="font-size:0.82rem;line-height:1.7;">${reasons[topId]}</div>
-    </div>
-    <div style="margin:12px 0;padding:10px;background:rgba(255,255,255,0.04);border-radius:12px;display:flex;justify-content:space-between;align-items:center;">
-      <div>
-        <div style="font-size:0.65rem;color:#9DB8D4;margin-bottom:2px;">年会費</div>
-        <div style="font-size:0.85rem;font-weight:700;">${top.annualFee}</div>
+  c.innerHTML=`
+    <div class="dashboard-grid">
+      <div class="dashboard-item">
+        <div class="dashboard-label">記録日数</div>
+        <div class="dashboard-value">${loggedDays}</div>
+        <div class="dashboard-sub">日 / ${days}日</div>
       </div>
-      <div>
-        <div style="font-size:0.65rem;color:#9DB8D4;margin-bottom:2px;">海外手数料</div>
-        <div style="font-size:0.85rem;font-weight:700;">${top.foreignFee}</div>
-      </div>
-      <div>
-        <div style="font-size:0.65rem;color:#9DB8D4;margin-bottom:2px;">難易度</div>
-        <div style="font-size:0.85rem;font-weight:700;">${top.difficulty}</div>
-      </div>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:16px;">
-      <button class="apply-btn" style="background:${top.accent};flex:1;" onclick="window.open('${top.url}','_blank')">📝 公式サイトで申し込む →</button>
-      <button style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;padding:0 14px;border-radius:12px;font-family:'Zen Maru Gothic',sans-serif;font-size:0.78rem;cursor:pointer;font-weight:700;" onclick="openCardModal(${top.id})">詳細</button>
-    </div>
-  `;
 
-  const runnerEl = document.getElementById('runnerCards');
-  runnerEl.innerHTML = `
-    <div style="font-size:0.75rem;color:#9DB8D4;margin:20px 0 10px;font-weight:700;">📋 次点候補（3枚）</div>
-  ` + runners.map(rid => {
-    const rc = cards.find(c => c.id === rid);
-    if (!rc) return '';
-    return `
-      <div class="result-runner" onclick="openCardModal(${rc.id})" style="cursor:pointer;">
-        <div class="runner-emoji">${rc.emoji}</div>
-        <div class="runner-info">
-          <div class="runner-name">${rc.name}</div>
-          <div class="runner-why">${rc.issuer} ｜ 年会費 ${rc.annualFee}</div>
-        </div>
-        <div style="color:${rc.accent};font-size:0.75rem;font-weight:700;">詳細 →</div>
+      <div class="dashboard-item">
+        <div class="dashboard-label">入力数</div>
+        <div class="dashboard-value">${totalInputs}</div>
+        <div class="dashboard-sub">項目</div>
       </div>
-    `;
-  }).join('');
 
-  // 結果シェアボタンを追加
-  const shareText = `USカードナビのAI診断で「${top.name}」がおすすめに！\nあなたも試してみて👇\nhttps://amepeach.com`;
-  runnerEl.innerHTML += `
-    <div style="margin-top:20px;display:flex;gap:8px;">
-      <button onclick="navigator.share ? navigator.share({title:'USカードナビ診断結果',text:'${shareText}'}) : window.open('https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}','_blank')" style="flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;padding:10px;border-radius:12px;font-family:'Zen Maru Gothic',sans-serif;font-size:0.78rem;cursor:pointer;font-weight:700;">📤 結果をシェア</button>
-      <button onclick="retryQuiz()" style="flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;padding:10px;border-radius:12px;font-family:'Zen Maru Gothic',sans-serif;font-size:0.78rem;cursor:pointer;font-weight:700;">🔄 再診断する</button>
+      <div class="dashboard-item">
+        <div class="dashboard-label">平均体重</div>
+        <div class="dashboard-value">${weightAvg!==null?weightAvg.toFixed(1):"-"}</div>
+        <div class="dashboard-sub">kg</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">平均睡眠</div>
+        <div class="dashboard-value">${sleepAvg!==null?sleepAvg.toFixed(1):"-"}</div>
+        <div class="dashboard-sub">h</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">歩行距離</div>
+        <div class="dashboard-value">${walkTotal.toFixed(1)}</div>
+        <div class="dashboard-sub">km/月</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">ラン距離</div>
+        <div class="dashboard-value">${runTotal.toFixed(1)}</div>
+        <div class="dashboard-sub">km/月</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">英語</div>
+        <div class="dashboard-value">${englishTotal.toFixed(0)}</div>
+        <div class="dashboard-sub">分/月</div>
+      </div>
+
+      <div class="dashboard-item">
+        <div class="dashboard-label">読書</div>
+        <div class="dashboard-value">${readingTotal.toFixed(0)}</div>
+        <div class="dashboard-sub">分/月</div>
+      </div>
     </div>
   `;
 }
 
-function retryQuiz() {
-  quizAnswers = {};
-  currentStep = 0;
-  document.querySelectorAll('.quiz-step').forEach((s, i) => {
-    s.classList.toggle('active', i === 0);
-  });
-  document.querySelectorAll('.progress-dot').forEach((d, i) => {
-    d.classList.toggle('done', i === 0);
-  });
-  document.querySelector('.quiz-card').style.display = '';
-  document.getElementById('resultSection').classList.remove('active');
+function averageOrNull(values){
+  if(!values.length)return null;
+  return average(values);
 }
 
-// === AI CHAT ===
-const CARD_CONTEXT = `
-あなたは「USカードナビ」という在米日本人向けクレジットカード比較アプリの専門AIアシスタントです。
-以下のカード情報をもとに、ユーザーの質問に日本語で丁寧・わかりやすく答えてください。
-
-【掲載カード一覧】
-1. Chase Sapphire Preferred® | 年会費$95 | ウェルカムボーナス：60,000 Urポイント（3ヶ月$4,000利用）| 旅行・食事3x還元 | 海外手数料なし | SSNなし可（パスポートで申込できるケースあり）| ANA・JALマイルへの移行可能 | Chase5/24ルールに注意
-2. Amex Gold Card | 年会費$250 | ボーナス：60,000 MRポイント（6ヶ月$6,000利用）| レストラン・スーパー4x | 毎月$10ダイニング＋$10 Uberクレジット | SSN必須（ITIN可の場合も）
-3. Discover it® Student | 年会費無料 | ボーナス：初年度キャッシュバック全額マッチ | 四半期5%還元 | 海外手数料なし | クレヒスなしでも作りやすい | F1/J1ビザ向け
-4. Chase Freedom Unlimited® | 年会費無料 | ボーナス：$200（3ヶ月$500利用）| すべて1.5%還元 | 海外手数料3% | Sapphireと組み合わせ最強
-5. Capital One Venture | 年会費$95 | ボーナス：75,000マイル（3ヶ月$4,000利用）| すべて2xマイル | 海外手数料なし | ANAマイルへ移行可能
-6. BoA Travel Rewards | 年会費無料 | ボーナス：25,000pt（90日$1,000利用）| すべて1.5pt | 海外手数料なし | BoA口座保有者は審査通りやすい
-
-【重要な在米日本人向けアドバイス】
-- クレヒスがない場合：Discover Student → BoA Travel → Chase/Amex の順でステップアップがおすすめ
-- Chase 5/24ルール：過去24ヶ月で5枚以上申込むとChase審査落ちる可能性大
-- SSNなし：Discover StudentかBoA（口座あり）が現実的。アメリカン・エキスプレスはITINで申込可能なケースも
-- ANAマイル：Chase UrポイントまたはCapital One Ventureから移行可能
-- ウェルカムボーナス情報は変動するので申込前に公式サイトで確認を促すこと
-
-回答は簡潔に、絵文字を適度に使い、親しみやすいトーンで。最後に「他に質問があれば気軽にどうぞ！」などと添えてください。
-`;
-
-let chatHistory = [];
-let isLoading = false;
-
-// Offline rule-based responses
-const offlineRules = [
-  {
-    keywords: ['global transfer', 'グローバルトランスファー', 'グローバル移行', '日本 amex', '渡米前 amex', '日本で amex'],
-    reply: `Amex Global Transferについてご案内します🌏\n\n**Amex Global Transferとは？**\n日本のAmexカードを持っていれば、渡米直後でもクレヒスゼロ・SSNなしでアメリカのAmexカードに申込める制度です！\n\n**条件：**\n・日本のAmexカードを最低3ヶ月以上保有（6ヶ月以上推奨）\n・アメリカの住所（家族・知人宅でもOK）\n・パスポート（SSNの代わり）\n\n**申込方法：**\namericanexpress.com/en-us/company/about-us/moving-abroad/ からオンラインで申込可能。\n\n**おすすめ申込カード：**\n🥇 Amex Gold — 食費4x・MRポイントをすぐ積み上げられる最強選択！\n\n**注意：**\n渡米後に知っても遅い！日本在住中にAmexを作っておくことが絶対条件です。\n\n詳しくはブログ記事「渡米前にAmexを作るべき理由」もご覧ください📖\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['渡米前', '準備', '渡米準備', '赴任前', '引越し前', '渡航前'],
-    reply: `渡米前にやるべき財実準備をまとめました📋\n\n**🥇 最優先：Amexカードを日本で作る**\nAmex Global Transferで渡米直後からAmex Goldに申込める。渡米3〜6ヶ月前に作っておくのが鉄則！\n\n**✈️ 渡米直後：**\n① JAL/ANA USAカード申込（クレヒスなし・SSNなし対応）\n② Global TransferでAmex Gold申込\n③ アメリカの銀行口座開設（Chase/BoAが便利）\n\n**💎 6〜12ヶ月後：**\n④ Chase Sapphire Preferred申込\n⑤ Amex Gold×Chase Sapphireの最強コンボ完成！\n\n**その他：**\n・日本のAmexはMRポイントをアメリカに移行可能\n・クレヒスは「全額払い・遅延なし」で着実に育てる\n\n詳しくはブログ「渡米前にやるべき財実準備完全ガイド」もご覧ください！\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['トリフェクタ', 'trifecta', 'freedom', 'freedom unlimited', 'freedom flex'],
-    reply: `Chaseトリフェクタについてご案内します💎\n\n**トリフェクタとは？**\nChase Sapphire + Freedom Unlimited + Freedom Flexの3枚を組み合わせて、UrポイントをMAX効率で貯める戦略です。\n\n**各カードの役割：**\n💎 Sapphire Preferred — 旅行・食事3x（ポイント集約・移行の核）\n🚀 Freedom Unlimited — すべて1.5x（年会費無料・日常の買い物に）\n🎯 Freedom Flex — 四半期ボーナス5x（Amazon・ガス・食料品等）\n\n**ポイント集約の仕組み：**\nFreedom系のUrポイントをSapphireに集約 → ANAマイル等へ1:1移行可能！\n\n**家族での活用：**\n同一世帯のChaseアカウント間でポイント移行もできます。\n\n**申込順序：**\n① Sapphire → ② Freedom Unlimited → ③ Freedom Flex（間隔を3〜6ヶ月あけて）\n\n詳しくはブログ「Chaseトリフェクタ完全解説」をご覧ください📖\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['ポイ活', 'topcashback', 'rakuten', 'fetch', 'ibotta', 'cashback', 'キャッシュバック'],
-    reply: `アメリカでのポイ活・キャッシュバック情報です💰\n\n**クレカと組み合わせる最強ポイ活：**\n\n🏆 TopCashback — 業界最高水準の還元率・手数料0%・7,000店舗以上\n🛍️ Rakuten — Amex Goldユーザーは現金→MRポイント変換でさらにお得\n📸 Fetch — レシートを撮るだけ・事前準備不要・Ibottaと同じレシートで二重取り可\n🛒 Ibotta — スーパーの特定商品で$0.25〜$5現金バック\n🚗 Chase DashPass — Sapphire持ちなら2027年末まで無料・月$10プロモ付き\n🎁 割引ギフトカード — Raiseで2〜20%オフのギフトカードを先買い\n\n**スーパー最強コンボ：**\nAmex Gold（4x MR）+ Ibotta（現金バック）+ Fetch（ポイント）の三重取り！\n\n**年間節約目安：**\n全部活用すれば年間$500〜800以上の節約が現実的です。\n\n詳しくはブログ「アメリカでのポイ活6選」をご覧ください📖\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['jal usa', 'jal card', 'jalカード', 'ana card', 'anaカード', 'クレヒスなし', 'ssn なし'],
-    reply: `クレヒスなし・SSNなしで作れるカードをご案内します🆕\n\n**渡米直後の鉄板2択：**\n\n🔴 JAL USA Card（$35〜$85/年）\n・クレヒスなし・SSNなしでOK\n・JALフライト毎回10%ボーナスマイル\n・プロモコード「JSPRG26」で10,000マイル\n・2024年10月リニューアル済み\n\n🔵 ANA CARD U.S.A. Plus（$85/年）\n・クレヒスなし・SSNなしでOK（後からSSN登録可）\n・ANA搭乗25%ボーナスマイル\n・ビジネスクラスカウンターでプライオリティチェックイン\n\n**どちらを選ぶ？**\nJAL派 → JAL USA Card\nANA派 → ANA CARD U.S.A.\nコスト重視 → JAL Basic（$35/年）が最安\n\n**次のステップ：**\n6〜12ヶ月後にChase Sapphireへステップアップ！\n\nブログ「JAL・ANA USAカード完全ガイド」も参考にどうぞ📖\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['ssn', 'なし', 'ない', 'パスポート', 'itin'],
-    reply: `SSNなし・ITINでも作れるカードはあります！🎉\n\n**おすすめ順：**\n① 🎓 Discover it® Student — クレヒスなし・SSNなしでも申込できるケースが多い\n② 🌏 BoA Travel Rewards — Bank of Americaに口座があれば申込しやすい\n③ 💎 Chase Sapphire Preferred — パスポートで申込できるケースあり\n④ 🥇 Amex Gold — ITINで申込可能なケースあり\n\n**ITINとは？**\n就労ビザがない配偶者など、SSNを取得できない方が税務申告のために取得できる番号。税理士経由で3〜5ヶ月かかります。\n\nまずはDiscoverかBoAから始めるのが現実的です✨\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['クレヒス', '初めて', 'ゼロ', '初心者', '最初', '作り方'],
-    reply: `クレヒスゼロからのスタートガイドです📚\n\n**ステップアップ順：**\n1️⃣ 🎓 Discover it® Student（作りやすい・年会費無料）\n2️⃣ 🌏 BoA Travel Rewards（BoA口座があればOK）\n3️⃣ 🚀 Chase Freedom Unlimited（6ヶ月〜1年後）\n4️⃣ 💎 Chase Sapphire Preferred（クレヒス1年以上〜）\n\n**配偶者のクレヒス構築には：**\nまずメインカードのAuthorized User（AU）に追加するのが最速！ChaseやAmexのAUは配偶者のクレヒスにも反映されます。\n\n焦らず段階的に育てるのがコツ！最初の6ヶ月は遅延なく全額払いで実績を積みましょう💪\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['ana', 'jal', 'マイル', '日本', '帰国', '飛行機', '航空'],
-    reply: `日本帰国のマイルを貯めるならこの選択肢です✈️\n\n**ANA移行可能：**\n① 💎 Chase Sapphire Preferred — Urポイント→ANAマイル（1:1）\n② ✈️ Capital One Venture — ANAマイルへ移行可能\n③ 🥇 Amex Gold — MRポイント→ANA（1:1）\n\n**Delta系（アトランタ在住者に特におすすめ）：**\n④ ✈️ Delta SkyMiles Gold — デルタマイルが直接貯まる\n\n**American Airlines系：**\n⑤ 🦅 Citi AAdvantage — JALとのコードシェア便に使用可能\n\nChase Sapphireは他にもANA以外の提携先が多く、最も柔軟に使えます🙌\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['食費', 'レストラン', '食事', 'スーパー', 'ご飯', '飲食', 'グローサリー'],
-    reply: `食費・レストランをお得にするなら断然コレ！🍜\n\n**🥇 Amex Gold Card（最強）**\nレストラン・スーパー 4x還元！\n年会費$250だけど毎月$20のクレジット（ダイニング＋Uber）で実質$10程度に\n\n**家族持ちなら特に効果大：**\n家族5人の食費が月$1,500なら年間6,000pt（$60相当）以上の差が出ます💪\n\n**次点：🚀 Chase Freedom Unlimited**\nすべて1.5%還元、年会費無料でシンプル\n\n食費が多い方はAmex Goldの4x還元がかなり効いてきます！\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['ホテル', 'hyatt', 'ハイアット', '宿泊', '出張'],
-    reply: `ホテル・出張向けならこちら！🏨\n\n**🏨 Chase World of Hyatt（おすすめ）**\n・Hyatt利用で4x還元\n・毎年カテゴリ1-4の無料宿泊1泊付き（年会費$95以上の価値！）\n・Hyattポイントは業界最高水準の価値\n・日本の東京パークハイアット、大阪なども対象\n\n**Hyattが近くにない場合：**\n💎 Chase Sapphire Preferred から始めてHyattカードと組み合わせると、旅行全般をカバーできます。\n\nHyattのGlobalistステータスは世界最強のホテルステータスとも言われます✨\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['デルタ', 'delta', 'アトランタ', 'atlanta', 'スカイマイル'],
-    reply: `Delta SkyMilesについてご案内します✈️\n\n**✈️ Delta SkyMiles® Gold Amex（おすすめ）**\n・ウェルカムボーナス：50,000マイル（6ヶ月$2,000利用）\n・Delta・レストラン 2x還元\n・初年度年会費無料（翌年$150）\n・預け荷物1個無料（同伴者も！）\n・優先搭乗権付き\n\n**アトランタ（ジョージア）在住者には特に最強！**\nデルタのハブ空港がATLなので、搭乗機会が多くなりポイントが貯まりやすいです。\n\n日本（成田・羽田）への直行便もあります🇯🇵\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['aa', 'american airlines', 'アメリカン', 'アドバンテージ', 'citi'],
-    reply: `American Airlines（AA）カードについてご案内します🦅\n\n**🦅 Citi AAdvantage® Platinum Select®**\n・ウェルカムボーナス：50,000 AAマイル（3ヶ月$2,500利用）\n・初年度年会費無料（翌年$99）\n・AA利用で2x、レストラン・ガス 2x\n・預け荷物無料・優先搭乗権\n\n**日本路線での活用：**\nAAマイルはJALとのコードシェア便に使用可能！日本への帰国時にも応用できます。ただしJALへの直接マイル移行はできません。\n\nダラス（DFW）・マイアミ（MIA）在住者に特においすすめです💪\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['家族', '配偶者', '夫婦', '子ども', 'authorized user', 'au'],
-    reply: `駐在員家族のクレカ戦略をご案内します👨‍👩‍👧‍👦\n\n**配偶者のクレヒス構築：**\n① まず本人のChase/AmexにAUとして追加（即日可能）\n② ITINを取得（就労ビザなしでも税理士経由で取得可能）\n③ 6〜12ヶ月後に配偶者名義のカードを申込\n\n**夫婦最強コンボ：**\n👨 本人：Chase Sapphire Preferred（旅行・食事3x）\n👩 配偶者：Amex Gold（食費4x）\n→ 役割分担でポイント2〜3倍に！\n\n**子どものカード：**\n13歳以上からAUに追加可能（Chase・Amex）\n早めに追加するほど大学進学時に有利になります。\n\n詳しくはブログ記事「駐在員家族のクレカ戦略」も参考にしてください📖\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['年会費', '無料', 'タダ', '安い', 'コスト'],
-    reply: `年会費無料で使えるカードはこちら！🎉\n\n① 🎓 Discover it® Student — 初年度キャッシュバック2倍！\n② 🚀 Chase Freedom Unlimited — すべて1.5%還元でシンプル\n③ 🌏 BoA Travel Rewards — 海外手数料もなし、旅行にも使える\n\n**初年度無料のカード：**\n④ ✈️ Delta SkyMiles Gold — 初年度無料、翌年$150\n⑤ 🦅 Citi AAdvantage — 初年度無料、翌年$99\n\n無料カードでも十分お得に使えます。ChaseカードはSapphireと組み合わせると更に強力になりますよ✨\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['chase', 'sapphire'],
-    reply: `Chase Sapphire Preferred®について詳しく説明します💎\n\n**基本情報：**\n・年会費：$95\n・ウェルカムボーナス：60,000 Urポイント（3ヶ月$4,000利用）\n・旅行・食事 3x、その他 1x還元\n・海外手数料：なし✅\n\n**在米日本人ポイント：**\n・ANA・JALマイルへの移行可能！\n・Chase 5/24ルールに注意（過去24ヶ月で5枚以上申込むと審査落ちやすい）\n・SSNなしでもパスポートで申込できるケースあり\n・家族のAUに追加すれば配偶者のクレヒスも構築できる\n\n在米日本人に最も人気のカードです🇯🇵\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['amex', 'american express', 'アメックス', 'gold'],
-    reply: `Amex Gold Cardについて詳しく説明します🥇\n\n**基本情報（2026年最新）：**\n・年会費：$325\n・ウェルカムボーナス：最大100,000 MRポイント（6ヶ月$8,000利用）\n・レストラン・スーパー 4x、フライト直接購入 3x\n・海外手数料：なし✅\n\n**毎月回収できるクレジット：**\n・Uber Cash $10/月\n・ダイニングクレジット $10/月（Grubhub等）\n・Resyクレジット $50×年2回\n・Dunkin'クレジット $7/月\n合計年間$424以上 → 年会費$325を上回る！\n\n**ANAマイルへの移行：**\nMRポイント → ANAマイル（直接1:1）\nMRポイント → BA Avios → JALマイル（1:1:1）\n\n詳しくはブログ「Amex Gold完全攻略」をご覧ください📖\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['5/24', 'ルール', 'チェース', 'chase rule'],
-    reply: `Chase 5/24ルールについて解説します📋\n\n**5/24ルールとは？**\n過去24ヶ月以内に5枚以上のクレジットカードを開設した場合、Chaseのほとんどのカードに審査が通らなくなるルールです。\n\n**注意点：**\n・Chaseが公式発表しているわけではないが業界では周知の事実\n・Authorized User（AU）として追加されたカードもカウントされる場合がある\n・ビジネスカードはカウントされないものも\n\n**対策：**\n・Chaseカードを最優先に申込む\n・他社カードは後回しにする\n・家族でタイミングをずらして申込む\n\nChase Sapphireを狙うなら、24ヶ月のカード枚数を管理することが重要です！\n他に質問があれば気軽にどうぞ！`
-  },
-  {
-    keywords: ['比較', 'どっち', 'どれ', 'おすすめ', '迷'],
-    reply: `目的別おすすめをまとめました🎯\n\n**旅行・マイル重視：** 💎 Chase Sapphire Preferred\n**食費・スーパー重視：** 🥇 Amex Gold Card\n**ホテル・出張多め：** 🏨 Chase World of Hyatt\n**Delta利用（ATL在住）：** ✈️ Delta SkyMiles Gold\n**初心者・クレヒスなし：** 🎓 Discover it Student\n**シンプルに全部お得：** ✈️ Capital One Venture\n**AA系で日本へ：** 🦅 Citi AAdvantage\n\n下の「診断」タブで5問答えると、さらに詳しくあなたに合ったカードが分かります！\n他に質問があれば気軽にどうぞ！`
-  }
-];
-
-function getOfflineReply(text) {
-  const lower = text.toLowerCase();
-  for (const rule of offlineRules) {
-    if (rule.keywords.some(k => lower.includes(k))) {
-      return rule.reply;
-    }
-  }
-  return `ご質問ありがとうございます😊\n\n具体的なキーワードで聞いてみてください！\n例：「SSNなし」「食費おすすめ」「ANAマイル」「年会費無料」「初心者向け」など\n\nまたは下の「診断」タブで4問答えると、あなたに合ったカードが見つかります🧭\n他に質問があれば気軽にどうぞ！`;
+function sumValuesForDates(dates,category,field){
+  return getValuesForDates(dates,category,field)
+    .reduce((sum,value)=>sum+value,0);
 }
-
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+function getValuesForDates(ds,c,f){return ds.map(d=>{const rv=getStoredValue(d,c,f),nv=parseFloat(String(rv).replace(/[^\d.-]/g,""));return Number.isFinite(nv)?nv:null}).filter(v=>v!==null)}
+function getStoredValue(d,c,f){const l=logs[d];if(!l||!l[c])return undefined;if(l[c][f]!==undefined)return l[c][f];if(c==="体重"&&f==="数値")return l[c]["kg"];if(c==="体脂肪率"&&f==="数値")return l[c]["%"];return undefined}
+function getUnit(c,f){const h=habits.find(x=>x.name===c);if(!h)return"";const fo=h.fields.find(x=>x.name===f);return fo?fo.unit:""}
+function isNumericField(category,field,unit){
+if(unit)return true;
+const numericFields=["数値","BMI","睡眠スコア","ボディバッテリー"];
+if(category==="BMI")return true;
+if(numericFields.includes(field))return true;
+return false;
 }
-
-function handleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-}
-
-function sendChip(text) {
-  document.getElementById('chipArea').style.display = 'none';
-  document.getElementById('chatInput').value = text;
-  sendMessage();
-}
-
-function addBubble(text, role) {
-  const msgs = document.getElementById('chatMessages');
-  const bubble = document.createElement('div');
-  bubble.className = `chat-bubble ${role}`;
-  if (role === 'ai') {
-    const formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-    bubble.innerHTML = `<div class="ai-name">✨ AmePeach AI 🍑</div>${formatted}`;
-  } else {
-    bubble.textContent = text;
-  }
-  msgs.appendChild(bubble);
-  msgs.scrollTop = msgs.scrollHeight;
-  return bubble;
-}
-
-function showTyping() {
-  const msgs = document.getElementById('chatMessages');
-  const bubble = document.createElement('div');
-  bubble.className = 'chat-bubble ai';
-  bubble.id = 'typingBubble';
-  bubble.innerHTML = `<div class="ai-name">✨ AmePeach AI 🍑</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
-  msgs.appendChild(bubble);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function removeTyping() {
-  const el = document.getElementById('typingBubble');
-  if (el) el.remove();
-}
-
-async function sendMessage() {
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
-  if (!text || isLoading) return;
-
-  isLoading = true;
-  document.getElementById('sendBtn').disabled = true;
-  input.value = '';
-  input.style.height = 'auto';
-
-  addBubble(text, 'user');
-  showTyping();
-
-  // Simulate thinking delay then offline reply
-  await new Promise(r => setTimeout(r, 900));
-  removeTyping();
-  const reply = getOfflineReply(text);
-  addBubble(reply, 'ai');
-
-  isLoading = false;
-  document.getElementById('sendBtn').disabled = false;
-}
-
-// === SAVED CARDS ===
-let savedIds = JSON.parse(localStorage.getItem('savedCards') || '[]');
-let compareIds = new Set();
-
-function toggleSave() {
-  if (!currentCard) return;
-  const id = currentCard.id;
-  const btn = document.getElementById('saveBtn');
-  if (savedIds.includes(id)) {
-    savedIds = savedIds.filter(i => i !== id);
-    btn.textContent = '⭐';
-    btn.style.borderColor = 'rgba(255,255,255,0.15)';
-  } else {
-    savedIds.push(id);
-    btn.textContent = '🌟';
-    btn.style.borderColor = 'var(--yellow)';
-  }
-  localStorage.setItem('savedCards', JSON.stringify(savedIds));
-  renderSaved();
-}
-
-function updateSaveBtn() {
-  if (!currentCard) return;
-  const btn = document.getElementById('saveBtn');
-  if (savedIds.includes(currentCard.id)) {
-    btn.textContent = '🌟';
-    btn.style.borderColor = 'var(--yellow)';
-  } else {
-    btn.textContent = '⭐';
-    btn.style.borderColor = 'rgba(255,255,255,0.15)';
-  }
-}
-
-function toggleCompare(id) {
-  if (compareIds.has(id)) {
-    compareIds.delete(id);
-  } else {
-    if (compareIds.size >= 3) { alert('比較は最大3枚までです'); return; }
-    compareIds.add(id);
-  }
-  updateCompareBar();
-  renderSaved();
-}
-
-function updateCompareBar() {
-  const bar = document.getElementById('compareBar');
-  const btn = document.getElementById('compareBtn');
-  const count = document.getElementById('compareCount');
-  if (!bar) return;
-  bar.style.display = compareIds.size > 0 ? 'flex' : 'none';
-  count.textContent = compareIds.size;
-  btn.disabled = compareIds.size < 2;
-  btn.style.opacity = compareIds.size >= 2 ? '1' : '0.5';
-}
-
-function showComparison() {
-  const selected = [...compareIds].map(id => cards.find(c => c.id === id)).filter(Boolean);
-  if (selected.length < 2) return;
-  document.body.style.overflow = 'hidden';
-  const modal = document.getElementById('comparisonModal');
-  const content = document.getElementById('comparisonContent');
-  const cols = selected.length;
-
-  const rows = [
-    { label: '年会費', key: 'annualFee' },
-    { label: '海外手数料', key: 'foreignFee' },
-    { label: '難易度', key: 'difficulty' },
-    { label: 'ボーナス', key: 'signupBonus' },
-    { label: 'ボーナス条件', key: 'signupCondition' },
-    { label: '還元率', key: 'rewards' },
-    { label: 'SSN', key: 'ssnNote' },
-  ];
-
-  content.innerHTML = `
-    <div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:8px;margin-bottom:16px;">
-      ${selected.map(c => `
-        <div style="background:#1A2E45;border-radius:12px;padding:12px;text-align:center;border-top:3px solid ${c.accent};">
-          <div style="font-size:1.5rem;">${c.emoji}</div>
-          <div style="font-size:0.65rem;font-weight:900;color:${c.accent};margin:4px 0 2px;">${c.issuer}</div>
-          <div style="font-size:0.75rem;font-weight:900;line-height:1.3;">${c.name}</div>
-        </div>
-      `).join('')}
-    </div>
-    ${rows.map(row => `
-      <div style="margin-bottom:8px;">
-        <div style="font-size:0.62rem;color:#9DB8D4;font-weight:700;margin-bottom:5px;">${row.label}</div>
-        <div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:8px;">
-          ${selected.map(c => `<div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:8px;font-size:0.72rem;line-height:1.4;">${c[row.key] || '-'}</div>`).join('')}
-        </div>
-      </div>
-    `).join('')}
-    <div style="margin-top:12px;">
-      <div style="font-size:0.62rem;color:#9DB8D4;font-weight:700;margin-bottom:5px;">✅ メリット</div>
-      <div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:8px;">
-        ${selected.map(c => `
-          <div style="background:rgba(93,190,138,0.08);border-radius:8px;padding:8px;">
-            ${c.details.pros.map(p => `<div style="font-size:0.7rem;margin-bottom:3px;padding-left:6px;border-left:2px solid #5DBE8A;line-height:1.4;">・${p}</div>`).join('')}
-          </div>
-        `).join('')}
-      </div>
-    </div>
-    <div style="margin-top:8px;">
-      <div style="font-size:0.62rem;color:#9DB8D4;font-weight:700;margin-bottom:5px;">🇯🇵 在米日本人メモ</div>
-      <div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:8px;">
-        ${selected.map(c => `<div style="background:rgba(200,16,46,0.06);border-radius:8px;padding:8px;font-size:0.7rem;line-height:1.5;">${c.details.jpNote}</div>`).join('')}
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:8px;margin-top:16px;">
-      ${selected.map(c => `<button onclick="window.open('${c.url}','_blank')" style="background:${c.accent};border:none;color:#0A1628;padding:10px;border-radius:10px;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:0.72rem;cursor:pointer;">申し込む →</button>`).join('')}
-    </div>
-  `;
-  modal.style.display = 'block';
-}
-
-function closeComparison() {
-  document.getElementById('comparisonModal').style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-function renderSaved() {
-  const container = document.getElementById('savedCards');
-  const empty = document.getElementById('savedEmpty');
-  if (!container) return;
-  container.innerHTML = '';
-
-  if (savedIds.length === 0) {
-    empty.style.display = 'block';
-    updateCompareBar();
-    return;
-  }
-  empty.style.display = 'none';
-
-  savedIds.forEach(id => {
-    const card = cards.find(c => c.id === id);
-    if (!card) return;
-    const isSelected = compareIds.has(id);
-    const div = document.createElement('div');
-    div.style.cssText = `background:#1A2E45;border-radius:16px;padding:16px;margin-bottom:10px;border:2px solid ${isSelected ? 'rgba(245,166,35,0.6)' : 'rgba(255,255,255,0.08)'};display:flex;align-items:center;gap:12px;transition:border-color 0.2s;`;
-    div.innerHTML = `
-      <div style="font-size:1.8rem;">${card.emoji}</div>
-      <div style="flex:1;">
-        <div style="font-size:0.68rem;color:#9DB8D4;">${card.issuer}</div>
-        <div style="font-size:0.92rem;font-weight:900;">${card.name}</div>
-        <div style="font-size:0.7rem;color:var(--yellow);margin-top:2px;">${card.signupBonus}</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
-        <button onclick="openCardModal(${card.id})" style="background:${card.accent};border:none;color:#0A1628;padding:6px 10px;border-radius:8px;font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:0.7rem;cursor:pointer;">詳細</button>
-        <button onclick="toggleCompare(${card.id})" style="background:${isSelected ? 'rgba(245,166,35,0.2)' : 'rgba(255,255,255,0.06)'};border:1px solid ${isSelected ? 'rgba(245,166,35,0.5)' : 'rgba(255,255,255,0.15)'};color:${isSelected ? 'var(--amber)' : 'var(--text-muted)'};padding:5px 8px;border-radius:8px;font-size:0.68rem;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-weight:700;">${isSelected ? '✓ 比較中' : '+ 比較'}</button>
-        <button onclick="removeSaved(${card.id})" style="background:transparent;border:none;color:rgba(255,255,255,0.25);font-size:0.65rem;cursor:pointer;">削除</button>
-      </div>
-    `;
-    container.appendChild(div);
-  });
-  updateCompareBar();
-}
-
-function removeSaved(id) {
-  savedIds = savedIds.filter(i => i !== id);
-  compareIds.delete(id);
-  localStorage.setItem('savedCards', JSON.stringify(savedIds));
-  renderSaved();
-}
-
-renderSaved();
-
-// === INFO MODAL (About, Disclosure, Privacy, Contact) ===
-const infoPages = {
-  about: `
-    <div class="info-content">
-      <h2>🍑 運営者情報</h2>
-      <p><strong>サイト名：</strong>USカードナビ（運営：AmePeach）</p>
-      <p><strong>運営者：</strong>AmePeach（ジョージア州在住・米国駐在）</p>
-
-      <h3>📌 サイトの目的</h3>
-      <p>「USカードナビ」は、アメリカに住む日本人がクレジットカードをわかりやすく比較・選択できるようにすることを目的としたサービスです。SSNなしでの申込方法、クレジットヒストリーの作り方、日本帰国時のマイル活用など、在米日本人ならではの悩みに寄り添った情報を発信しています。</p>
-
-      <h3>💡 こんな方に</h3>
-      <ul>
-        <li>渡米したばかりでクレカ選びに迷っている方</li>
-        <li>SSNやクレヒスがなくても作れるカードを探している方</li>
-        <li>日本帰国時に使えるマイルを貯めたい方</li>
-        <li>食費・旅行・日常で賢くポイントを貯めたい方</li>
-      </ul>
-
-      <h3>🌐 関連サービス</h3>
-      <p>X (旧Twitter): @AmePeachLife<br>ブログ: 準備中</p>
-
-      <div class="info-meta">最終更新：2025年8月</div>
-    </div>
-  `,
-  disclosure: `
-    <div class="info-content">
-      <h2>📢 広告・アフィリエイトポリシー</h2>
-      <p>USカードナビは、アフィリエイトプログラムによる収益化を行っています。本ポリシーでは、その仕組みと運営方針について透明性を持ってお伝えします。</p>
-
-      <h3>🔗 アフィリエイトリンクについて</h3>
-      <p>当サイトに掲載されているクレジットカードの「申し込みボタン」は、一部アフィリエイトリンクを含みます。ユーザーがリンク経由でカードを申込・承認された場合、運営者に紹介料が支払われることがあります。</p>
-      <p>ただし、紹介料の有無や金額は、ユーザーの申込条件や利用には一切影響しません。</p>
-
-      <h3>⚖️ 中立性のポリシー</h3>
-      <ul>
-        <li>掲載順位や評価は、紹介料の高低では決定していません</li>
-        <li>各カードのメリット・デメリットを公平に記載するよう努めています</li>
-        <li>個人の利用経験や公開情報に基づいて記述しています</li>
-        <li>不利な点やデメリットも隠さず明記しています</li>
-      </ul>
-
-      <h3>🛡️ ご利用にあたって</h3>
-      <p>クレジットカードの申込やご利用は、必ず各カード発行会社の公式サイトにて最新の条件・規約をご確認の上、ご自身の判断で行ってください。当サイトの情報は参考情報であり、個別の財務アドバイスではありません。</p>
-
-      <h3>📜 法令遵守</h3>
-      <p>本サイトは米国連邦取引委員会（FTC）のガイドラインおよびその他関連法令に従って運営されています。</p>
-
-      <div class="info-meta">最終更新：2025年8月</div>
-    </div>
-  `,
-  privacy: `
-    <div class="info-content">
-      <h2>🔒 プライバシーポリシー</h2>
-      <p>USカードナビ（以下「当サイト」）は、ユーザーのプライバシーを尊重し、個人情報の保護に努めます。</p>
-
-      <h3>📊 収集する情報</h3>
-      <p>当サイトでは以下の情報を収集する場合があります：</p>
-      <ul>
-        <li>アクセス解析（Google Analytics等）によるページビュー、滞在時間、参照元など</li>
-        <li>お気に入り保存などのローカル設定（ブラウザ内のみに保存）</li>
-        <li>お問い合わせ時にご提供いただくメールアドレスとお名前</li>
-      </ul>
-
-      <h3>🍪 Cookieについて</h3>
-      <p>当サイトはCookieを使用してユーザー体験の向上、アクセス解析、アフィリエイト計測を行います。ブラウザ設定でCookieを無効にすることも可能ですが、一部機能が利用できなくなる場合があります。</p>
-
-      <h3>🤝 第三者との情報共有</h3>
-      <p>個人を特定する情報を、ユーザーの同意なく第三者に提供することはありません。ただし、以下の場合は例外です：</p>
-      <ul>
-        <li>法令に基づく開示要請があった場合</li>
-        <li>サービス提供のため業務委託先に必要最小限を共有する場合</li>
-      </ul>
-
-      <h3>🔐 データの保管・管理</h3>
-      <p>取得した情報は、必要な期間のみ適切に保管・管理し、不要となった情報は速やかに削除します。</p>
-
-      <h3>📝 ポリシーの変更</h3>
-      <p>本ポリシーは予告なく改訂される場合があります。重要な変更がある場合は当サイト上で告知します。</p>
-
-      <div class="info-meta">最終更新：2025年8月</div>
-    </div>
-  `,
-  contact: `
-    <div class="info-content">
-      <h2>📬 お問い合わせ</h2>
-      <p>ご質問・ご意見・カード掲載に関するご相談など、お気軽にお問い合わせください。</p>
-
-      <h3>📧 連絡先</h3>
-      <p>📩 メール：<strong>準備中（近日公開）</strong></p>
-      <p>🐦 X (旧Twitter)：<strong>@AmePeachLife</strong></p>
-
-      <h3>💬 こんなお問い合わせを歓迎します</h3>
-      <ul>
-        <li>掲載カードに関する質問</li>
-        <li>記載内容の誤りや更新のお知らせ</li>
-        <li>新しく掲載してほしいカードのリクエスト</li>
-        <li>取材・コラボレーションのご依頼</li>
-        <li>アフィリエイトプログラム提供企業様からのご連絡</li>
-      </ul>
-
-      <h3>⏱️ 返信について</h3>
-      <p>個人で運営しているため、返信までお時間をいただく場合があります。あらかじめご了承ください。</p>
-
-      <div class="info-meta">最終更新：2025年8月</div>
-    </div>
-  `
-};
-
-function openInfoModal(page) {
-  const overlay = document.getElementById('infoModalOverlay');
-  const body = document.getElementById('infoModalBody');
-  body.innerHTML = infoPages[page] || '';
-  overlay.classList.add('open');
-}
-
-function closeInfoModal(e) {
-  if (e.target === document.getElementById('infoModalOverlay')) {
-    document.getElementById('infoModalOverlay').classList.remove('open');
-  }
-}
-
-function closeInfoModalDirect() {
-  document.getElementById('infoModalOverlay').classList.remove('open');
-}
-
-// === ブログデータ（タブ分類付き） ===
-const blogPosts = [
-  {
-    url: '/blog/first-credit-card.html',
-    category: 'beginner',
-    categoryLabel: '🔰 クレカ初心者',
-    categoryColor: 'var(--orange)',
-    accentColor: 'rgba(245,118,58,0.2)',
-    borderColor: 'rgba(245,166,35,0.2)',
-    readTime: '約10分',
-    title: 'アメリカでクレジットカードを作る完全ガイド',
-    desc: '在米日本人がゼロから始める方法。SSN・ITINの違い、初心者におすすめのカード3選、クレヒスを最速で育てるコツまで完全網羅。',
-    tags: ['# SSNなし', '# クレヒス構築', '# 最初の1枚'],
-    linkColor: 'var(--orange)'
-  },
-  {
-    url: '/blog/family-credit-card-strategy.html',
-    category: 'family',
-    categoryLabel: '👨‍👩‍👧‍👦 駐在員・家族向け',
-    categoryColor: '#8B5CF6',
-    accentColor: 'rgba(139,92,246,0.2)',
-    borderColor: 'rgba(139,92,246,0.25)',
-    readTime: '約12分',
-    title: '駐在員家族のクレカ戦略｜家族全員でポイントを最大化する完全ガイド',
-    desc: '配偶者のクレヒス構築法、Authorized User活用、夫婦カードの最強コンボ、子どものクレカ戦略まで。家族全員で賢くポイントを貯める方法を解説。',
-    tags: ['# 配偶者', '# 夫婦コンボ', '# ANAマイル'],
-    linkColor: '#8B5CF6'
-  },
-  {
-    url: '/blog/chase-5-24-rule.html',
-    category: 'chase',
-    categoryLabel: '💎 Chase攻略',
-    categoryColor: '#117ACA',
-    accentColor: 'rgba(17,122,202,0.2)',
-    borderColor: 'rgba(17,122,202,0.25)',
-    readTime: '約12分',
-    title: 'Chase 5/24ルールとは？在米日本人が知っておくべき完全FAQ',
-    desc: '「審査落ちした…」を防ぐために必須の知識。カウントされるカード・されないカード、5/24に引っかかった時の対処法まで完全解説。',
-    tags: ['# 5/24ルール', '# Chase攻略', '# 申込戦略'],
-    linkColor: '#117ACA'
-  },
-  {
-    url: '/blog/jal-ana-usa-cards.html',
-    category: 'jal_ana',
-    categoryLabel: '✈️ JAL・ANA',
-    categoryColor: '#C8102E',
-    accentColor: 'rgba(200,16,46,0.15)',
-    borderColor: 'rgba(200,16,46,0.2)',
-    readTime: '約14分',
-    title: '渡米後の最初の1枚はJAL・ANA USAカード？マイルを最大化する完全戦略',
-    desc: 'クレヒスゼロでも申込できるJAL・ANA USAカードの比較と、Chase・Amexと組み合わせたマイル最大化戦略。渡米後のクレカロードマップを完全解説。',
-    tags: ['# JAL USAカード', '# ANA CARD USA', '# 帰国マイル'],
-    linkColor: '#C8102E'
-  },
-  {
-    url: '/blog/improve-credit-score.html',
-    category: 'beginner',
-    categoryLabel: '📈 クレジットスコア',
-    categoryColor: '#5DBE8A',
-    accentColor: 'rgba(93,190,138,0.2)',
-    borderColor: 'rgba(93,190,138,0.25)',
-    readTime: '約12分',
-    title: 'アメリカのクレジットスコアを上げる5つの方法｜在米日本人の実践ガイド',
-    desc: 'FICOスコアの仕組みから、支払い管理・利用率・Hard Inquiry対策まで。渡米後12〜18ヶ月でスコア700以上を目指す実践的な方法を解説。',
-    tags: ['# FICOスコア', '# 利用率', '# 700達成'],
-    linkColor: '#5DBE8A'
-  },
-  {
-    url: '/blog/chase-trifecta.html',
-    category: 'chase',
-    categoryLabel: '💎 Chase攻略',
-    categoryColor: '#117ACA',
-    accentColor: 'rgba(17,122,202,0.2)',
-    borderColor: 'rgba(17,122,202,0.25)',
-    readTime: '約12分',
-    title: 'Chaseトリフェクタ完全解説｜Freedom+Sapphireで最強ポイントを最大化する方法',
-    desc: 'Chase3枚の最強コンボ「トリフェクタ」を完全解説。Urポイントの集約方法・JAL/ANAマイルへの移行・家族での使い方まで。年間10万pt以上も現実的！',
-    tags: ['# トリフェクタ', '# Urポイント', '# ポイント最大化'],
-    linkColor: '#117ACA'
-  },
-  {
-    url: '/blog/amex-gold-guide.html',
-    category: 'amex',
-    categoryLabel: '🥇 Amex攻略',
-    categoryColor: '#C9A84C',
-    accentColor: 'rgba(201,168,76,0.2)',
-    borderColor: 'rgba(201,168,76,0.25)',
-    readTime: '約12分',
-    title: '【2026年最新】Amex Gold完全攻略｜年会費$325を実質$0にする毎月のクレジット回収手順',
-    desc: 'Uber Cash・ダイニング・Resy・Dunkin\'の4つのクレジットを毎月回収して年会費を実質無料に。初期設定から毎月のチェックリストまで完全解説。',
-    tags: ['# Amex Gold', '# 年会費回収', '# 食費4x'],
-    linkColor: '#C9A84C'
-  },
-  {
-    url: '/blog/poikatsu-us.html',
-    category: 'savings',
-    categoryLabel: '💰 ポイ活・節約',
-    categoryColor: '#5DBE8A',
-    accentColor: 'rgba(93,190,138,0.2)',
-    borderColor: 'rgba(93,190,138,0.25)',
-    readTime: '約14分',
-    title: '【2026年最新】アメリカでお得なポイ活6選｜TopCashback・Fetch・Rakuten・Ibottaを完全解説',
-    desc: 'TopCashback・Rakuten・Fetch・Ibotta・DashPass・ギフトカード割引。クレカポイントと組み合わせて二重・三重取りする方法を完全解説。',
-    tags: ['# TopCashback', '# Fetch', '# 二重取り'],
-    linkColor: '#5DBE8A'
-  },
-  {
-    url: '/blog/amex-global-transfer.html',
-    category: 'amex',
-    categoryLabel: '🥇 Amex攻略',
-    categoryColor: '#C9A84C',
-    accentColor: 'rgba(201,168,76,0.2)',
-    borderColor: 'rgba(201,168,76,0.25)',
-    readTime: '約12分',
-    title: '【後悔しないで】渡米前に日本でAmexカードを作るべき理由｜Global Transfer完全ガイド',
-    desc: '渡米前に日本でAmexを作るだけで、アメリカでクレヒスゼロでもAmex Goldに申込める。著者の実体験の後悔から学ぶ完全ガイド。渡米準備中の方は必読。',
-    tags: ['# Global Transfer', '# 渡米準備', '# クレヒスなし'],
-    linkColor: '#C9A84C'
-  },
-  {
-    url: '/blog/before-moving-to-us.html',
-    category: 'beginner',
-    categoryLabel: '🛫 渡米前準備',
-    categoryColor: '#F5763A',
-    accentColor: 'rgba(245,118,58,0.2)',
-    borderColor: 'rgba(245,118,58,0.25)',
-    readTime: '約14分',
-    title: '【渡米前必読】アメリカ移住前にやるべき財実準備完全ガイド｜クレカ・Amex・銀行口座',
-    desc: '渡米・駐在前にやるべき財実準備を完全解説。Amex Global Transfer、日本のクレカ整理、Wise口座、アメリカの銀行口座準備。渡米前チェックリスト付き。',
-    tags: ['# 渡米前準備', '# Amex Global Transfer', '# Wise'],
-    linkColor: '#F5763A'
-  },
-  {
-    url: '/blog/us-bank-account-guide.html',
-    category: 'beginner',
-    categoryLabel: '🏦 銀行口座',
-    categoryColor: '#00B9FF',
-    accentColor: 'rgba(0,185,255,0.15)',
-    borderColor: 'rgba(0,185,255,0.25)',
-    readTime: '約14分',
-    title: '【2026年最新】アメリカの銀行口座完全ガイド｜Chase・Bank of America・Wise 在米日本人向け徹底比較',
-    desc: 'Chase・BoA・Wise・Charles Schwabを徹底比較。手数料免除の条件・必要書類・AutoPayの設定・日本への送金コスト比較まで完全解説。渡米直後に読みたい一冊。',
-    tags: ['# Chase銀行', '# Wise送金', '# 手数料免除'],
-    linkColor: '#00B9FF'
-  }
-];
-
-function filterBlog(cat, btn) {
-  // タブスタイル更新
-  document.querySelectorAll('.blog-tab').forEach(b => {
-    b.style.background = 'transparent';
-    b.style.color = 'var(--text-muted)';
-    b.style.borderColor = 'var(--border)';
-  });
-  btn.style.background = 'rgba(245,166,35,0.15)';
-  btn.style.color = 'var(--amber)';
-  btn.style.borderColor = 'rgba(245,166,35,0.5)';
-
-  const filtered = cat === 'all' ? blogPosts : blogPosts.filter(p => p.category === cat);
-  renderBlogList(filtered);
-}
-
-function renderBlogList(posts) {
-  const container = document.getElementById('blogList');
-  if (!container) return;
-  container.innerHTML = posts.map(p => `
-    <a href="${p.url}" style="display:block;text-decoration:none;color:inherit;">
-      <div style="background:var(--card-bg);border:1px solid ${p.borderColor};border-radius:20px;margin-bottom:16px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 30px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
-        <div style="background:linear-gradient(135deg,${p.accentColor},rgba(0,0,0,0));padding:16px 18px 12px;">
-          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap;">
-            <span style="background:${p.categoryColor};color:white;padding:3px 10px;border-radius:99px;font-size:0.68rem;font-weight:700;">${p.categoryLabel}</span>
-            <span style="background:rgba(255,255,255,0.1);color:var(--text-muted);padding:3px 8px;border-radius:99px;font-size:0.68rem;">📖 ${p.readTime}</span>
-          </div>
-          <div style="font-size:1.05rem;font-weight:900;line-height:1.4;color:var(--text);">${p.title}</div>
-        </div>
-        <div style="padding:12px 18px 16px;">
-          <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.6;margin-bottom:12px;">${p.desc}</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
-            ${p.tags.map(t => `<span style="font-size:0.68rem;color:var(--text-muted);background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:99px;">${t}</span>`).join('')}
-          </div>
-          <div style="font-size:0.8rem;color:${p.linkColor};font-weight:700;display:flex;align-items:center;gap:4px;">続きを読む <span style="font-size:1rem;">→</span></div>
-        </div>
-      </div>
-    </a>
-  `).join('');
-}
-
-// 初期表示
-document.addEventListener('DOMContentLoaded', () => {
-  renderBlogList(blogPosts);
-});
-
-// === シェア機能 ===
-function shareCard(platform) {
-  if (!currentCard) return;
-  const text = `🍑 AmePeach USカードナビで「${currentCard.name}」をチェック！\nウェルカムボーナス：${currentCard.signupBonus}\n${currentCard.url}\n\namepeach.com`;
-  const encodedText = encodeURIComponent(text);
-  if (platform === 'x') {
-    window.open(`https://twitter.com/intent/tweet?text=${encodedText}`, '_blank');
-  } else if (platform === 'line') {
-    window.open(`https://line.me/R/msg/text/?${encodedText}`, '_blank');
-  }
-}
-
-// === デバッグテスト ===
-function runDebugTest() {
-  const results = [];
-  // カード一覧チェック
-  results.push(`✅ カード総数: ${cards.length}枚`);
-  // 保存済みチェック
-  results.push(`✅ 保存済みカード: ${savedIds.length}枚`);
-  // GA確認
-  results.push(`✅ GA4: ${typeof gtag !== 'undefined' ? '動作中' : '❌ 未検出'}`);
-  // ローカルストレージ
-  try {
-    localStorage.setItem('test', '1');
-    localStorage.removeItem('test');
-    results.push(`✅ LocalStorage: 正常`);
-  } catch(e) {
-    results.push(`❌ LocalStorage: エラー`);
-  }
-  // タブ動作確認
-  const tabs = ['cardsGrid', 'quizSection', 'chatSection', 'blogSection', 'savedSection'];
-  const tabResults = tabs.map(id => document.getElementById(id) ? '✅' : '❌').join('');
-  results.push(`タブ要素: ${tabResults}`);
-  // バナー
-  const banner = document.getElementById('noticeBanner');
-  results.push(`✅ お知らせバナー: ${banner ? (banner.style.display === 'none' ? '非表示' : '表示中') : '❌ 未検出'}`);
-
-  alert('🔧 動作テスト結果\n\n' + results.join('\n') + '\n\n⚠️ 問題があった場合はAmePeachまでご連絡ください。');
-}
+function average(v){return v.reduce((s,x)=>s+x,0)/v.length}function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r}function getDateRange(e,b){const ds=[];for(let i=b;i>=0;i--){const d=addDays(e,-i);ds.push(d.toISOString().slice(0,10))}return ds}
+function renderHistory(){const h=document.getElementById("history");h.innerHTML="";Object.keys(logs).sort().reverse().slice(0,14).forEach(d=>{const item=document.createElement("div");item.className="history-item";const sum=Object.entries(logs[d]).map(([habit,fields])=>{const vals=Object.entries(fields).filter(([_,v])=>v).map(([k,v])=>{const u=getUnit(habit,k);return`${k}: ${v}${u?" "+u:""}`}).join(" / ");return vals?`${habit}｜${vals}`:""}).filter(Boolean).join("<br>");item.innerHTML=`<div class="history-date">${d}</div><div>${sum||"記録なし"}</div>`;h.appendChild(item)})}
+function setupBottomNav(){let nav=document.getElementById("bottomNav");if(!nav){nav=document.createElement("div");nav.id="bottomNav";nav.className="bottom-nav";nav.innerHTML=`<button onclick="switchTab('home')">Home</button><button onclick="switchTab('record')">記録</button><button onclick="switchTab('analysis')">分析</button><button onclick="switchTab('history')">履歴</button>`;document.body.appendChild(nav)}Array.from(nav.querySelectorAll("button")).forEach(b=>{b.classList.remove("active");if(b.getAttribute("onclick")?.includes(activeTab))b.classList.add("active")});document.querySelectorAll(".card").forEach(card=>{const t=card.querySelector("h2")?.textContent||"",l=card.querySelector("label")?.textContent||"";let g="other";if(t.includes("Dashboard")||t.includes("AI Review")||t.includes("Streak"))g="home";if(l.includes("記録日")||t.includes("Calendar")||t.includes("今日の記録")||t.includes("項目追加"))g="record";if(t.includes("週次レビュー")||t.includes("グラフ")||t.includes("Heatmap")||t.includes("月次サマリー"))g="analysis";if(t.includes("記録履歴"))g="history";card.classList.toggle("tab-hidden",g!==activeTab)})}
+function switchTab(t){activeTab=t;save();render();window.scrollTo({top:0,behavior:"smooth"})}
+function setupAccordions(){document.querySelectorAll(".card").forEach(s=>{if(s.dataset.accordionReady==="true")return;const title=s.querySelector("h2");if(!title)return;const bodyEls=Array.from(s.children).filter(el=>el!==title),header=document.createElement("div"),arrow=document.createElement("div");header.className="accordion-header";arrow.className="accordion-arrow";arrow.textContent="▼";title.parentNode.insertBefore(header,title);header.appendChild(title);header.appendChild(arrow);const body=document.createElement("div");body.className="accordion-body";bodyEls.forEach(el=>body.appendChild(el));s.appendChild(body);let open=true;if(title.textContent.includes("グラフ")||title.textContent.includes("履歴"))open=false;if(!open){body.classList.add("hidden");arrow.classList.add("closed")}header.onclick=()=>{body.classList.toggle("hidden");arrow.classList.toggle("closed")};s.dataset.accordionReady="true"})}
+function exportCSV(){let rows=[["date","category","field","value","unit"]];Object.entries(logs).forEach(([d,dl])=>Object.entries(dl).forEach(([c,fs])=>Object.entries(fs).forEach(([f,v])=>rows.push([d,c,f,v,getUnit(c,f)]))));const csv=rows.map(r=>r.map(cell=>`"${String(cell).replaceAll('"','""')}"`).join(",")).join("\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="habit-log.csv";a.click();URL.revokeObjectURL(url)}
+function exportJSON(){const data={habits,logs,selectedChart,activeTab,darkMode},blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="habit-log-backup.json";a.click();URL.revokeObjectURL(url)}
+function importJSON(){document.getElementById("importFile").click()}
+const importFile=document.getElementById("importFile");if(importFile){importFile.addEventListener("change",e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{try{const data=JSON.parse(ev.target.result);if(data.habits)habits=migrateHabits(data.habits);if(data.logs)logs=data.logs;if(data.selectedChart)selectedChart=data.selectedChart;if(data.activeTab)activeTab=data.activeTab;if(typeof data.darkMode==="boolean")darkMode=data.darkMode;save();render();alert("復元完了")}catch(err){alert("JSON形式が正しくありません")}};reader.readAsText(file)})}
+function resetAll(){if(!confirm("すべての記録と項目を削除しますか？"))return;localStorage.removeItem("habits");localStorage.removeItem("logs");localStorage.removeItem("selectedChart");localStorage.removeItem("activeTab");localStorage.removeItem("darkMode");habits=defaultHabits;logs={};selectedChart=null;activeTab="home";darkMode=false;render()}
+function escapeHtml(t){return String(t).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}function escapeJs(t){return String(t).replaceAll("\\","\\\\").replaceAll("'","\\'")}
+save();render();
+if("serviceWorker"in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("./service-worker.js")})}
 </script>
-
-</div><!-- /pc-wrapper -->
 </body>
 </html>
